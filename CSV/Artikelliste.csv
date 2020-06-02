@@ -1,13 +1,16 @@
-Name; 			Preis in ct	; Suchbegriffe (Schlagworte)			; Link zum Bild; Rating 0-50 INT; Beschreibung
-Pikachu; 		599			; Figur, Sammelfigur, Tier, Gelb 		; 				; 40			; Kleine Figur von Pikachu als Sammelfigur für das Regal oder den Schreibtisch
-Fuchs (Orange); 299			; Figur, Sammelfigur, Tier, Orange		;				; 35			; Kleiner Fuchs als Dekofigur für das Regal oder den Schreibtisch
-Delorian;		1599		; Auto, Back to the Future, Silber, Film;				; 15			; Auto von Zurück in die Zukunft. Deko oder als Spielzeug;
-Impossible Table;2599		; Tisch, Impossible, Table, Physik		;				; 45			; Der Unmögliche Tisch, fliegt ohne das man es glauben kann.
-Vogelfütterer;	1299		; Vogel, Fütterer, draussen				;				; 40			; Ein Vogelfütterer zum in den Garten hängen. Geeignet um Vögel zu beobachten
-StarWars Droidpack; 9999	; Star Wars, Roboter, C3PO, R2D2		; 				; 50			; Das StarWars sammel Pack für jeden Sammler. Verschiedene Roboter aus dem StarWars Universum!
-Bottle Opener and Cap GUN!; 2399; Flaschenöffner, Pistole, Spielzeug, Spaß;         ; 49            ; Der Flaschenöffner, um in den Abend ein wenig Action mit einzubringen.
-Wall-E Statue;  11299       ; Figur, Film, Roboter, Spielzeug       ;               ; 43            ; Der süße kleine Roboter, der den Müll aufräumt. (Der hier steht aber nur rum)
-Türknauf;       399         ; Tür, Bunt, Knauf, Besonders ;               ; 32            ; Ein kleiner Türknauf, wenn man dringend mal einen braucht.
-Creeper; 1199               ; Minecraft, Grün, Creeper, Pixel;  ; 45;                       Der Creeper von Minecraft. Komm ihm nicht zu nahe, sonst explodiert er.
-Yoda; 499; StarWars, Star Wars, Figur, Sammelfigur; ; 35; Yoda von StarWars, als Sammelfigur für das Regal oder den Schreibtisch
-Cyber Truck; 1099; Tesla, Auto, Cybertruck; ; 15; Der Tesla Cybertruck. Fährt schneller als ein Benziner
+PK_Artikel;Name;Preis in ct;Suchbegriffe (Schlagworte);Link zum Bild;" Rating 0-50 INT";" Beschreibung"
+1;Pikachu;599;" Figur, Sammelfigur, Tier, Gelb";;40;" Kleine Figur von Pikachu als Sammelfigur für das Regal oder den Schreibtisch"
+2;Fuchs (Orange);299;" Figur, Sammelfigur, Tier, Orange";;35;" Kleiner Fuchs als Dekofigur für das Regal oder den Schreibtisch"
+3;Delorian;1599;" Auto, Back to the Future, Silber, Film";;" 15";" Auto von Zurück in die Zukunft. Deko oder als Spielzeug"
+4;Impossible Table;2599;" Tisch, Impossible, Table, Physik";;" 45";" Der Unmögliche Tisch, fliegt ohne das man es glauben kann."
+5;Vogelfütterer;1299;" Vogel, Fütterer, draussen";;" 40";" Ein Vogelfütterer zum in den Garten hängen. Geeignet um Vögel zu beobachten"
+6;StarWars Droidpack;9999	;" Star Wars, Roboter, C3PO, R2D2";;50;" Das StarWars sammel Pack für jeden Sammler. Verschiedene Roboter aus dem StarWars Universum!"
+7;Bottle Opener and Cap GUN!;" 2399";" Flaschenöffner, Pistole, Spielzeug, Spaß";;" 49";" Der Flaschenöffner, um in den Abend ein wenig Action mit einzubringen."
+8;Wall-E Statue;11299;" Figur, Film, Roboter, Spielzeug";;43;" Der süße kleine Roboter, der den Müll aufräumt. (Der hier steht aber nur rum)"
+9;Türknauf;399;" Tür, Bunt, Knauf, Besonders ";;" 32";" Ein kleiner Türknauf, wenn man dringend mal einen braucht."
+10;Creeper;1199;" Minecraft, Grün, Creeper, Pixel";;" 45";Der Creeper von Minecraft. Komm ihm nicht zu nahe, sonst explodiert er.
+11;Yoda;" 499";" StarWars, Star Wars, Figur, Sammelfigur";;" 35";" Yoda von StarWars, als Sammelfigur für das Regal oder den Schreibtisch"
+12;Cybertruck;" 1099";" Tesla, Auto, Cybertruck";" ";" 15";" Der Tesla Cybertruck. Fährt schneller als ein Benziner"
+13;Eevee(Pokemon);399;Pokemon, Tier, Deko, Sammelfigur;"";25;Dekorative Figur von Pokemon für das Regal oder den Schreibtisch
+14;Screw sizer;899;Schrauben, Groesse, Test, Werkzeug, Hilfsmittel;"";48;Zum Testen von Schraubengrößen, sehr hilfreich für den Hobby Handwerker
+15;Gear Shift Keychain;699;Auto, Schaltung, Schlüssel. Schlüsselbund, Gearhead;"";15;""
