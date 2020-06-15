@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 16. Jun 2020 um 00:05
+-- Erstellungszeit: 16. Jun 2020 um 01:06
 -- Server-Version: 10.4.11-MariaDB
 -- PHP-Version: 7.4.6
 
@@ -28,20 +28,33 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `artikel` (
-  `PK_Artikel` varchar(100) DEFAULT NULL,
-  `Name` varchar(100) DEFAULT NULL,
-  `Preis` varchar(100) DEFAULT NULL,
-  `Rating` varchar(100) DEFAULT NULL,
-  `Bildlink` varchar(100) DEFAULT NULL,
-  `Beschreibung` varchar(100) DEFAULT NULL
+  `PK_Artikel` int(11) NOT NULL,
+  `Name` varchar(80) NOT NULL,
+  `Preis` double(8,2) NOT NULL,
+  `Rating` double(8,2) NOT NULL,
+  `Bildlink` varchar(80) NOT NULL,
+  `Beschreibung` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `artikel`
+-- Indizes der exportierten Tabellen
 --
 
-INSERT INTO `artikel` (`PK_Artikel`, `Name`, `Preis`, `Rating`, `Bildlink`, `Beschreibung`) VALUES
-('1', 'Test', '5,99', '4,5', 'sadasdadsaBildlink', 'Some Beshcrebung');
+--
+-- Indizes für die Tabelle `artikel`
+--
+ALTER TABLE `artikel`
+  ADD PRIMARY KEY (`PK_Artikel`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
+
+--
+-- AUTO_INCREMENT für Tabelle `artikel`
+--
+ALTER TABLE `artikel`
+  MODIFY `PK_Artikel` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
