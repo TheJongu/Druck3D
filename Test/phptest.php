@@ -1,12 +1,9 @@
 <?php
+    $a = 1;
+    
     error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
 
-    $host = 'localhost';
-    $user = 'root';
-    $password = '';
-    $db = 'Druck3DDB';
-
-    $db_link = new mysqli($host, $user, $password, $db);            //Verbindungsaufbau zur Datenbank
+    $db_link = sqlconnect();            //Verbindungsaufbau zur Datenbank
     print_r($db_link->connect_error);
     
     if($db_link->connect_errno)                                     
@@ -14,7 +11,7 @@
         die('Hier gibt es wohl grade ein Problem');
     }
 
-    $sqlrequest = 'SELECT * FROM artikel';
+    $sqlrequest = "SELECT Name FROM artikel";
 
     $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
     
@@ -27,12 +24,33 @@
         echo '<p>Es sind keine Datensätze vorhanden</p>';
     }
 
-    while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+    
+    if($a)
     {
-        echo '<br>' . $zeile->PK_Artikel .'-----'.$zeile->Name.'-----'.$zeile->Preis.'-----'.$zeile->Rating;
+        while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+        {
+            echo '<br>' . $zeile->PK_Artikel .'-----'.$zeile->Name.'-----'.$zeile->Preis.'-----'.$zeile->Rating.'-----'.$zeile->Beschreibung;
+        }
     }
+    else
+    {
+        $datensatz = $erg->fetch_assoc();
+
+        echo "<pre>";
+        print_r($datensatz);
+        echo "</pre>";
+    }
+    
     
     echo '<br><br><br>-------------------------------------<br>'.date("H:i:s");
     
-    //Link zu Datenbankausgeben tutorial: https://www.php-kurs.com/db-inhalte-ausgeben.htm  
+    function sqlconnect()
+    {
+        $host = 'localhost';
+        $user = 'root';
+        $password = '';
+        $db = 'Druck3DDB';
+
+        return new mysqli($host, $user, $password, $db);
+    }
 ?>
