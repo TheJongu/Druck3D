@@ -11,14 +11,13 @@
     
         $db_link = new mysqli($host, $user, $password, $db);            //Verbindungsaufbau zur Datenbank
 
-        $sqlrequest = 'SELECT Name, Preis, Bildlink, Beschreibung  FROM Artikel';
+        $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
 
         $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
 
 echo "Connected";
 
-        while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
-    {
+     
        ?>
        
        <html>
@@ -41,33 +40,68 @@ th, td {
       <th>Preis</th>
       <th>Bildlink</th>
       <th>Beschreibung</th>
+      <th>Schlagworte</th>
+      <th></th>
+      <th></th>
     </tr>
     <tr>
     
     <?php  
 
-
+while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+{
       echo "<td>{$zeile->Name}</td>";
       echo "<td>{$zeile->Preis}</td>";
       echo "<td>{$zeile->Bildlink}</td>";
       echo "<td>{$zeile->Beschreibung}</td>";
-
       
-$sqlRequestGetSchlagworte = 'SELECT Schlagworte FROM Artikel, ArtikelSchlagworte, Schlagworte WHERE {$zeile->Pk_Artikel} = Artikelschlagworte.';
+      
+      $sqlRequestGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {$zeile->PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagworte";
+      $sqlRequestGetSchlagworteErg = $db_link->query($sqlRequestGetSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
+      
+      echo "<td>";
+      
+      $setCommaFlag = false;
+      while($AnfrageSchlagworte = $sqlRequestGetSchlagworteErg->fetch_object()){
+        
+        if($setCommaFlag){
+        echo ", ";
+        }
+        echo "{$AnfrageSchlagworte->Schlagwort}";
+        $setCommaFlag = true;
+      }
+      echo "</td>";
+      
 
-      $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
-
+    echo '<td>';
+      ?>
+      <form action="checkboxesForSchlagwort.php" method="GET">
+      <input type="submit" value="Editiere Schlagworte">
+      </form>
+      <?php
+    echo "</td>";
+    echo "<td>";
     ?>
+    <form action="delete.php" method="GET">
+    <input type="submit" value="Loesche Artikel">
+    </form>
+    <?php
+    echo "</td>";
+      echo "</tr>";
+    }
 
-    </tr>
+  ?>
+    
+
+ 
 </table>
 
 </body>
 </html>
 
       
-    <?php        
-        }
-    ?>
+    
        
 </form>
+
+    
