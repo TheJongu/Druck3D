@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 16. Jun 2020 um 01:41
+-- Erstellungszeit: 16. Jun 2020 um 16:42
 -- Server-Version: 10.4.11-MariaDB
 -- PHP-Version: 7.4.6
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `druck3ddb`
 --
+CREATE DATABASE IF NOT EXISTS `druck3ddb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `druck3ddb`;
 
 -- --------------------------------------------------------
 
@@ -31,7 +33,6 @@ CREATE TABLE `artikel` (
   `PK_Artikel` int(11) NOT NULL,
   `Name` varchar(80) NOT NULL,
   `Preis` double(8,2) NOT NULL,
-  `Rating` double(8,2) NOT NULL,
   `Bildlink` varchar(80) NOT NULL,
   `Beschreibung` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,8 +41,8 @@ CREATE TABLE `artikel` (
 -- Daten für Tabelle `artikel`
 --
 
-INSERT INTO `artikel` (`PK_Artikel`, `Name`, `Preis`, `Rating`, `Bildlink`, `Beschreibung`) VALUES
-(1, 'Pikachu', 5.99, 0.00, '', 'Kleine Figur von Pikachu als Sammelfigur für das Regal oder den Schreibtisch');
+INSERT INTO `artikel` (`PK_Artikel`, `Name`, `Preis`, `Bildlink`, `Beschreibung`) VALUES
+(1, 'Pikachu', 5.99, '', 'Kleine Figur von Pikachu als Sammelfigur für das Regal oder den Schreibtisch');
 
 -- --------------------------------------------------------
 
@@ -84,12 +85,12 @@ INSERT INTO `artikelschlagworte` (`FK_Artikel`, `FK_Schlagwort`) VALUES
 
 CREATE TABLE `nutzer` (
   `PK_Nutzer` int(11) NOT NULL,
+  `Username` varchar(80) NOT NULL,
   `Firstname` varchar(80) NOT NULL,
   `Lastname` varchar(80) NOT NULL,
   `Email` varchar(80) NOT NULL,
   `Password` varchar(80) NOT NULL,
-  `Rechteklasse` varchar(80) NOT NULL,
-  `FK_Warenkorb` int(11) NOT NULL
+  `Rechteklasse` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -100,7 +101,8 @@ CREATE TABLE `nutzer` (
 
 CREATE TABLE `review` (
   `PK_Review` int(11) NOT NULL,
-  `Reviewtext` int(11) NOT NULL
+  `Reviewtext` int(11) NOT NULL,
+  `Bewertung` double(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -137,23 +139,12 @@ INSERT INTO `schlagworte` (`PK_Schlagworte`, `Schlagwort`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `warenkorb`
+-- Tabellenstruktur für Tabelle `warenkorbartikel`
 --
 
-CREATE TABLE `warenkorb` (
-  `PK_Warenkorb` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `warenkorbitem`
---
-
-CREATE TABLE `warenkorbitem` (
-  `FK_Warenkorb` int(11) NOT NULL,
-  `FK_Artikel` int(11) NOT NULL,
-  `Anzahl` int(11) NOT NULL
+CREATE TABLE `warenkorbartikel` (
+  `FK_Nutzer` int(11) NOT NULL,
+  `FK_Artikel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -185,8 +176,7 @@ ALTER TABLE `artikelschlagworte`
 -- Indizes für die Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  ADD PRIMARY KEY (`PK_Nutzer`),
-  ADD KEY `FK_Warenkorb` (`FK_Warenkorb`);
+  ADD PRIMARY KEY (`PK_Nutzer`);
 
 --
 -- Indizes für die Tabelle `review`
@@ -201,16 +191,10 @@ ALTER TABLE `schlagworte`
   ADD PRIMARY KEY (`PK_Schlagworte`);
 
 --
--- Indizes für die Tabelle `warenkorb`
+-- Indizes für die Tabelle `warenkorbartikel`
 --
-ALTER TABLE `warenkorb`
-  ADD PRIMARY KEY (`PK_Warenkorb`);
-
---
--- Indizes für die Tabelle `warenkorbitem`
---
-ALTER TABLE `warenkorbitem`
-  ADD KEY `FK_Warenkorb` (`FK_Warenkorb`),
+ALTER TABLE `warenkorbartikel`
+  ADD KEY `FK_Nutzer` (`FK_Nutzer`),
   ADD KEY `FK_Artikel` (`FK_Artikel`);
 
 --
@@ -221,13 +205,13 @@ ALTER TABLE `warenkorbitem`
 -- AUTO_INCREMENT für Tabelle `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `PK_Artikel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PK_Artikel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `PK_Nutzer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_Nutzer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `review`
@@ -240,12 +224,6 @@ ALTER TABLE `review`
 --
 ALTER TABLE `schlagworte`
   MODIFY `PK_Schlagworte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT für Tabelle `warenkorb`
---
-ALTER TABLE `warenkorb`
-  MODIFY `PK_Warenkorb` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints der exportierten Tabellen
@@ -266,17 +244,11 @@ ALTER TABLE `artikelschlagworte`
   ADD CONSTRAINT `artikelschlagworte_ibfk_2` FOREIGN KEY (`FK_Schlagwort`) REFERENCES `schlagworte` (`PK_Schlagworte`) ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `nutzer`
+-- Constraints der Tabelle `warenkorbartikel`
 --
-ALTER TABLE `nutzer`
-  ADD CONSTRAINT `nutzer_ibfk_1` FOREIGN KEY (`FK_Warenkorb`) REFERENCES `warenkorb` (`PK_Warenkorb`);
-
---
--- Constraints der Tabelle `warenkorbitem`
---
-ALTER TABLE `warenkorbitem`
-  ADD CONSTRAINT `warenkorbitem_ibfk_1` FOREIGN KEY (`FK_Artikel`) REFERENCES `artikel` (`PK_Artikel`),
-  ADD CONSTRAINT `warenkorbitem_ibfk_2` FOREIGN KEY (`FK_Warenkorb`) REFERENCES `warenkorb` (`PK_Warenkorb`);
+ALTER TABLE `warenkorbartikel`
+  ADD CONSTRAINT `warenkorbartikel_ibfk_1` FOREIGN KEY (`FK_Artikel`) REFERENCES `artikel` (`PK_Artikel`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `warenkorbartikel_ibfk_2` FOREIGN KEY (`FK_Nutzer`) REFERENCES `nutzer` (`PK_Nutzer`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
