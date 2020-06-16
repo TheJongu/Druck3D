@@ -21,7 +21,7 @@ echo "Connected";
     {
        ?>
        
-       <<html>
+       <html>
 <head>
 <style>
 table, th, td {
@@ -35,27 +35,31 @@ th, td {
 </head>
 <body>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Preis</th>
-    <th>Bildlink</th>
-    <th>Beschreibung</th>
-  </tr>
-  <tr>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Preis</th>
+      <th>Bildlink</th>
+      <th>Beschreibung</th>
+    </tr>
+    <tr>
     
-    <?php
-  
-  echo "<td>January</td>";
-  echo "<td>January</td>";
-  echo "<td>January</td>";
-  echo "<td>January</td>";
+    <?php  
 
+
+      echo "<td>{$zeile->Name}</td>";
+      echo "<td>{$zeile->Preis}</td>";
+      echo "<td>{$zeile->Bildlink}</td>";
+      echo "<td>{$zeile->Beschreibung}</td>";
+
+      
+$sqlRequestGetSchlagworte = 'SELECT Schlagworte FROM Artikel, ArtikelSchlagworte, Schlagworte WHERE {$zeile->Pk_Artikel} = Artikelschlagworte.';
+
+      $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
 
     ?>
 
     </tr>
-
 </table>
 
 </body>
