@@ -5,5 +5,5 @@ Alle Schlagworte
 Alle Artikel
 	SELECT Name, Preis, Rating, Bildlink, Beschreibung FROM Artikel
 	
-
-Alle 
+Erhalte Schlagworte für einen Artikel
+	SELECT schlagworte.schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagworte
