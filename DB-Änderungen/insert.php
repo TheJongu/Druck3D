@@ -22,7 +22,7 @@
     echo '<br>';
     echo '<br>';
     echo '<br>';
-
+    
 
     $sqlrequest = "SELECT Name FROM artikel";
 
@@ -79,7 +79,7 @@
     }
     elseif($picturelink_exists)
     {
-        echo '<p>Der Dateipfad für das Bild existiert bereits.</p>';
+        echo '<p>Der Dateipfad für das Bild existiert bereits. Es wurden keine Datensätze hinzugefügt</p>';
     }
     else
     {
@@ -89,6 +89,7 @@
         
         echo '<br><br><br>Angefügte Datensätze: '.$db_link->affected_rows;
     }
+
 
 
     function sqlconnect()
