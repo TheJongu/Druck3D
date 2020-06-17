@@ -1,4 +1,4 @@
-
+<form action="updateSchlagworte.php" method="get">
 
     <?php
         
@@ -13,6 +13,8 @@
     
         $db_link = new mysqli($host, $user, $password, $db);            //Verbindungsaufbau zur Datenbank
 
+
+        $schlagwortCheckboxenArray[] = array();
 
         //SQL Anfragen für die DB 
         $sqlRequestGetAllSchlagworte = "SELECT Schlagwort FROM schlagworte;";
@@ -31,6 +33,7 @@
             $i = $i+1;
         }
         //Iteriere über alle möglichen Schlagworte
+        $i=0;
         while ($zeile = $ergAllSchlagworte->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
             $isCheckedFlag = "";
@@ -42,11 +45,12 @@
                }
             }
             //Printe Checkbox
-            echo "<br><input $isCheckedFlag  type='checkbox' name='asd'>{$zeile->Schlagwort}";
+            echo "<br><input $isCheckedFlag  type='checkbox' name='checkboxes[]' value='$zeile->Schlagwort'>{$zeile->Schlagwort}";
+            $i=$i+1;
         }
     ?>
 
-
+        
 
     <br>
     <br>
