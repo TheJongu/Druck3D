@@ -83,8 +83,9 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     echo "</td>";
     echo "<td>";
     ?>
-    <form action="delete.php" method="GET">               <!--TODO: PK-Artikel muss noch uebergeben werden-->
-    <input type="submit" value="Loesche Artikel - TODO">
+    <form action="delete.php" method="GET">
+    <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
+    <input type="submit" value="Loesche Artikel">
     </form>
     <?php
     echo "</td>";
@@ -96,15 +97,13 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
 
  
 </table>
-<form action="insert.html" method="GET">
-    <input type="submit" value="Neuer Artikel">
-    </form>
-</body>
-</html>
 
-      
-    
-       
 </form>
+    <form action="http://localhost/_Repo/Druck3D/DB-Changes/insert.html" method="GET">
+      <input type="submit" value="Neuer Artikel">
+    </form>
 
     
+    
+    </body>
+</html>
