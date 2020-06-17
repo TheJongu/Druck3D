@@ -22,6 +22,7 @@ echo "Connected";
        
        <html>
 <head>
+<title>Datenbank</title>
 <style>
 table, th, td {
   border: 1px solid black;
@@ -82,8 +83,8 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     echo "</td>";
     echo "<td>";
     ?>
-    <form action="delete.php" method="GET">
-    <input type="submit" value="Loesche Artikel">
+    <form action="delete.php" method="GET">               <!--TODO: PK-Artikel muss noch uebergeben werden-->
+    <input type="submit" value="Loesche Artikel - TODO">
     </form>
     <?php
     echo "</td>";
@@ -91,11 +92,13 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     }
 
   ?>
-    
+
 
  
 </table>
-
+<form action="insert.html" method="GET">
+    <input type="submit" value="Neuer Artikel">
+    </form>
 </body>
 </html>
 
