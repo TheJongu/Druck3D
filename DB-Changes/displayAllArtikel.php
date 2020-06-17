@@ -51,6 +51,8 @@ th, td {
     
     <?php  
 
+    $theZaehler = 0;
+
 while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
 {
       echo "<td>{$zeile->Name}</td>";
@@ -86,40 +88,38 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     echo "</td>";
     echo "<td>";
     
+    echo "<button class='open-button' onclick='openForm({$theZaehler})'>Loeschen</button>";
     
-    
-    
-    
-    
+    echo "<div class='form-popup' id='myForm{$theZaehler}'>";
     ?>
-    <button class="open-button" onclick="openForm()">Loeschen</button>
-    
-  <div class="form-popup" id="myForm">
   <form action="http://localhost/_Repo/Druck3D/DB-Changes/delete.php" class="form-container">
     <p>Wollen Sie den Artikel wirklich loeschen?</p>
 
     <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
 
     <button type="submit" class="btn">Ja</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Nein</button>
+    <?php echo "<button type='button' class='btn cancel' onclick='closeForm({$theZaehler})'>Nein</button>"; ?>
   </form>
 </div>
 
     <?php
     echo "</td>";
-      echo "</tr>";
+    echo "</tr>";
+    $theZaehler++;
     }
     ?>
 
 </table>
 
 <script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
+function openForm(p1) {
+  var myForm = "myForm" + p1;
+  document.getElementById(myForm).style.display = "block";
 }
 
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
+function closeForm(p1) {
+  var myForm = "myForm" + p1;
+  document.getElementById(myForm).style.display = "none";
 }
 </script>
 
