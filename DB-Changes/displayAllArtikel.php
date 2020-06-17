@@ -13,8 +13,6 @@
 
         $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
 
-echo "Connected";
-
      
        ?>
        
@@ -81,6 +79,7 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     echo '<td>';
       ?>
       <form action="checkboxesForSchlagwort.php" method="GET">
+      <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
       <input type="submit" value="Editiere Schlagworte">
       </form>
       <?php
