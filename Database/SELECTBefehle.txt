@@ -1,0 +1,9 @@
+Alle Schlagworte
+	SELECT Schlagwort FROM schlagworte
+	
+	
+Alle Artikel
+	SELECT Name, Preis, Rating, Bildlink, Beschreibung FROM Artikel
+	
+
+Alle 
