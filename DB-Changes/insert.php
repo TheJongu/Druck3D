@@ -1,5 +1,5 @@
 <?php
-    header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
+    
     //error_reporting(0);                                   //unterbindet die PHP-eigenen Fehlermeldungen
     
     $db_link = sqlconnect();
@@ -84,6 +84,7 @@
     }
     else
     {
+        header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
         $sqlrequest = "INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung) VALUES (NULL, '{$name}', '{$price}', '{$picturelink}', '{$description}');";
 
         $db_link->query($sqlrequest);

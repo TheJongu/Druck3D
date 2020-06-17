@@ -84,6 +84,7 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     echo "<td>";
     ?>
     <form action="delete.php" method="GET">               <!--TODO: PK-Artikel muss noch uebergeben werden-->
+    <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
     <input type="submit" value="Loesche Artikel - TODO">
     </form>
     <?php
