@@ -107,10 +107,3 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     
     </body>
 </html>
-
-    
-    
-       
-
-
-    
