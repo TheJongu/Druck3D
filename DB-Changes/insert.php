@@ -106,7 +106,17 @@
     }
 ?>
     <br>
-    <a href="http://localhost/_Repo/Druck3D/DB-Changes/insert.html">Bearbeiten</a>           <a href="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">Abbrechen</a>
+    <button onclick="goBack()">Bearbeiten</button>
+
+    <script>
+    function goBack() {
+    window.history.back();
+    }
+    </script>
+
+    <form action="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">
+        <input type="submit" value="Abbrechen" position="absolute" left=100px>
+    </form>
 
 <?php
     function sqlconnect()

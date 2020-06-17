@@ -103,7 +103,5 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
       <input type="submit" value="Neuer Artikel">
     </form>
 
-    
-    
     </body>
 </html>
