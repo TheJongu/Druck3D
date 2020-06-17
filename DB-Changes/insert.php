@@ -1,4 +1,7 @@
 <?php
+    header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
+    //error_reporting(0);                                   //unterbindet die PHP-eigenen Fehlermeldungen
+    
     $db_link = sqlconnect();
     if($db_link->connect_errno)                                     
     {
@@ -19,10 +22,8 @@
     var_dump($picturelink);
     echo '<br>Beschreibung:       ';
     var_dump($description);
-    echo '<br>';
-    echo '<br>';
-    echo '<br>';
-
+    echo '<br><br><br>';
+    
 
     $sqlrequest = "SELECT Name FROM artikel";
 
@@ -62,7 +63,7 @@
     }
 
     $picturelink_exists = false;
-    while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+    while ($zeile = $erg->fetch_object())                           
     {
             if($picturelink_unescaped==$zeile->Bildlink)
             {
@@ -79,16 +80,17 @@
     }
     elseif($picturelink_exists)
     {
-        echo '<p>Der Dateipfad für das Bild existiert bereits.</p>';
+        echo '<p>Der Dateipfad für das Bild existiert bereits. Es wurden keine Datensätze hinzugefügt</p>';
     }
     else
     {
-        $sqlrequest = "INSERT INTO artikel (PK_Artikel, Name, Preis, Rating, Bildlink, Beschreibung) VALUES (NULL, '{$name}', '{$price}', 0, '{$picturelink}', '{$description}');";
+        $sqlrequest = "INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung) VALUES (NULL, '{$name}', '{$price}', '{$picturelink}', '{$description}');";
 
         $db_link->query($sqlrequest);
         
         echo '<br><br><br>Angefügte Datensätze: '.$db_link->affected_rows;
     }
+
 
 
     function sqlconnect()
@@ -99,5 +101,5 @@
         $db = 'Druck3DDB';
 
         return new mysqli($host, $user, $password, $db);
-    }    
+    }
 ?>
