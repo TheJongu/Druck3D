@@ -1,5 +1,3 @@
-<form method="post" action="/Tests/Post/">      
-
     <?php
         
         error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
@@ -22,6 +20,7 @@ echo "Connected";
        
        <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">  
 <title>Datenbank</title>
 <style>
 table, th, td {
@@ -30,6 +29,11 @@ table, th, td {
 
 th, td {
   padding: 10px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
 }
 </style>
 </head>
@@ -82,23 +86,44 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
       <?php
     echo "</td>";
     echo "<td>";
+    
+    
+    
+    
+    
+    
     ?>
-    <form action="delete.php" method="GET">
+    <button class="open-button" onclick="openForm()">Loeschen</button>
+    
+  <div class="form-popup" id="myForm">
+  <form action="http://localhost/_Repo/Druck3D/DB-Changes/delete.php" class="form-container">
+    <p>Wollen Sie den Artikel wirklich loeschen?</p>
+
     <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
-    <input type="submit" value="Loesche Artikel">
-    </form>
+
+    <button type="submit" class="btn">Ja</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Nein</button>
+  </form>
+</div>
+
     <?php
     echo "</td>";
       echo "</tr>";
     }
+    ?>
 
-  ?>
-
-
- 
 </table>
 
-</form>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
     <form action="http://localhost/_Repo/Druck3D/DB-Changes/insert.html" method="GET">
       <input type="submit" value="Neuer Artikel">
     </form>
