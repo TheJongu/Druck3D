@@ -46,7 +46,7 @@
 
         while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
-          echo "<td><a href='http://localhost/_Repo/Druck3D/DB-Changes/editArtikel.php?pk_artikel={$zeile->PK_Artikel}'>{$zeile->Name}</a></td>";
+          echo "<td><a href='http://localhost/_Repo/Druck3D/DB-Changes/editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
           echo "<td>{$zeile->Preis}</td>";
           echo "<td>{$zeile->Bildlink}</td>";
           echo "<td>{$zeile->Beschreibung}</td>";
