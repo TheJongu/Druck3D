@@ -1,7 +1,7 @@
 <?php
     function insertArtikel($name, $price, $picturelink, $description)
     {
-        include 'fct_sqlconnect.php';
+        include_once 'fct_sqlconnect.php';
 
         //error_reporting(0);                                   //unterbindet die PHP-eigenen Fehlermeldungen
         $test = false;
@@ -98,6 +98,27 @@
             $output = $db_link->affected_rows;
         }
     return $output;
+    }
+
+    function deleteArtikel ($pk_artikel)
+    {
+        include_once 'fct_sqlconnect.php';
+        include_once 'fct_editArtikelSchlagworte.php';
+        //Sichere den pk_artikel ab
+        $pk_artikel = $db_link->real_escape_string(trim($pk_artikel));
+        //Prüfe für DB Fehler
+        if($db_link->connect_errno)
+        {
+            die('Hier gibt es wohl grade ein Problem.');
+        }
+        //Lösche alle Schlagworte für den Artikel
+        deleteArtikelSchlagworteForPk_Artikel($pk_artikel);
+
+        //Lösche den Artikel vom Artikeltable
+        $sqlrequest = "DELETE FROM artikel WHERE artikel.PK_Artikel = '{$pk_artikel}';";
+        $erg = $db_link->query($sqlrequest);
+
+        echo 'Geloeschte Artikel: '.$db_link->affected_rows;
     }
 ?>
     

@@ -1,7 +1,7 @@
 <?php
   error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
 
-  include 'Functions/fct_sqlconnect.php';
+  include_once 'Functions/fct_sqlconnect.php';
 
 
   $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
@@ -81,7 +81,7 @@
       ?>
       <form action="http://localhost/_Repo/Druck3D/DB-Changes/deleteArtikel.php">
         <p>Wollen Sie den Artikel wirklich loeschen?</p>
-        <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
+        <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
         <button type="submit" class="btn">Ja</button>
         <?php echo "<button type='button' onclick='closeDelete({$theZaehler})'>Nein</button>"; ?>
       </form>
