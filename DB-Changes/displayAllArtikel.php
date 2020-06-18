@@ -3,12 +3,6 @@
 
   include 'Functions/fct_sqlconnect.php';
 
-  /*$SQL_host = 'localhost';
-  $SQL_user = 'root';
-  $SQL_password = '';
-  $SQL_db = 'Druck3DDB';
-  $db_link = new mysqli($SQL_host, $SQL_user, $SQL_password, $SQL_db);*/
-
 
   $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
 
@@ -114,6 +108,15 @@
         document.getElementById(myForm).style.display = "none";
       }
     </script>
+
+      <?php
+      
+        if($_GET['output']!=null)
+        {
+          $output = $_GET['output'];
+          echo "<p>{$output}</p>";
+        }
+      ?>
 
     <form action="http://localhost/_Repo/Druck3D/DB-Changes/insert.html" method="GET">
       <input type="submit" value="Neuer Artikel">

@@ -82,11 +82,11 @@
 
         if($name_exists)
         {
-            echo '<p>Der Artikelname existiert bereits.</p>';
+            $output = "Der Artikelname existiert bereits.";
         }
         elseif($picturelink_exists)
         {
-            echo '<p>Der Dateipfad für das Bild existiert bereits.</p>';
+            $output = "Der Dateipfad für das Bild existiert bereits.";
         }
         else
         {
@@ -95,22 +95,9 @@
 
             $db_link->query($sqlrequest);
             
-            echo '<br><br><br>Angefügte Datensätze: '.$db_link->affected_rows;
+            $output = $db_link->affected_rows;
         }
-    ?>
-        <br>
-        <button onclick="goBack()">Bearbeiten</button>
-
-        <script>
-        function goBack() {
-        window.history.back();
-        }
-        </script>
-
-        <form action="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">
-            <input type="submit" value="Abbrechen" position="absolute" left=100px>
-        </form>
-<?php
+    return $output;
     }
-   ?>
+?>
     

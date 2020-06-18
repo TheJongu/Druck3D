@@ -6,7 +6,7 @@
         //Ermittle PK Artikel, der bearbeitet werden soll
         $pk_artikel = $_GET['pk_Artikel'];
 
-        include 'Functions/fct_sqlconnect';
+        include 'Functions/fct_sqlconnect.php';
 
         $schlagwortCheckboxenArray[] = array();
 
