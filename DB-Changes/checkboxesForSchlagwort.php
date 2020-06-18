@@ -26,11 +26,9 @@
         //Erstelle ein Array, in welchem alle aktuell angehackten Schlagwörte stehen (von geklicktem Artikel)
         $currentSchlagworteArray = array();
         //Iteriere über das SelektErgebnis
-        $i = 0;
         while ($currentSchlagwort = $ergPKSchlagworte->fetch_object()){
             //Erweitere das Array um das nächste Schlagwort
             $currentSchlagworteArray[] = "$currentSchlagwort->Schlagwort";
-            $i = $i+1;
         }
         //Iteriere über alle möglichen Schlagworte
         $i=0;
