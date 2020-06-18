@@ -1,5 +1,5 @@
 <?php
-    include_once 'Functions/fct_editArtikel.php';
+    include_once 'Functions/fct_Artikel.php';
     //Eingaben absichern
     $pk_artikel = $_GET['pk_artikel'];
     $name = $_GET['name'];
