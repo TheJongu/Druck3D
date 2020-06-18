@@ -46,7 +46,7 @@
 
         while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
-          echo "<td>{$zeile->Name}</td>";
+          echo "<td><a href='http://localhost/_Repo/Druck3D/DB-Changes/editArtikel.php?pk_artikel={$zeile->PK_Artikel}'>{$zeile->Name}</a></td>";
           echo "<td>{$zeile->Preis}</td>";
           echo "<td>{$zeile->Bildlink}</td>";
           echo "<td>{$zeile->Beschreibung}</td>";
@@ -81,7 +81,7 @@
       ?>
       <form action="http://localhost/_Repo/Druck3D/DB-Changes/deleteArtikel.php">
         <p>Wollen Sie den Artikel wirklich loeschen?</p>
-        <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
+        <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
         <button type="submit" class="btn">Ja</button>
         <?php echo "<button type='button' onclick='closeDelete({$theZaehler})'>Nein</button>"; ?>
       </form>
