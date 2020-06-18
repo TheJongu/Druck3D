@@ -51,7 +51,7 @@
           echo "<td>{$zeile->Bildlink}</td>";
           echo "<td>{$zeile->Beschreibung}</td>";
                     
-          $sqlRequestGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {$zeile->PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagworte";
+          $sqlRequestGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {$zeile->PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
           $sqlRequestGetSchlagworteErg = $db_link->query($sqlRequestGetSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
               
           echo "<td>";
@@ -68,7 +68,7 @@
           echo "</td>";
           echo "<td>";
       ?>
-      <form action="checkboxesForSchlagwort.php" method="GET">
+      <form action="schlagwortCheckboxes.php" method="GET">
         <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
         <input type="submit" value="Editiere Schlagworte">
       </form>

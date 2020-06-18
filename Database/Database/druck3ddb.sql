@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 16. Jun 2020 um 16:42
+-- Erstellungszeit: 18. Jun 2020 um 18:03
 -- Server-Version: 10.4.11-MariaDB
 -- PHP-Version: 7.4.6
 
@@ -42,7 +42,8 @@ CREATE TABLE `artikel` (
 --
 
 INSERT INTO `artikel` (`PK_Artikel`, `Name`, `Preis`, `Bildlink`, `Beschreibung`) VALUES
-(1, 'Pikachu', 5.99, '', 'Kleine Figur von Pikachu als Sammelfigur für das Regal oder den Schreibtisch');
+(15, 'Delorian', 5.99, 'delorian.png', 'Das Auto von \"Zur?ck in die Zukunft\"!'),
+(16, 'Pikachu', 2.99, 'pikachu.png', 'Pikachu von Pokemon!');
 
 -- --------------------------------------------------------
 
@@ -72,10 +73,13 @@ CREATE TABLE `artikelschlagworte` (
 --
 
 INSERT INTO `artikelschlagworte` (`FK_Artikel`, `FK_Schlagwort`) VALUES
-(1, 3),
-(1, 11),
-(1, 13),
-(1, 12);
+(15, 10),
+(15, 11),
+(15, 14),
+(16, 3),
+(16, 11),
+(16, 12),
+(16, 13);
 
 -- --------------------------------------------------------
 
@@ -112,7 +116,7 @@ CREATE TABLE `review` (
 --
 
 CREATE TABLE `schlagworte` (
-  `PK_Schlagworte` int(11) NOT NULL,
+  `PK_Schlagwort` int(11) NOT NULL,
   `Schlagwort` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -120,7 +124,7 @@ CREATE TABLE `schlagworte` (
 -- Daten für Tabelle `schlagworte`
 --
 
-INSERT INTO `schlagworte` (`PK_Schlagworte`, `Schlagwort`) VALUES
+INSERT INTO `schlagworte` (`PK_Schlagwort`, `Schlagwort`) VALUES
 (1, 'Schwarz'),
 (2, 'Pink'),
 (3, 'Gelb'),
@@ -188,7 +192,7 @@ ALTER TABLE `review`
 -- Indizes für die Tabelle `schlagworte`
 --
 ALTER TABLE `schlagworte`
-  ADD PRIMARY KEY (`PK_Schlagworte`);
+  ADD PRIMARY KEY (`PK_Schlagwort`);
 
 --
 -- Indizes für die Tabelle `warenkorbartikel`
@@ -205,7 +209,7 @@ ALTER TABLE `warenkorbartikel`
 -- AUTO_INCREMENT für Tabelle `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `PK_Artikel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `PK_Artikel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
@@ -223,7 +227,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT für Tabelle `schlagworte`
 --
 ALTER TABLE `schlagworte`
-  MODIFY `PK_Schlagworte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `PK_Schlagwort` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints der exportierten Tabellen
@@ -241,7 +245,7 @@ ALTER TABLE `artikelreview`
 --
 ALTER TABLE `artikelschlagworte`
   ADD CONSTRAINT `artikelschlagworte_ibfk_1` FOREIGN KEY (`FK_Artikel`) REFERENCES `artikel` (`PK_Artikel`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `artikelschlagworte_ibfk_2` FOREIGN KEY (`FK_Schlagwort`) REFERENCES `schlagworte` (`PK_Schlagworte`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `artikelschlagworte_ibfk_2` FOREIGN KEY (`FK_Schlagwort`) REFERENCES `schlagworte` (`PK_Schlagwort`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `warenkorbartikel`

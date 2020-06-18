@@ -81,7 +81,7 @@
     function deleteArtikel ($pk_artikel)
     {
         include_once 'fct_sqlconnect.php';
-        include_once 'fct_editArtikelSchlagworte.php';
+        include_once 'fct_ArtikelSchlagworte.php';
         //Sichere den pk_artikel ab
         $pk_artikel = $db_link->real_escape_string(trim($pk_artikel));
         //Prüfe für DB Fehler
