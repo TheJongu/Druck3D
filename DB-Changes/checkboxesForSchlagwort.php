@@ -5,14 +5,8 @@
         error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
         //Ermittle PK Artikel, der bearbeitet werden soll
         $pk_artikel = $_GET['pk_Artikel'];
-        //Anmelde Daten für die DB
-        $host = 'localhost';
-        $user = 'root';
-        $password = '';
-        $db = 'Druck3DDB';
-    
-        $db_link = new mysqli($host, $user, $password, $db);            //Verbindungsaufbau zur Datenbank
 
+        include 'Functions/fct_sqlconnect';
 
         $schlagwortCheckboxenArray[] = array();
 

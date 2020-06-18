@@ -1,12 +1,14 @@
 <?php
   error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
 
-  $host = 'localhost';
-  $user = 'root';
-  $password = '';
-  $db = 'Druck3DDB';
+  include 'Functions/fct_sqlconnect.php';
 
-  $db_link = new mysqli($host, $user, $password, $db);            //Verbindungsaufbau zur Datenbank
+  /*$SQL_host = 'localhost';
+  $SQL_user = 'root';
+  $SQL_password = '';
+  $SQL_db = 'Druck3DDB';
+  $db_link = new mysqli($SQL_host, $SQL_user, $SQL_password, $SQL_db);*/
+
 
   $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
 
