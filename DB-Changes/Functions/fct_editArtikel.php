@@ -10,7 +10,7 @@
         {
             die('Hier gibt es wohl grade ein Problem');
         }
-        
+        //Eingaben absichern
         $name = $db_link->real_escape_string(trim($name));
         $price = $db_link->real_escape_string(trim($price));
         $picturelink_unescaped = $picturelink;
@@ -29,57 +29,35 @@
             var_dump($description);
             echo '<br><br><br>';
         }
-
-        $sqlrequest = "SELECT Name FROM artikel";
-
-        $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
-        
+        //Überprüfung ob Artikel oder Bild schon existiert
+        $sqlrequest = "SELECT Name, Bildlink FROM artikel";
+        $erg = $db_link->query($sqlrequest) or die($db_link->error);
         if($test)
         {
             if($erg->num_rows)                                              //num_rows gibt die Anzahl der ausgelesenen Datensätze zurück
             {
-                echo '<br>---------Überprüfungen---------<br><p>Namensüberprüfung: Es sind '.$erg->num_rows.' Datensätze vorhanden</p>';
+                echo '<br><p>Prüfung: Es sind '.$erg->num_rows.' Datensätze vorhanden</p>';
             }
             else
             {
                 echo '<p>Es sind keine Datensätze vorhanden</p>';
             }
         }
-
+        $picturelink_exists = false;
         $name_exists = false;
-        while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+        while ($zeile = $erg->fetch_object())
         {
                 if($name==$zeile->Name)
                 {
                     $name_exists = true;
                 }
-        }
-
-        $sqlrequest = "SELECT Bildlink FROM artikel";
-
-        $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
-        
-        if($test)
-        {
-            if($erg->num_rows)                                              //num_rows gibt die Anzahl der ausgelesenen Datensätze zurück
-            {
-                echo '<p>Bildpfadüberprüfung: Es sind '.$erg->num_rows.' Datensätze vorhanden</p>';
-            }
-            else
-            {
-                echo '<p>Es sind keine Datensätze vorhanden</p>';
-            }
-        }
-
-        $picturelink_exists = false;
-        while ($zeile = $erg->fetch_object())                           
-        {
                 if($picturelink_unescaped==$zeile->Bildlink)
                 {
                     $picturelink_exists = true;
                 }
         }
 
+        //Einfügen in die DB
         if($name_exists)
         {
             $output = "Der Artikelname existiert bereits.";
@@ -119,6 +97,55 @@
         $erg = $db_link->query($sqlrequest);
 
         echo 'Geloeschte Artikel: '.$db_link->affected_rows;
+    }
+
+    function editArtikel($pk_artikel, $name, $price, $picturelink, $description)
+    {
+        include_once 'Functions/fct_sqlconnect.php';
+        //Eingaben absichern
+        $pk_artikel = $db_link->real_escape_string(trim($pk_artikel));
+        $name = $db_link->real_escape_string(trim($name));
+        $price = $db_link->real_escape_string(trim($price));
+        $picturelink_unescaped = $picturelink;
+        $picturelink = $db_link->real_escape_string(trim($picturelink_unescaped));
+        $description = $db_link->real_escape_string(trim($description));
+    
+        //Überprüfung ob Artikel oder Bild schon existiert
+        $sqlrequest = "SELECT PK_Artikel, Name, Bildlink FROM artikel";
+        $erg = $db_link->query($sqlrequest) or die($db_link->error);
+        $picturelink_exists = false;
+        $name_exists = false;
+        while ($zeile = $erg->fetch_object())
+        {
+            if($zeile->PK_Artikel != $pk_artikel)
+            {
+                if($name==$zeile->Name)
+                {
+                    $name_exists = true;
+                }
+                if($picturelink_unescaped==$zeile->Bildlink)
+                {
+                    $picturelink_exists = true;
+                }
+            }
+        }
+        //Editieren des Datensatzes
+        if($name_exists)
+        {
+            $output = "Der Artikelname existiert bereits.";
+        }
+        elseif($picturelink_exists)
+        {
+            $output = "Der Dateipfad des Bildes existiert bereits.";
+        }
+        else
+        {
+            header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
+            $sqlrequest = "UPDATE artikel SET Name = '{$name}', Preis = '{$price}', Bildlink = '{$picturelink}', Beschreibung = '{$description}' WHERE artikel.PK_Artikel = {$pk_artikel};";
+            $db_link->query($sqlrequest);
+            $output = $db_link->affected_rows;
+        }
+        return $output;
     }
 ?>
     
