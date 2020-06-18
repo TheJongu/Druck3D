@@ -1,5 +1,6 @@
 <?php
     include_once 'Functions/fct_Artikel.php';
+
     $pk_artikel = $_GET['pk_artikel'];
 
     deleteArtikel($pk_artikel);
