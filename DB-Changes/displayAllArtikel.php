@@ -1,7 +1,7 @@
 <?php
   error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
 
-  include 'Functions/fct_sqlconnect.php';
+  include_once 'Functions/fct_sqlconnect.php';
 
 
   $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
