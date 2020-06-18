@@ -39,7 +39,7 @@
     <body>
         <form action="http://localhost/_Repo/Druck3D/DB-Changes/insert.php" method="GET" class="form-container">
         <label for="name">Artikelname:</label><input name="name" id="name" type="text" size="15" maxlength="30" placeholder="Name" title="Name des Artikels" required><br>
-        <label for="price">Preis:</label><input name="price" id="price" type="text" size="4" maxlength="6" pattern="[0-9]{0,3}(\.[0-9]{0,2})?" placeholder="000.00" title="Preis des Artikels">&euro;<br>
+        <label for="price">Preis:</label><input name="price" id="price" type="text" size="4" maxlength="7" pattern="[0-9]{0,4}(\.[0-9]{0,2})?" placeholder="0000.00" title="Preis des Artikels"><br>
         <label for="picturelink">Bildpfad:</label><input name="picturelink" id="picturelink" type="text" size="30" maxlength="70" placeholder="C:\Beispielpfad\Beispielbild.png" title="Dateipfad des Artikelbildes"><br>
         <label for="description">Beschreibung:</label><input name="description" id="description" type="text" placeholder="Dies ist ein Artikel" title="Artikelbeschreibung"><br>
         <input type="submit" value="Reinpumpen">
