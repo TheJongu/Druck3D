@@ -1,5 +1,5 @@
 <?php
-    include_once 'Functions/fct_editArtikel.php';
+    include_once 'Functions/fct_Artikel.php';
 
     $name = $_GET['name'];
     $price = $_GET['price'];
