@@ -93,7 +93,7 @@
     }
     elseif($picturelink_exists)
     {
-        echo '<p>Der Dateipfad für das Bild existiert bereits. Es wurden keine Datensätze hinzugefügt</p>';
+        echo '<p>Der Dateipfad für das Bild existiert bereits.</p>';
     }
     else
     {
