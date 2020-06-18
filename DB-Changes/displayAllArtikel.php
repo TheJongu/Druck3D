@@ -1,22 +1,19 @@
-    <?php
-        
-        error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
+<?php
+  error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
 
-        $host = 'localhost';
-        $user = 'root';
-        $password = '';
-        $db = 'Druck3DDB';
-    
-        $db_link = new mysqli($host, $user, $password, $db);            //Verbindungsaufbau zur Datenbank
+  $host = 'localhost';
+  $user = 'root';
+  $password = '';
+  $db = 'Druck3DDB';
 
-        $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
+  $db_link = new mysqli($host, $user, $password, $db);            //Verbindungsaufbau zur Datenbank
 
-        $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
+  $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
 
-     
-       ?>
-       
-       <html>
+  $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
+?>
+  
+  <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">  
 <title>Datenbank</title>
@@ -29,8 +26,8 @@ th, td {
   padding: 10px;
 }
 
-/* The popup form - hidden by default */
-.form-popup {
+/* Darf NICHT geloescht werden, 'Loeschen' Popup*/
+.delete-popup {
   display: none;
 }
 </style>
@@ -51,7 +48,7 @@ th, td {
     
     <?php  
 
-    $theZaehler = 0;
+$theZaehler = 0;
 
 while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
 {
@@ -88,19 +85,19 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     echo "</td>";
     echo "<td>";
     
-    echo "<button class='open-button' onclick='openForm({$theZaehler})'>Loeschen</button>";
+    echo "<button onclick='openDelete({$theZaehler})'>Loeschen</button>";
     
-    echo "<div class='form-popup' id='myForm{$theZaehler}'>";
+    echo "<div class='delete-popup' id='delete{$theZaehler}'>";
     ?>
-  <form action="http://localhost/_Repo/Druck3D/DB-Changes/delete.php" class="form-container">
-    <p>Wollen Sie den Artikel wirklich loeschen?</p>
+      <form action="http://localhost/_Repo/Druck3D/DB-Changes/deleteArtikel.php">
+        <p>Wollen Sie den Artikel wirklich loeschen?</p>
 
-    <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
+        <?php echo "<input type='hidden' name='pk_Artikel' value='{$zeile->PK_Artikel}'>"; ?>
 
-    <button type="submit" class="btn">Ja</button>
-    <?php echo "<button type='button' class='btn cancel' onclick='closeForm({$theZaehler})'>Nein</button>"; ?>
-  </form>
-</div>
+        <button type="submit" class="btn">Ja</button>
+        <?php echo "<button type='button' onclick='closeDelete({$theZaehler})'>Nein</button>"; ?>
+      </form>
+    </div>
 
     <?php
     echo "</td>";
@@ -109,23 +106,23 @@ while ($zeile = $erg->fetch_object())                           //fetch_object l
     }
     ?>
 
-</table>
+    </table>
 
-<script>
-function openForm(p1) {
-  var myForm = "myForm" + p1;
-  document.getElementById(myForm).style.display = "block";
-}
 
-function closeForm(p1) {
-  var myForm = "myForm" + p1;
-  document.getElementById(myForm).style.display = "none";
-}
-</script>
+    <script>
+      function openDelete(p1) {
+        var myForm = "delete" + p1;
+        document.getElementById(myForm).style.display = "block";
+      }
+
+      function closeDelete(p1) {
+        var myForm = "delete" + p1;
+        document.getElementById(myForm).style.display = "none";
+      }
+    </script>
 
     <form action="http://localhost/_Repo/Druck3D/DB-Changes/insert.html" method="GET">
       <input type="submit" value="Neuer Artikel">
     </form>
-
-    </body>
+  </body>
 </html>
