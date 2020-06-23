@@ -15,6 +15,13 @@
         $picturelink = $zeile->Bildlink;
         $description = $zeile->Beschreibung;
 ?>
+        <html>
+            <head>
+                <title>Bearbeiten</title>
+                <meta charset="UTF-8">
+            </head>
+            <body>
+        
         <form action="http://localhost/_Repo/Druck3D/DB-Changes/editArtikelSubmit.php" method="GET">
 <?php                                                   //Vorausgefülltes Formular zum editieren des Artikels
                 echo "<label for='name'>Artikelname:</label><input name='name' id='name' type='text' size='15' maxlength='30' placeholder='Name' value='{$name}' title='Name des Artikels' required><br>";
@@ -27,3 +34,5 @@
         echo "</form>";
     }
 ?> 
+            </body>
+        </html>
