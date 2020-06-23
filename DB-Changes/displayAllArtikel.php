@@ -118,7 +118,7 @@
         }
       ?>
 
-    <form action="http://localhost/_Repo/Druck3D/DB-Changes/insert.html" method="GET">
+    <form action="http://localhost/_Repo/Druck3D/DB-Changes/insGetInput.html" method="GET">
       <input type="submit" value="Neuer Artikel">
     </form>
   </body>
