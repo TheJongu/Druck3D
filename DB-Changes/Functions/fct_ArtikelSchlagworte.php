@@ -17,6 +17,25 @@
         //Ausgabe: SchlagworteVerbindungen gelöscht: "Anzahl"
         echo 'Geloeschte Schlagworte: '.$db_link->affected_rows;
     }
+    function deleteArtikelSchlagworteForPk_Schlagwort ($pk_schlagwort)
+    {
+        include 'fct_sqlconnect.php';  
+        //Sicherheitsabfrage: Prüfe den String, Sichere Ab, dass die DB ihn akzeptiert und keine Fehler provoziert
+        $pk_schlagwort = $db_link->real_escape_string(trim($pk_schlagwort));
+        echo "Das schlagwort hat die ID: $pk_schlagwort";
+        //Wenn es einen Fehler gab
+        if($db_link->connect_errno)
+        {
+            die('Hier gibt es wohl grade ein Problem.');
+        }
+        //Das SQl Statement
+        $sqlrequest = "DELETE FROM artikelschlagworte WHERE artikelschlagworte.FK_Schlagwort = '{$pk_schlagwort}'";
+        //Stelle DB die SQL-Anfrage
+        $erg = $db_link->query($sqlrequest);
+        //Ausgabe: SchlagworteVerbindungen gelöscht: "Anzahl"
+        echo 'Geloeschte Schlagworte: '.$db_link->affected_rows;
+    }
+
     function addArtikelSchlagworteForPk_Artikel($pk_artikel, $schlagwort)
     {
         include 'fct_sqlconnect.php';  
