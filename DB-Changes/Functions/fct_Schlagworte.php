@@ -11,12 +11,11 @@
             die('Hier gibt es wohl grade ein Problem.');
         }
         
-        //Das SQl Statement: Frage FK_Schlagwort an
+        //Das SQl Statement: Füge neues Schlagwort ein
         $sqlInsertSchlagwort = "INSERT INTO `schlagworte` (`PK_Schlagwort`, `Schlagwort`) VALUES (NULL, '${neuesSchlagwort}');";
         //Stelle Request
-        
         $erg = $db_link->query($sqlInsertSchlagwort);
-        
+        //Ausgabe der Fehler
         echo 'Geänderte Schlagworte: '.$db_link->affected_rows;
     }
 
@@ -32,10 +31,9 @@
             die('Hier gibt es wohl grade ein Problem.');
         }
         
-        //Das SQl Statement: Frage FK_Schlagwort an
+        //Das SQl Statement: Lösche das Schlagwort
         $sqlInsertSchlagwort = "DELETE FROM `schlagworte` WHERE `schlagworte`.`PK_Schlagwort` = '${delSchlagwort}';";
         //Stelle Request
-        
         $erg = $db_link->query($sqlInsertSchlagwort);
         
         echo 'Geänderte Schlagworte: '.$db_link->affected_rows;

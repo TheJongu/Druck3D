@@ -1,21 +1,16 @@
-
-
-
     <?php 
-         
         error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
-        //Übergebe hidden input, beinhält den Artikel um den es geht
         include_once 'Functions/fct_sqlconnect.php';
 
-        //SQL Anfragen für die DB 
+        //SQL Anfragen für die DB: Kriege alle Schlagworte
         $sqlRequestGetAllSchlagworte = "SELECT Schlagwort, PK_Schlagwort FROM schlagworte;";
-       //Frage die DB an
+        //Frage die DB an
         $ergAllSchlagworte = $db_link->query($sqlRequestGetAllSchlagworte) or die($db_link->error);    //Liest die Datenbank aus    
         //Iteriere über alle möglichen Schlagworte
         while ($zeile = $ergAllSchlagworte->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
             ?><form action="editSchlagworteDelete.php" method="get"><?php
-            //Printe Checkbox, ist Input, dadurch wird an folgende PHP übergeben
+            //Printe Button und Name des Schlagwortes, welches der Button löscht
             echo "<input type='hidden' name='pk_schlagwort' value='{$zeile->PK_Schlagwort}'>"; 
             echo "<br><input type='submit' value='Löschen'/>    ";
             echo "$zeile->Schlagwort";
