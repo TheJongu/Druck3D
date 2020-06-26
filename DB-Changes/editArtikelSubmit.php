@@ -1,6 +1,6 @@
 <?php
     include_once 'Functions/fct_Artikel.php';
-    //Eingaben absichern
+
     $pk_artikel = $_GET['pk_artikel'];
     $name = $_GET['name'];
     $price = $_GET['price'];
@@ -9,25 +9,34 @@
 
     $output = editArtikel($pk_artikel, $name, $price, $picturelink, $description);
 
-    if($output==1)
+    if($output)
     {
         header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
     }
     else
     {
-        echo $output."<br>";
 ?>
-        <button onclick="goBack()">Bearbeiten</button>
+        <html>
+            <head>
+                <title>Fehler</title>
+                <meta charset="UTF-8">
+            </head>
+            <body>
+                <p>Das editieren hat nicht geklappt. Bitte wenden Sie sich an unseren Support.</p>
 
-        <form action="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">
-            <input type="submit" value="Abbrechen" position="absolute" left=100px>
-        </form>
+                <button onclick="goBack()">Bearbeiten</button>
+                <button>Kundensupport</button>
+                <form action="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">
+                    <input type="submit" value="Abbrechen" position="absolute" left=100px>
+                </form>
 
-        <script>
-        function goBack() {
-        window.history.back();
-        }
-        </script>
+                <script>
+                function goBack() {
+                window.history.back();
+                }
+                </script>
+            </body>
+        </html>
 <?php
     }
 ?>
