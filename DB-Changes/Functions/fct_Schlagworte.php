@@ -1,7 +1,15 @@
 <?php
+include_once 'fct_sqlconnect.php';
     function addNewSchlagwort ($schlagwort)
     {
-        include 'fct_sqlconnect.php';  
+        //Füge neues Schlagwort ein
+        $sql = "INSERT INTO `schlagworte` (`PK_Schlagwort`, `Schlagwort`) VALUES ?";
+        $handle = fill_statement($sql, array($schlagwort));
+        $handle->execute();
+        
+        echo 'Geänderte Schlagworte: '.$handle->rowCount();
+
+        /*ALTER CODE
         //Sicherheitsabfrage: Prüfe den String, Sichere Ab, dass die DB ihn akzeptiert und keine Fehler provoziert
         $neuesSchlagwort = $db_link->real_escape_string(trim($schlagwort));
         
@@ -16,12 +24,19 @@
         //Stelle Request
         $erg = $db_link->query($sqlInsertSchlagwort);
         //Ausgabe der Fehler
-        echo 'Geänderte Schlagworte: '.$db_link->affected_rows;
+        echo 'Geänderte Schlagworte: '.$db_link->affected_rows;*/
     }
 
     function deleteSchlagwort($delSchlagwort)
     {
-        include 'fct_sqlconnect.php';  
+        //Lösche das Schlagwort
+        $sql = "DELETE FROM `schlagworte` WHERE `schlagworte`.`PK_Schlagwort` = ?";
+        $handle = fill_statement($sql, array($delSchlagwort));
+        $handle->execute();
+
+        echo 'Geänderte Schlagworte: '.$handle->rowCount();
+        
+        /*ALTER CODE
         //Sicherheitsabfrage: Prüfe den String, Sichere Ab, dass die DB ihn akzeptiert und keine Fehler provoziert
         $delSchlagwort = $db_link->real_escape_string(trim($delSchlagwort));
         
@@ -36,7 +51,7 @@
         //Stelle Request
         $erg = $db_link->query($sqlInsertSchlagwort);
         
-        echo 'Geänderte Schlagworte: '.$db_link->affected_rows;
+        echo 'Geänderte Schlagworte: '.$db_link->affected_rows;*/
     }
 
 ?>

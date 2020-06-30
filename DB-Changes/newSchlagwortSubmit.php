@@ -1,6 +1,5 @@
 <?php
     //Include relevante Funktionsdateien
-    include_once 'Functions/fct_sqlconnect.php';
     include_once 'Functions/fct_Schlagworte.php';
     include_once 'Functions/fct_ArtikelSchlagworte.php';
     //erhalte Checkboxen-Wert -> die Schlagworte

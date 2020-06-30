@@ -4,17 +4,19 @@
     $picturelink_unescaped = $_GET['picturelink'];
     $edit = $_GET['edit'];
     $pk_artikel = $_GET['pk_artikel'];
-    
-    $sqlrequest = "SELECT PK_Artikel, Name, Bildlink FROM artikel";
-    $erg = $db_link->query($sqlrequest) or die($db_link->error);
+    //Hole alle aktuellen Daten
+    $sql = "SELECT PK_Artikel, Name, Bildlink FROM artikel";
+    $handle = fill_statement($sql, array());
+    $handle->execute();
+
     //Überprüfung ob Artikel oder Bild schon existiert
     $picturelink_exists = false;
     $name_exists = false;
-    while ($zeile = $erg->fetch_object())
+    while ($zeile = $handle->fetch())
     {
         if($edit)
         {
-            //Hier darf der Artikel selbst nicht mit sich verglichen werden
+            //Hier darf der Artikel nicht mit sich selbst verglichen werden
             if($zeile->PK_Artikel != $pk_artikel)
             {
                 if($name_unescaped==$zeile->Name)

@@ -1,13 +1,13 @@
     <?php 
         error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
         include_once 'Functions/fct_sqlconnect.php';
+        //Alle Schlagworte holen
+        $sql = "SELECT Schlagwort, PK_Schlagwort FROM schlagworte;";
+        $handle = fill_statement($sql, array($name));
+        $handle->execute();
 
-        //SQL Anfragen für die DB: Kriege alle Schlagworte
-        $sqlRequestGetAllSchlagworte = "SELECT Schlagwort, PK_Schlagwort FROM schlagworte;";
-        //Frage die DB an
-        $ergAllSchlagworte = $db_link->query($sqlRequestGetAllSchlagworte) or die($db_link->error);    //Liest die Datenbank aus    
         //Iteriere über alle möglichen Schlagworte
-        while ($zeile = $ergAllSchlagworte->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+        while ($zeile = $handle->fetch())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
             ?><form action="editSchlagworteDelete.php" method="get"><?php
             //Printe Button und Name des Schlagwortes, welches der Button löscht
