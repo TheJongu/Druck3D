@@ -7,7 +7,7 @@
     $picturelink = $_GET['picturelink'];
     $description = $_GET['description'];
 
-    $output = editArtikel($pk_artikel, $name, $price, $picturelink, $description);
+    $output = editArticle($pk_artikel, $name, $price, $picturelink, $description);
 
     if($output)
     {

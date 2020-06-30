@@ -1,88 +1,71 @@
 <?php
 include_once 'fct_sqlconnect.php';
 
-function insertArticle($name, $price, $picturelink, $description) {
+abstract class ArticleCodes {
+    const DOESNT_EXIST = 0;
+    const NAME_EXISTS = 1;
+    const IMAGE_EXISTS = 2;
+    const BOTH_EXIST = 3;
+}
 
-    // Test for unique name
-    // NOTE: I removed image link testing, if we later want to save images as base64 data we won't be able
-    //      to check anyways.
-    $sql = 'SELECT Name FROM artikel WHERE Name = ?';
+function insertArticle(string $name, float $price, string $picture_link, string $description) {
+    $sql = 'INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung) VALUES (NULL, ?, ?, ?, ?)';
+    $handle = fill_statement($sql, array($name, $price, $picture_link, $description));
+    $handle->execute();
+}
+
+// TODO: Resolve name search issues, not working yet
+function articleExists(string $name, string $image_link, int $pk_article = 0): int {
+    $sql = 'SELECT (PK_Artikel, Name, Bildlink) FROM artikel WHERE Name = ?';
     $handle = fill_statement($sql, array($name));
     $handle->execute();
-
-    echo $handle->rowCount();
-
-    if ($handle->fetch() > 0) {
-        return 'Artikel existiert bereits';
-    } else {
-        $sql = 'INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung) VALUES (NULL, ?, ?, ?, ?)';
-        $handle = fill_statement($sql, array($name, $price, $picturelink, $description));
-        echo $handle->queryString;
-        if (!$handle->execute()) {
-            return 'DB-Fehler';
+    echo $handle->queryString;
+    $results = $handle->fetchAll(PDO::FETCH_ASSOC);
+    print_r($results);
+    if (sizeof($results) != 0) {
+        $name_exists = false;
+        $image_exists = false;
+        foreach ($results as $result) {
+            if ($result['PK_Artikel'] == $pk_article) continue;
+            if ($result['Name'] == $name) $name_exists = true;
+            if ($result['Bildlink'] == $image_link) $image_exists = true;
+        }
+        if ($name_exists && !$image_exists) {
+            return ArticleCodes::NAME_EXISTS;
+        } else if ($image_exists && !$name_exists) {
+            return ArticleCodes::IMAGE_EXISTS;
+        } else {
+            return ArticleCodes::BOTH_EXIST;
         }
     }
-    return 'Artikel eingefügt';
+    return ArticleCodes::DOESNT_EXIST;
+}
+
+function articleExistsPK(int $pk_article): bool {
+    $sql = 'SELECT Name FROM artikel where PK_Artikel = ?';
+    $handle = fill_statement($sql, array($pk_article));
+    $handle->execute();
+    if ($handle->rowCount() == 0) {
+        return false;
+    }
+    return true;
 }
 
 
-function deleteArtikel($pk_artikel) {
-    include_once 'fct_sqlconnect.php';
-    include_once 'fct_ArtikelSchlagworte.php';
-    //Sichere den pk_artikel ab
-    $pk_artikel = $db_link->real_escape_string(trim($pk_artikel));
-    //Prüfe für DB Fehler
-    if ($db_link->connect_errno) {
-        die('Hier gibt es wohl grade ein Problem.');
+function deleteArticle(int $pk_article) {
+    if (articleExistsPK($pk_article)) {
+        deleteArtikelSchlagworteForPk_Artikel($pk_article);
+        $sql = 'DELETE FROM artikel WHERE PK_Artikel = ? ';
+        $handle = fill_statement($sql, array($pk_article));
+        $handle->execute();
     }
-    //Lösche alle Schlagworte für den Artikel
-    deleteArtikelSchlagworteForPk_Artikel($pk_artikel);
-
-    //Lösche den Artikel vom Artikeltable
-    $sqlrequest = "DELETE FROM artikel WHERE artikel.PK_Artikel = '{$pk_artikel}';";
-    $erg = $db_link->query($sqlrequest);
-
-    echo 'Geloeschte Artikel: ' . $db_link->affected_rows;
 }
 
- function editArtikel($pk_artikel, $name, $price, $picturelink, $description)
-  {
-      include_once 'Functions/fct_sqlconnect.php';
-
-      //Eingaben absichern
-      $pk_artikel = $db_link->real_escape_string(trim($pk_artikel));
-      $name = $db_link->real_escape_string(trim($name));
-      $price = $db_link->real_escape_string(trim($price));
-      $picturelink = $db_link->real_escape_string(trim($picturelink));
-      $description = $db_link->real_escape_string(trim($description));
-
-      //Editieren des Artikels
-      $sqlrequest = "UPDATE artikel SET Name = '{$name}', Preis = '{$price}', Bildlink = '{$picturelink}', Beschreibung = '{$description}' WHERE artikel.PK_Artikel = {$pk_artikel};";
-      $db_link->query($sqlrequest);
-
-      if($db_link->affected_rows == 1)
-      {
-          return true;
-      }
-      else
-      {
-          return false;
-      }
-    }
-    //Editieren des Datensatzes
-    if ($name_exists) {
-        $output = "Der Artikelname existiert bereits.";
-    } elseif ($picturelink_exists) {
-        $output = "Der Dateipfad des Bildes existiert bereits.";
-    } else {
-        header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
-        $sqlrequest = "UPDATE artikel SET Name = '{$name}', Preis = '{$price}', Bildlink = '{$picturelink}', Beschreibung = '{$description}' WHERE artikel.PK_Artikel = {$pk_artikel};";
-        $db_link->query($sqlrequest);
-        $output = $db_link->affected_rows;
-    }
-    return $output;
+function editArticle(int $pk_article, string $name, float $price, string $image_link, string $description) {
+      $sql = 'UPDATE artikel SET Name = ?, Preis = ?, Bildlink = ?, Beschreibung = ? WHERE artikel.PK_Artikel = ?';
+      $handle = fill_statement($sql, array($name, $price, $image_link, $description, $pk_article));
+      $handle->execute();
 }
 
-echo insertArticle('Test', 25, '', 'Desc');
 
 

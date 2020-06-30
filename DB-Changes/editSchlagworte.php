@@ -7,7 +7,7 @@
         $handle->execute();
 
         //Iteriere über alle möglichen Schlagworte
-        while ($zeile = $handle->fetch())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+        while ($zeile = $handle->fetch(PDO::FETCH_OBJ))                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
             ?><form action="editSchlagworteDelete.php" method="get"><?php
             //Printe Button und Name des Schlagwortes, welches der Button löscht

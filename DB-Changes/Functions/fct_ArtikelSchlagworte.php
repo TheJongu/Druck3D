@@ -55,7 +55,7 @@ include_once 'fct_sqlconnect.php';
         $handle = fill_statement($sql, array($schlagwort));
         $handle->execute();
         //Hole das Objekt
-        $schlagwortObject = $handle->fetch();
+        $schlagwortObject = $handle->fetch(PDO::FETCH_OBJ);
         //Lese die FK_Schlagwort aus
         $pk_schlagwort = $schlagwortObject->PK_Schlagwort;
 
