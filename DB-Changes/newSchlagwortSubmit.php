@@ -8,7 +8,7 @@
     //erhalte die PK des Artikels
     echo $schlagwort;
 
-    addNewSchlagwort($schlagwort);
+    createTag($schlagwort);
     //Gehe zurück zur DisplayAllArtikel Seite
     header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php?");
 
