@@ -13,7 +13,7 @@
 
     if($handle->rowCount()==1)
     {
-        $zeile = $handle->fetch();
+        $zeile = $handle->fetch(PDO::FETCH_OBJ);
 
         $name = $zeile->Name;
         $price = $zeile->Preis;

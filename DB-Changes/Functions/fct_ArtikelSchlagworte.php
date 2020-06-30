@@ -34,4 +34,5 @@ function removeArticleTagPK($pk_article, $pk_tag) {
     $handle->execute();
 }
 
+?>
     

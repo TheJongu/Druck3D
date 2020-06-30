@@ -42,8 +42,8 @@
 
       <?php
         $theZaehler = 0;
-
-        while ($zeile = $handle->fetch())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+        
+        while ($zeile = $handle->fetch(PDO::FETCH_OBJ))                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
           echo "<td><a href='http://localhost/_Repo/Druck3D/DB-Changes/editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
           echo "<td>{$zeile->Preis}</td>";
@@ -51,15 +51,15 @@
           echo "<td>{$zeile->Beschreibung}</td>";
                     
           $sqlGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = ? and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
-          $handleGetSchlagworte = fill_statement($sqlGetSchlagworte, array(zeile->PK_Artikel));
-
+          $handleGetSchlagworte = fill_statement($sqlGetSchlagworte, array($zeile->PK_Artikel));
+          $handleGetSchlagworte->execute();
           //$sqlRequestGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {$zeile->PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
           //$sqlRequestGetSchlagworteErg = $db_link->query($sqlRequestGetSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
               
           echo "<td>";
               
           $setCommaFlag = false;
-          while($AnfrageSchlagworte = $handleGetSchlagworte->fetch()){
+          while($AnfrageSchlagworte = $handleGetSchlagworte->fetch(PDO::FETCH_OBJ)){
                 
             if($setCommaFlag){
               echo ", ";

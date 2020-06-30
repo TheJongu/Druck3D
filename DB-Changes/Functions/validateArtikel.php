@@ -12,7 +12,8 @@
     //Überprüfung ob Artikel oder Bild schon existiert
     $picturelink_exists = false;
     $name_exists = false;
-    while ($zeile = $handle->fetch())
+    return 1;
+    while ($zeile = $handle->fetch(PDO::FETCH_OBJ))
     {
         if($edit)
         {
