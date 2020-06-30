@@ -10,22 +10,14 @@
         $pk_artikel = $_GET['pk_Artikel'];
         //Übergebe hidden input, beinhält den Artikel um den es geht
         echo "<input type='hidden' name='pk_artikel' value='{$pk_artikel}'>";
-        
+        //Alle Schlagworte
         $sqlGetSchlagworte = "SELECT Schlagwort FROM schlagworte";
         $handleGetSchlagworte = fill_statement($sqlGetSchlagworte, array());
         $handleGetSchlagworte->execute();
-
+        //Alle angehakten Schlagworte
         $sqlGetSchlagworteForPk = "SELECT DISTINCT schlagworte.Schlagwort FROM artikelschlagworte, schlagworte where artikelschlagworte.FK_Artikel = ? AND artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort;";
         $handleGetSchlagworteForPk = fill_statement($sqlGetSchlagworteForPk, array($pk_artikel));
         $handleGetSchlagworteForPk->execute();
-
-
-        //SQL Anfragen für die DB 
-        $sqlRequestGetAllSchlagworte = "SELECT Schlagwort FROM schlagworte;";
-        $sqlRequestGetSchlagworteForPk = "SELECT DISTINCT schlagworte.Schlagwort FROM artikelschlagworte, schlagworte where artikelschlagworte.FK_Artikel = '{$pk_artikel}' AND artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort;";
-        //Frage die DB an
-        $ergAllSchlagworte = $db_link->query($sqlRequestGetAllSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
-        $ergPKSchlagworte = $db_link->query($sqlRequestGetSchlagworteForPk) or die($db_link->error);    //Liest die Datenbank aus
 
         //Erstelle ein Array, in welchem alle aktuell angehakten Schlagwörte stehen (von geklicktem Artikel)
         $currentSchlagworteArray = array();

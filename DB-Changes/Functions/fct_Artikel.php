@@ -1,5 +1,6 @@
 <?php
 include_once 'fct_sqlconnect.php';
+include_once 'fct_ArtikelSchlagworte.php';
 
 abstract class ArticleCodes {
     const DOESNT_EXIST = 0;
@@ -14,9 +15,9 @@ function insertArticle(string $name, float $price, string $picture_link, string 
     $handle->execute();
 }
 
-function articleExists(string $name, string $image_link, int $pk_article = 0): int {
+function articleExists(string $name, string $picturelink, int $pk_article = 0): int {
     $sql = 'SELECT PK_Artikel, Name, Bildlink FROM artikel WHERE Name = ? OR Bildlink = ?';
-    $handle = fill_statement($sql, array($name, $image_link));
+    $handle = fill_statement($sql, array($name, $picturelink));
     $handle->execute();
     $results = $handle->fetchAll(PDO::FETCH_ASSOC);
     if (sizeof($results) != 0) {
@@ -25,13 +26,13 @@ function articleExists(string $name, string $image_link, int $pk_article = 0): i
         foreach ($results as $result) {
             if ($result['PK_Artikel'] == $pk_article) continue;
             if ($result['Name'] == $name) $name_exists = true;
-            if ($result['Bildlink'] == $image_link) $image_exists = true;
+            if ($result['Bildlink'] == $picturelink) $image_exists = true;
         }
         if ($name_exists && !$image_exists) {
             return ArticleCodes::NAME_EXISTS;
         } else if ($image_exists && !$name_exists) {
             return ArticleCodes::IMAGE_EXISTS;
-        } else {
+        } else if ($image_exists && $name_exists){
             return ArticleCodes::BOTH_EXIST;
         }
     }

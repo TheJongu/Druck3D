@@ -3,7 +3,7 @@
         include_once 'Functions/fct_sqlconnect.php';
         //Alle Schlagworte holen
         $sql = "SELECT Schlagwort, PK_Schlagwort FROM schlagworte;";
-        $handle = fill_statement($sql, array($name));
+        $handle = fill_statement($sql, array());
         $handle->execute();
 
         //Iteriere über alle möglichen Schlagworte

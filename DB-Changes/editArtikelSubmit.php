@@ -7,9 +7,9 @@
     $picturelink = $_GET['picturelink'];
     $description = $_GET['description'];
 
-    $output = editArticle($pk_artikel, $name, $price, $picturelink, $description);
+    editArticle($pk_artikel, $name, $price, $picturelink, $description);
 
-    if($output)
+    if(true)
     {
         header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
     }

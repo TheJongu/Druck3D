@@ -72,10 +72,9 @@
                         var a = $.ajax({
                         type: "GET",
                         url: 'Functions/validateArtikel.php',
-                        data: { pk_artikel: pk_artikel,
-                                name: name,
+                        data: { name: name,
                                 picturelink: picturelink,
-                                edit: true
+                                pk_article: pk_artikel
                             },
                         async: true
                     }).done(function(data){

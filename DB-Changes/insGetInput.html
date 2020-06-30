@@ -75,10 +75,8 @@
                 var a = $.ajax({
                 type: "GET",
                 url: 'Functions/validateArtikel.php',
-                data: { pk_artikel: "",
-                        name: name,
+                data: { name: name,
                         picturelink: picturelink,
-                        edit: false
                       },
                 async: true
             }).done(function(data){
@@ -103,7 +101,7 @@
                     document.getElementById("picturelinkError").style.display = "block";
                 }
                 else{
-                    alert('Kommunikation zwischen validateArtikel und hier stimmt nicht.');
+                    alert('Kommunikation zwischen validateArtikel und hier stimmt nicht. Data = ' + data);
                 }
             });
             
