@@ -6,7 +6,7 @@
     $picturelink = $_GET['picturelink'];
     $description = $_GET['description'];
 
-    $output = insertArtikel($name, $price, $picturelink, $description);
+    $output = insertArticle($name, $price, $picturelink, $description);
 
     if($output)  
     {
