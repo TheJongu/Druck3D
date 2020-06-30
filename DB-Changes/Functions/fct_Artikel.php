@@ -45,31 +45,29 @@ function deleteArtikel($pk_artikel) {
     echo 'Geloeschte Artikel: ' . $db_link->affected_rows;
 }
 
-function editArtikel($pk_artikel, $name, $price, $picturelink, $description)
-{
-    include_once 'Functions/fct_sqlconnect.php';
-    //Eingaben absichern
-    $pk_artikel = $db_link->real_escape_string(trim($pk_artikel));
-    $name = $db_link->real_escape_string(trim($name));
-    $price = $db_link->real_escape_string(trim($price));
-    $picturelink_unescaped = $picturelink;
-    $picturelink = $db_link->real_escape_string(trim($picturelink_unescaped));
-    $description = $db_link->real_escape_string(trim($description));
+ function editArtikel($pk_artikel, $name, $price, $picturelink, $description)
+  {
+      include_once 'Functions/fct_sqlconnect.php';
 
-    //Überprüfung ob Artikel oder Bild schon existiert
-    $sqlrequest = "SELECT PK_Artikel, Name, Bildlink FROM artikel";
-    $erg = $db_link->query($sqlrequest) or die($db_link->error);
-    $picturelink_exists = false;
-    $name_exists = false;
-    while ($zeile = $erg->fetch_object()) {
-        if ($zeile->PK_Artikel != $pk_artikel) {
-            if ($name == $zeile->Name) {
-                $name_exists = true;
-            }
-            if ($picturelink_unescaped == $zeile->Bildlink) {
-                $picturelink_exists = true;
-            }
-        }
+      //Eingaben absichern
+      $pk_artikel = $db_link->real_escape_string(trim($pk_artikel));
+      $name = $db_link->real_escape_string(trim($name));
+      $price = $db_link->real_escape_string(trim($price));
+      $picturelink = $db_link->real_escape_string(trim($picturelink));
+      $description = $db_link->real_escape_string(trim($description));
+
+      //Editieren des Artikels
+      $sqlrequest = "UPDATE artikel SET Name = '{$name}', Preis = '{$price}', Bildlink = '{$picturelink}', Beschreibung = '{$description}' WHERE artikel.PK_Artikel = {$pk_artikel};";
+      $db_link->query($sqlrequest);
+
+      if($db_link->affected_rows == 1)
+      {
+          return true;
+      }
+      else
+      {
+          return false;
+      }
     }
     //Editieren des Datensatzes
     if ($name_exists) {

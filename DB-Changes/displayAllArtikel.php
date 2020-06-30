@@ -121,5 +121,8 @@
     <form action="http://localhost/_Repo/Druck3D/DB-Changes/insGetInput.html" method="GET">
       <input type="submit" value="Neuer Artikel">
     </form>
+    <form action="http://localhost/_Repo/Druck3D/DB-Changes/editSchlagworte.php" method="GET">
+      <input type="submit" value="Schlagworte hinzufügen/löschen">
+    </form>
   </body>
 </html>

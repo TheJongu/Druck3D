@@ -6,13 +6,13 @@
     $picturelink = $_GET['picturelink'];
     $description = $_GET['description'];
 
-    $output = insertArtikel($name, $price, $picturelink, $description); //output beinhaltet die Rückmeldung von inserArtikel()
+    $output = insertArtikel($name, $price, $picturelink, $description);
 
-    if($output==1)  //Ohne Fehler ist $output die Anzahl der beeinflussten Datensätze
+    if($output)  
     {
         header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
     }
-    else            //Mit Fehler ist $output die Fehlermeldung
+    else            
     {
 ?>
         <html>
@@ -21,22 +21,20 @@
                 <meta charset="UTF-8">
             </head>
             <body>
- 
-        <?php echo $output."<br>"; ?>
+                <p>Das einfuegen in die Datenbank hat nicht geklappt. Bitte wenden Sie sich an unseren Support</p>
+                <button onclick="goBack()">Bearbeiten</button>
+                <button>Kundensupport</button>
+                <form action="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">
+                    <input type="submit" value="Abbrechen" position="absolute" left=100px>
+                </form>
 
-            <button onclick="goBack()">Bearbeiten</button>
-
-            <form action="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">
-                <input type="submit" value="Abbrechen" position="absolute" left=100px>
-            </form>
-
-            <script>
-            function goBack() {
-            window.history.back();
-            }
-            </script>
-        </html>
-    </body>
+                <script>
+                function goBack() {
+                window.history.back();
+                }
+                </script>
+            </body>
+        </html>        
 <?php
     }
 ?>
