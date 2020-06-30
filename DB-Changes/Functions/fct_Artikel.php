@@ -1,13 +1,13 @@
 <?php
+include_once 'fct_sqlconnect.php';
 
 function insertArticle($name, $price, $picturelink, $description) {
-    include_once 'fct_sqlconnect.php';
 
     // Test for unique name
     // NOTE: I removed image link testing, if we later want to save images as base64 data we won't be able
     //      to check anyways.
-    $handle = get_link()->prepare('SELECT Name FROM artikel WHERE Name = ?');
-    $handle->bindValue(1, $name);
+    $sql = 'SELECT Name FROM artikel WHERE Name = ?';
+    $handle = fill_statement($sql, array($name));
     $handle->execute();
 
     echo $handle->rowCount();
@@ -15,12 +15,8 @@ function insertArticle($name, $price, $picturelink, $description) {
     if ($handle->fetch() > 0) {
         return 'Artikel existiert bereits';
     } else {
-        $handle = get_link()->prepare(
-            'INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung) VALUES (NULL, ?, ?, ?, ?)');
-        $handle->bindValue(1, $name);
-        $handle->bindValue(2, $price);
-        $handle->bindValue(3, $picturelink);
-        $handle->bindValue(4, $description);
+        $sql = 'INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung) VALUES (NULL, ?, ?, ?, ?)';
+        $handle = fill_statement($sql, array($name, $price, $picturelink, $description));
         echo $handle->queryString;
         if (!$handle->execute()) {
             return 'DB-Fehler';
@@ -30,8 +26,7 @@ function insertArticle($name, $price, $picturelink, $description) {
 }
 
 
-function deleteArtikel($pk_artikel)
-{
+function deleteArtikel($pk_artikel) {
     include_once 'fct_sqlconnect.php';
     include_once 'fct_ArtikelSchlagworte.php';
     //Sichere den pk_artikel ab

@@ -29,3 +29,14 @@ function get_link() {
     return $link;
 }
 
+function fill_statement(string $sql, array $parameter_array) {
+    $handle = get_link()->prepare($sql);
+    if (substr_count($sql, '?') != sizeof($parameter_array)) {
+        die('Wrong parameter count');
+    }
+    for ($i = 0; $i < sizeof($parameter_array); $i++) {
+        $handle->bindValue($i + 1, $parameter_array[$i]);
+    }
+    return $handle;
+}
+
