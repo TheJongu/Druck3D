@@ -14,14 +14,11 @@ function insertArticle(string $name, float $price, string $picture_link, string 
     $handle->execute();
 }
 
-// TODO: Resolve name search issues, not working yet
 function articleExists(string $name, string $image_link, int $pk_article = 0): int {
-    $sql = 'SELECT (PK_Artikel, Name, Bildlink) FROM artikel WHERE Name = ?';
-    $handle = fill_statement($sql, array($name));
+    $sql = 'SELECT PK_Artikel, Name, Bildlink FROM artikel WHERE Name = ? OR Bildlink = ?';
+    $handle = fill_statement($sql, array($name, $image_link));
     $handle->execute();
-    echo $handle->queryString;
     $results = $handle->fetchAll(PDO::FETCH_ASSOC);
-    print_r($results);
     if (sizeof($results) != 0) {
         $name_exists = false;
         $image_exists = false;
