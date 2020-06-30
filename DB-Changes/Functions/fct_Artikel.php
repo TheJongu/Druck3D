@@ -54,7 +54,7 @@ function articleExistsPK(int $pk_article): bool {
 
 function deleteArticle(int $pk_article) {
     if (articleExistsPK($pk_article)) {
-        deleteArtikelSchlagworteForPk_Artikel($pk_article);
+        removeAllArticleTags($pk_article);
         $sql = 'DELETE FROM artikel WHERE PK_Artikel = ? ';
         $handle = fill_statement($sql, array($pk_article));
         $handle->execute();
