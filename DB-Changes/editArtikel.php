@@ -1,14 +1,19 @@
 <?php
     include_once 'Functions/fct_sqlconnect.php';
-
     //SQL-Anfrage, um das Formular schon vorauszufüllen
-    $pk_artikel = $db_link->real_escape_string(trim($_GET['pk_artikel']));
-    $sqlrequest = "SELECT Name, Preis, Bildlink, Beschreibung  FROM Artikel WHERE artikel.PK_Artikel = '{$pk_artikel}'";
-    $erg = $db_link->query($sqlrequest) or die($db_link->error);
+    $pk_artikel = $_GET['pk_artikel'];
+    $sql = "SELECT Name, Preis, Bildlink, Beschreibung  FROM Artikel WHERE artikel.PK_Artikel = ?";
+    $handle = fill_statement($sql, array($pk_artikel));
+    $handle->execute();
 
-    if($db_link->affected_rows==1)
+
+    //$pk_artikel = $db_link->real_escape_string(trim($_GET['pk_artikel']));
+    //$sqlrequest = "SELECT Name, Preis, Bildlink, Beschreibung  FROM Artikel WHERE artikel.PK_Artikel = '{$pk_artikel}'";
+    //$erg = $db_link->query($sqlrequest) or die($db_link->error);
+
+    if($handle->rowCount()==1)
     {
-        $zeile = $erg->fetch_object();
+        $zeile = $handle->fetch();
 
         $name = $zeile->Name;
         $price = $zeile->Preis;

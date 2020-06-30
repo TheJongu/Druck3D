@@ -3,10 +3,9 @@
 
   include_once 'Functions/fct_sqlconnect.php';
 
-
-  $sqlrequest = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
-
-  $erg = $db_link->query($sqlrequest) or die($db_link->error);    //Liest die Datenbank aus
+  $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
+  $handle = fill_statement($sql, array());
+  $handle->execute();   //Liest die Datenbank aus
 ?>
   
 <html>
@@ -44,20 +43,23 @@
       <?php
         $theZaehler = 0;
 
-        while ($zeile = $erg->fetch_object())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+        while ($zeile = $handle->fetch())                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
           echo "<td><a href='http://localhost/_Repo/Druck3D/DB-Changes/editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
           echo "<td>{$zeile->Preis}</td>";
           echo "<td>{$zeile->Bildlink}</td>";
           echo "<td>{$zeile->Beschreibung}</td>";
                     
-          $sqlRequestGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {$zeile->PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
-          $sqlRequestGetSchlagworteErg = $db_link->query($sqlRequestGetSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
+          $sqlGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = ? and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
+          $handleGetSchlagworte = fill_statement($sqlGetSchlagworte, array(zeile->PK_Artikel));
+
+          //$sqlRequestGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {$zeile->PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
+          //$sqlRequestGetSchlagworteErg = $db_link->query($sqlRequestGetSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
               
           echo "<td>";
               
           $setCommaFlag = false;
-          while($AnfrageSchlagworte = $sqlRequestGetSchlagworteErg->fetch_object()){
+          while($AnfrageSchlagworte = $handleGetSchlagworte->fetch()){
                 
             if($setCommaFlag){
               echo ", ";

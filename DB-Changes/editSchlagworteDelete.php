@@ -1,6 +1,5 @@
 <?php
     //Include relevante Funktionsdateien
-    include_once 'Functions/fct_sqlconnect.php';
     include_once 'Functions/fct_ArtikelSchlagworte.php';
     include_once 'Functions/fct_Schlagworte.php';
     //erhalte die pk_schlagwort
