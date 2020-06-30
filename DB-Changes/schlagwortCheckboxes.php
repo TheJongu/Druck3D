@@ -13,8 +13,8 @@
         $schlagwortCheckboxenArray[] = array();
 
         //SQL Anfragen für die DB 
-        $sqlRequestGetAllSchlagworte = "SELECT Schlagwort FROM schlagworte;";
-        $sqlRequestGetSchlagworteForPk = "SELECT DISTINCT schlagworte.Schlagwort FROM artikelschlagworte, schlagworte where artikelschlagworte.FK_Artikel = '{$pk_artikel}' AND artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort;";
+        $sqlRequestGetAllSchlagworte = "SELECT Schlagwort FROM schlagworte ORDER BY schlagworte.Schlagwort ASC;";
+        $sqlRequestGetSchlagworteForPk = "SELECT DISTINCT schlagworte.Schlagwort FROM artikelschlagworte, schlagworte where artikelschlagworte.FK_Artikel = '{$pk_artikel}' AND artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort;"  ;
         //Frage die DB an
         $ergAllSchlagworte = $db_link->query($sqlRequestGetAllSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
         $ergPKSchlagworte = $db_link->query($sqlRequestGetSchlagworteForPk) or die($db_link->error);    //Liest die Datenbank aus
