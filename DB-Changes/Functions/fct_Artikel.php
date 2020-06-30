@@ -3,9 +3,9 @@ include_once 'fct_sqlconnect.php';
 
 abstract class ArticleCodes {
     const DOESNT_EXIST = 0;
-    const NAME_EXISTS = 1;
-    const IMAGE_EXISTS = 2;
-    const BOTH_EXIST = 3;
+    const BOTH_EXIST = 1;
+    const NAME_EXISTS = 2;
+    const IMAGE_EXISTS = 3;
 }
 
 function insertArticle(string $name, float $price, string $picture_link, string $description) {
