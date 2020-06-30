@@ -7,7 +7,7 @@
     //Lösche alle ArtikelSchlagworte für dieses Schlagwort
     removeTagFromArticles($pk_schlagwort);
     //Lösche das Schlagwort
-    deleteSchlagwort($pk_schlagwort);
+    deleteTagPK($pk_schlagwort);
     //Gehe zurück zur Seite
     header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
 
