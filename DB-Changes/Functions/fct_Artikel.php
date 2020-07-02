@@ -19,10 +19,28 @@ function articleExists(string $name, string $picturelink, int $pk_article = 0): 
     $sql = 'SELECT PK_Artikel, Name, Bildlink FROM artikel WHERE Name = ? OR Bildlink = ?';
     $handle = fill_statement($sql, array($name, $picturelink));
     $handle->execute();
-    $results = $handle->fetchAll(PDO::FETCH_ASSOC);
+    
+    $name_exists = false;
+    $image_exists = false;
+    while($result = $handle->fetch(PDO::FETCH_OBJ))
+    {
+        if ($result->PK_Artikel == $pk_article) continue;
+        if ($result->Name == $name) $name_exists = true;
+        if ($result->Bildlink == $picturelink) $image_exists = true;
+        }
+        if ($name_exists && !$image_exists) {
+            return ArticleCodes::NAME_EXISTS;
+        } else if ($image_exists && !$name_exists) {
+            return ArticleCodes::IMAGE_EXISTS;
+        } else if ($image_exists && $name_exists){
+            return ArticleCodes::BOTH_EXIST;
+    }
+    return ArticleCodes::DOESNT_EXIST;
+    
+    
+    /*$results = $handle->fetchAll(PDO::FETCH_ASSOC);
     if (sizeof($results) != 0) {
-        $name_exists = false;
-        $image_exists = false;
+        
         foreach ($results as $result) {
             if ($result['PK_Artikel'] == $pk_article) continue;
             if ($result['Name'] == $name) $name_exists = true;
@@ -36,7 +54,7 @@ function articleExists(string $name, string $picturelink, int $pk_article = 0): 
             return ArticleCodes::BOTH_EXIST;
         }
     }
-    return ArticleCodes::DOESNT_EXIST;
+    return ArticleCodes::DOESNT_EXIST;*/
 }
 
 function articleExistsPK(int $pk_article): bool {

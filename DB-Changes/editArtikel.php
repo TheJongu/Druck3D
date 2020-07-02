@@ -29,6 +29,10 @@
                         color: red;
                         display: none;
                     }
+                    div#priceError{
+                        color: red;
+                        display: none;
+                    }
                     div#picturelinkError{
                         color: red;
                         display: none;
@@ -45,7 +49,7 @@
                 <form action="http://localhost/_Repo/Druck3D/DB-Changes/editArtikelSubmit.php" method="GET" id="myForm">
     <?php           //Vorausgefülltes Formular zum Editieren des Artikels
                     echo "<label for='name'>Artikelname:</label><input name='name' id='name' type='text' size='15' maxlength='30' placeholder='Name' value='{$name}' title='Name des Artikels' required><div id='nameError'>Der Artikelname existiert bereits.</div><br>";
-                    echo "<label for='price'>Preis:</label><input name='price' id='price' type='text' size='4' maxlength='7' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><br>";
+                    echo "<label for='price'>Preis:</label><input name='price' id='price' type='text' size='4' maxlength='7' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><div id='priceError'>Bitte geben Sie einen anständigen Preis an.</div><br>";
                     echo "<label for='picturelink'>Bildpfad:</label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='C:\Beispielpfad\Beispielbild.png' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div id='picturelinkError'>Der Bildpfad existiert bereits.</div><br>";
                     echo "<label for='description'>Beschreibung:</label><input name='description' id='description' type='text' placeholder='Dies ist ein Artikel' value='{$description}' title='Artikelbeschreibung'><br>";
                     echo "<input type='hidden' name='pk_artikel' id='pk_artikel' value='{$pk_artikel}'>";
@@ -63,11 +67,21 @@
                     const validate = () => {
                         //Reset UI
                         document.getElementById("nameError").style.display = "none";
+                        document.getElementById("priceError").style.display = "none";
                         document.getElementById("picturelinkError").style.display = "none";
 
                         const pk_artikel = document.getElementById('pk_artikel').value;
                         const name = document.getElementById("name").value;
+                        const price = document.getElementById("price").value;
                         const picturelink = document.getElementById("picturelink").value;
+
+                        const priceREGEX = /^[0-9]{1,4}([.][0-9]{2})?$/;
+
+                        if(!priceREGEX.test(price))
+                        {
+                            document.getElementById("priceError").style.display = "block";
+                            return;
+                        }
 
                         var a = $.ajax({
                         type: "GET",
