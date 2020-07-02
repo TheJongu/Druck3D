@@ -45,7 +45,7 @@
         
         while ($zeile = $handle->fetch(PDO::FETCH_OBJ))                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
-          echo "<td><a href='http://localhost/_Repo/Druck3D/DB-Changes/editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
+          echo "<td><a href='./editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
           echo "<td>{$zeile->Preis}</td>";
           echo "<td>{$zeile->Bildlink}</td>";
           echo "<td>{$zeile->Beschreibung}</td>";
@@ -81,7 +81,7 @@
         echo "<button onclick='openDelete({$theZaehler})'>Loeschen</button>";  
         echo "<div class='delete-popup' id='delete{$theZaehler}'>";
       ?>
-      <form action="http://localhost/_Repo/Druck3D/DB-Changes/deleteArtikel.php">
+      <form action="./deleteArtikel.php">
         <p>Wollen Sie den Artikel wirklich loeschen?</p>
         <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
         <button type="submit" class="btn">Ja</button>
@@ -120,10 +120,10 @@
         }
       ?>
 
-    <form action="http://localhost/_Repo/Druck3D/DB-Changes/insGetInput.html" method="GET">
+    <form action="./insGetInput.html" method="GET">
       <input type="submit" value="Neuer Artikel">
     </form>
-    <form action="http://localhost/_Repo/Druck3D/DB-Changes/editSchlagworte.php" method="GET">
+    <form action="./editSchlagworte.php" method="GET">
       <input type="submit" value="Schlagworte hinzufügen/löschen">
     </form>
   </body>

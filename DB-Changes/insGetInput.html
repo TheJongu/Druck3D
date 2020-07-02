@@ -55,7 +55,7 @@
         </script>
     </head>
     <body>
-        <form action="http://localhost/_Repo/Druck3D/DB-Changes/insert.php" method="GET" class="form-container" id="myForm"> <!--Method sollte später POST sein-->
+        <form action="./insert.php" method="GET" class="form-container" id="myForm"> <!--Method sollte später POST sein-->
         <label for="name">Artikelname:</label><input name="name" id="name" type="text" size="15" maxlength="30" placeholder="Name" title="Name des Artikels" required><div id="nameError">Der Artikelname existiert bereits.</div><br>
         <label for="price">Preis:</label><input name="price" id="price" type="text" size="4" maxlength="7" placeholder="0000.00" title="Preis des Artikels"><div id="priceError">Bitte geben Sie einen anständigen Preis an.</div><br>
         <label for="picturelink">Bildpfad:</label><input name="picturelink" id="picturelink" type="text" size="30" maxlength="70" placeholder="C:\Beispielpfad\Beispielbild.png" title="Dateipfad des Artikelbildes"><div id="picturelinkError">Der Artikelname existiert bereits.</div><br>
