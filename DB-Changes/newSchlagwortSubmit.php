@@ -10,6 +10,6 @@
 
     createTag($schlagwort);
     //Gehe zurück zur DisplayAllArtikel Seite
-    header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php?");
+    header("Location: ./displayAllArtikel.php?");
 
 ?>

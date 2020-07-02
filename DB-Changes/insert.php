@@ -10,7 +10,7 @@
 
     if(true)  
     {
-        header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
+        header("Location: ./displayAllArtikel.php");
     }
     else            
     {
@@ -24,7 +24,7 @@
                 <p>Das einfuegen in die Datenbank hat nicht geklappt. Bitte wenden Sie sich an unseren Support</p>
                 <button onclick="goBack()">Bearbeiten</button>
                 <button>Kundensupport</button>
-                <form action="http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php">
+                <form action="./displayAllArtikel.php">
                     <input type="submit" value="Abbrechen" position="absolute" left=100px>
                 </form>
 

@@ -42,7 +42,7 @@
             </head>
             <body>
         
-                <form action="http://localhost/_Repo/Druck3D/DB-Changes/editArtikelSubmit.php" method="GET" id="myForm">
+                <form action="^./editArtikelSubmit.php" method="GET" id="myForm">
     <?php           //Vorausgefülltes Formular zum Editieren des Artikels
                     echo "<label for='name'>Artikelname:</label><input name='name' id='name' type='text' size='15' maxlength='30' placeholder='Name' value='{$name}' title='Name des Artikels' required><div id='nameError'>Der Artikelname existiert bereits.</div><br>";
                     echo "<label for='price'>Preis:</label><input name='price' id='price' type='text' size='4' maxlength='7' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><br>";

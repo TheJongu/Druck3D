@@ -5,5 +5,5 @@
 
     deleteArticle($pk_artikel);
 
-    header("Location: http://localhost/_Repo/Druck3D/DB-Changes/displayAllArtikel.php");
+    header("Location: ./displayAllArtikel.php");
 ?>
