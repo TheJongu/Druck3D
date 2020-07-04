@@ -1,3 +1,19 @@
+    <html>
+        <head>
+            <title>Schlagworte Editieren</title>
+            <meta charset="UTF-8">
+            <style>
+                div.errorDescr{
+                    color: red;
+                    display: none;
+                }
+            </style>
+        </head>
+    </html>
+    
+    
+    
+    
     <?php 
         error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
         include_once 'Functions/fct_sqlconnect.php';
@@ -18,16 +34,36 @@
         }
         ?>
     
-    <form action="newSchlagwortSubmit.php" method="get">
+    <form action="newSchlagwortSubmit.php" method="get" id="editSchlagworteForm">
         <?php
-        echo "<label for='newschlagwort'></label><input name='newschlagwort' id='newschlagwort' type='text' placeholder='Neues Schlagwort' value='' title='Artikelbeschreibung'>";
+        echo "<label for='newschlagwort'></label><input name='newschlagwort' id='newschlagwort' type='text' placeholder='Neues Schlagwort' value='' title='Artikelbeschreibung'><div class='errorDescr' id='schlagwortError'>Bitte kein ' eingeben.</div>";
         echo "<input type='hidden' name='pk_Artikel' value='{$PK_Artikel}'>";
         ?>
-        <input type="submit" value="Füge Schlagwort hinzu" />
-
+        <input type="button" value="Füge Schlagwort hinzu" onclick="validate()">
     </form>
         
+    <script>
+        function submitForm()
+        {
+            document.getElementById("editSchlagworteForm").submit();
+        }
         
+        const validate = () => {
+            //RESET UI
+            document.getElementById("schlagwortError").style.display = "none";
+
+            const newschlagwort = document.getElementById("newschlagwort").value;
+            const REGEX = /^[^']*$/;
+
+            if(!REGEX.test(newschlagwort))
+            {
+                document.getElementById("schlagwortError").style.display = "block";
+                return;
+            }
+            submitForm();
+            
+        }
+    </script>
         
         
         

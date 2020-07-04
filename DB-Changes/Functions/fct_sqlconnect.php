@@ -6,7 +6,7 @@ function get_link(): PDO {
     static $refresh = true;
 
     $host = 'localhost';
-    $port = '3308';
+    $port = '3306';
     $user = 'root';
     $password = '';
     $db = 'druck3ddb';

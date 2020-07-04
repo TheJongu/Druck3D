@@ -25,15 +25,7 @@
                 <title>Bearbeiten</title>
                 <meta charset="UTF-8">
                 <style>
-                    div#nameError{
-                        color: red;
-                        display: none;
-                    }
-                    div#priceError{
-                        color: red;
-                        display: none;
-                    }
-                    div#picturelinkError{
+                    div.errorDescr{
                         color: red;
                         display: none;
                     }
@@ -46,12 +38,12 @@
             </head>
             <body>
         
-                <form action="^./editArtikelSubmit.php" method="GET" id="myForm">
+                <form action="editArtikelSubmit.php" method="GET" id="editArtikelForm">
     <?php           //Vorausgefülltes Formular zum Editieren des Artikels
-                    echo "<label for='name'>Artikelname:</label><input name='name' id='name' type='text' size='15' maxlength='30' placeholder='Name' value='{$name}' title='Name des Artikels' required><div id='nameError'>Der Artikelname existiert bereits.</div><br>";
-                    echo "<label for='price'>Preis:</label><input name='price' id='price' type='text' size='4' maxlength='7' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><div id='priceError'>Bitte geben Sie einen anständigen Preis an.</div><br>";
-                    echo "<label for='picturelink'>Bildpfad:</label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='C:\Beispielpfad\Beispielbild.png' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div id='picturelinkError'>Der Bildpfad existiert bereits.</div><br>";
-                    echo "<label for='description'>Beschreibung:</label><input name='description' id='description' type='text' placeholder='Dies ist ein Artikel' value='{$description}' title='Artikelbeschreibung'><br>";
+                    echo "<label for='name'>Artikelname:</label><input name='name' id='name' type='text' size='15' maxlength='30' placeholder='Name' value='{$name}' title='Name des Artikels' required><div class='errorDescr' id='nameExisting'>Der Artikelname existiert bereits.</div><div class='errorDescr' id='nameError'>Bitte geben Sie kein ' ein.</div><br>";
+                    echo "<label for='price'>Preis:</label><input name='price' id='price' type='text' size='4' maxlength='7' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><div class='errorDescr' id='priceError'>Bitte geben Sie einen gültigen Preis an.</div><br>";
+                    echo "<label for='picturelink'>Bildpfad:</label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='C:\Beispielpfad\Beispielbild.png' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div class='errorDescr' id='picturelinkExisting'>Der Bildpfad existiert bereits.</div><div class='errorDescr' id='picturelinkError'>Bitte geben Sie kein ' ein.</div><br>";
+                    echo "<label for='description'>Beschreibung:</label><input name='description' id='description' type='text' placeholder='Dies ist ein Artikel' value='{$description}' title='Artikelbeschreibung'><div class='errorDescr' id='descriptionError'>Bitte geben Sie kein ' ein.</div><br>";
                     echo "<input type='hidden' name='pk_artikel' id='pk_artikel' value='{$pk_artikel}'>";
                     echo "<input type='button' value='Speichern' onclick='validate()'>";
             echo "</form>";
@@ -61,25 +53,49 @@
 
                     function submitForm()
                     {
-                        document.getElementById("myForm").submit();
+                        document.getElementById("editArtikelForm").submit();
                     }
 
                     const validate = () => {
                         //Reset UI
-                        document.getElementById("nameError").style.display = "none";
-                        document.getElementById("priceError").style.display = "none";
-                        document.getElementById("picturelinkError").style.display = "none";
+                        var errorDescrs = document.getElementsByClassName("errorDescr");
+                        for(var i = 0;i<errorDescrs.length;i++)
+                        {
+                            errorDescrs[i].style.display = "none";
+                        }
 
-                        const pk_artikel = document.getElementById('pk_artikel').value;
+                        const pk_artikel = document.getElementById("pk_artikel").value;
                         const name = document.getElementById("name").value;
                         const price = document.getElementById("price").value;
                         const picturelink = document.getElementById("picturelink").value;
+                        const description = document.getElementById("description").value;
 
+                        const REGEX = /^[^']*$/;
                         const priceREGEX = /^[0-9]{1,4}([.][0-9]{2})?$/;
 
+                        var error_exists = false;
+                        if(!REGEX.test(name))
+                        {
+                            document.getElementById("nameError").style.display = "block";
+                            error_exists = true;
+                        }
                         if(!priceREGEX.test(price))
                         {
                             document.getElementById("priceError").style.display = "block";
+                            error_exists = true;
+                        }
+                        if(!REGEX.test(picturelink))
+                        {
+                            document.getElementById("picturelinkError").style.display = "block";
+                            error_exists = true;
+                        }
+                        if(!REGEX.test(description))
+                        {
+                            document.getElementById("descriptionError").style.display = "block";
+                            error_exists = true;
+                        }
+                        if(error_exists)
+                        {
                             return;
                         }
 
@@ -100,17 +116,17 @@
                         }
                         else if(data == 1){
                             //alert('Der Artikelname und Bild sind bereits vorhanden');
-                            document.getElementById("nameError").style.display = "block";
-                            document.getElementById("picturelinkError").style.display = "block";
+                            document.getElementById("nameExisting").style.display = "block";
+                            document.getElementById("picturelinkExisting").style.display = "block";
                         }
                         else if(data == 2){
                             //alert('Der Artikelname existiert bereits');
-                            document.getElementById("nameError").style.display = "block";
+                            document.getElementById("nameExisting").style.display = "block";
                         }
                         else if(data == 3)
                         {
                             //alert('Der Bildpfad existiert bereits');
-                            document.getElementById("picturelinkError").style.display = "block";
+                            document.getElementById("picturelinkExisting").style.display = "block";
                         }
                         else{
                             alert('Kommunikation zwischen validateArtikel und hier stimmt nicht.');

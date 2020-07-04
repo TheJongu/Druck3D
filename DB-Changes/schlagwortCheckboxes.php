@@ -1,5 +1,5 @@
 
-<form action="schlagwortCheckboxesSubmit.php" method="get">
+<form action="schlagwortCheckboxesSubmit.php" method="GET">
 
     <?php 
         include_once 'Functions/fct_sqlconnect.php'; 
