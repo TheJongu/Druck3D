@@ -53,8 +53,6 @@
           $sqlGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = ? and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
           $handleGetSchlagworte = fill_statement($sqlGetSchlagworte, array($zeile->PK_Artikel));
           $handleGetSchlagworte->execute();
-          //$sqlRequestGetSchlagworte = "SELECT DISTINCT Schlagwort FROM schlagworte, artikel, artikelschlagworte where artikelschlagworte.FK_Artikel = {$zeile->PK_Artikel} and artikelschlagworte.FK_Schlagwort = schlagworte.PK_Schlagwort";
-          //$sqlRequestGetSchlagworteErg = $db_link->query($sqlRequestGetSchlagworte) or die($db_link->error);    //Liest die Datenbank aus
               
           echo "<td>";
               

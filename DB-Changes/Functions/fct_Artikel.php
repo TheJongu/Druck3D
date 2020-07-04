@@ -36,25 +36,6 @@ function articleExists(string $name, string $picturelink, int $pk_article = 0): 
             return ArticleCodes::BOTH_EXIST;
     }
     return ArticleCodes::DOESNT_EXIST;
-    
-    
-    /*$results = $handle->fetchAll(PDO::FETCH_ASSOC);
-    if (sizeof($results) != 0) {
-        
-        foreach ($results as $result) {
-            if ($result['PK_Artikel'] == $pk_article) continue;
-            if ($result['Name'] == $name) $name_exists = true;
-            if ($result['Bildlink'] == $picturelink) $image_exists = true;
-        }
-        if ($name_exists && !$image_exists) {
-            return ArticleCodes::NAME_EXISTS;
-        } else if ($image_exists && !$name_exists) {
-            return ArticleCodes::IMAGE_EXISTS;
-        } else if ($image_exists && $name_exists){
-            return ArticleCodes::BOTH_EXIST;
-        }
-    }
-    return ArticleCodes::DOESNT_EXIST;*/
 }
 
 function articleExistsPK(int $pk_article): bool {
