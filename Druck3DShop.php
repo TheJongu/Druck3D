@@ -1,8 +1,7 @@
 
 <?php
 //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
-
-
+include_once 'DB-Changes/Functions/fct_sqlconnect.php';
 ?>
 
 
@@ -181,146 +180,32 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
+<?php
+                $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel';
+                $handle = fill_statement($sql, array());
+                $handle->execute();
+
+                while ($zeile = $handle->fetch(PDO::FETCH_OBJ))
+                {
+                  ?>
+                  <div class="col-md-3">
+                    <div class="card data" style="width: 16rem">
+                      <?php echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; ?>
+                      <div class="card-body">
+                        <!-- Artikelname Maximal 44 Zeichen!-->
+                        <ul class="list-group list-group-flush">
+                          <?php echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='#' class='card-link'>{$zeile->Name}</a></h5></li>";
+                                echo "<li class='list-group-item text-center'>{$zeile->Preis}</li>";?>
+                        </ul>
+                      </div>  
                     </div>
                   </div>
-                </div>
+                  <?php
+                }
 
-                
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
 
-                
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-3 ">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Bratan</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-            
-
+?>
                   <!--
                   <div class="item">
                     <img class="img-fluid" src="img/Ente_1.jpg" alt="First slide" width="300" height="300">
