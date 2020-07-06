@@ -1,3 +1,12 @@
+
+<?php
+//Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
+
+
+?>
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -34,7 +43,7 @@
               data:"parameter=some_parameter", //Session is set abfrage
              success:function(data)
              {
-               //Session start in einem header.php
+               //Session start
                     $("#thisdiv").html(data);
                  }
           });
