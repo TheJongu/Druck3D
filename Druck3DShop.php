@@ -83,9 +83,12 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="contact.html">Kontakt</a>
           </li>
-            <li class="nav-item">
-              <a href="login.html" class="nav-link" style="color:white"><i class="fa fa-user"></i> Login</a>
-            </li>            
+          <li class="nav-item">
+            <a href="login.html" class="nav-link" style="color:white"><i class="fa fa-user"></i> Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="DB-Changes/displayAllArtikel.php" class="nav-link"></i>Admin</a>
+          </li>            
         </ul>
       </div>
     </div>
@@ -182,6 +185,7 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                 </div-->
 
               <?php
+                //Artikel Anzeigen
                 $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel';
                 $handle = fill_statement($sql, array());
                 $handle->execute();
@@ -196,8 +200,8 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                       <?php echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; ?>
                       <div class="card-body">
                         <!-- Artikelname Maximal 44 Zeichen!-->
-                        <ul class="list-group list-group-flush">
-                          <?php echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='#' class='card-link'>{$zeile->Name}</a></h5></li>";
+                        <ul class="list-group list-group-flush">    <!-- Link sollte eine JQuery anfrage sein, damit man die Methode 'POST' machen kann-->
+                          <?php echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a></h5></li>";
                                 echo "<li class='list-group-item text-center'>{$zeile->Preis} €</li>";?>
                         </ul>
                       </div>  
@@ -206,6 +210,7 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                   <?php
                 }
               ?>
+
                   <!--
                   <div class="item">
                     <img class="img-fluid" src="img/Ente_1.jpg" alt="First slide" width="300" height="300">
