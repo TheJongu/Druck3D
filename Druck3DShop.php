@@ -167,27 +167,29 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
               </div>
 
 
-                <!-- Artikel-->
+                <!-- Artikel>
                 <div class="col-md-3">
                   <div class="card data" style="width: 16rem;">
                     <img class="card-img-top" src="img/Ente_1.jpg" alt="Card image cap">
                     <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!-->
+                      <!-- Artikelname Maximal 44 Zeichen!>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Super sueße Gumminente Mashalla die H&uumlbsche ich k&uumlss dein Auge</a></h5></li>
                         <li class="list-group-item text-center">5,00€</li>
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div-->
 
-<?php
+              <?php
                 $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel';
                 $handle = fill_statement($sql, array());
                 $handle->execute();
 
-                while ($zeile = $handle->fetch(PDO::FETCH_OBJ))
+                $i = 1;
+                while ($i<=12 && $zeile = $handle->fetch(PDO::FETCH_OBJ))
                 {
+                  $i++;
                   ?>
                   <div class="col-md-3">
                     <div class="card data" style="width: 16rem">
@@ -196,16 +198,14 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                         <!-- Artikelname Maximal 44 Zeichen!-->
                         <ul class="list-group list-group-flush">
                           <?php echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='#' class='card-link'>{$zeile->Name}</a></h5></li>";
-                                echo "<li class='list-group-item text-center'>{$zeile->Preis}</li>";?>
+                                echo "<li class='list-group-item text-center'>{$zeile->Preis} €</li>";?>
                         </ul>
                       </div>  
                     </div>
                   </div>
                   <?php
                 }
-
-
-?>
+              ?>
                   <!--
                   <div class="item">
                     <img class="img-fluid" src="img/Ente_1.jpg" alt="First slide" width="300" height="300">
@@ -250,13 +250,13 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
 <!-- Container Ende-->
 </div>
 
-<div>
+<!--div>
   <h1> Button </h1>
   <form method="get" name="form" action="newarticle.php"> 
     <input type="text" placeholder="Enter Data" name="newsite"> 
     <input type="submit" value="Submit"> 
 </form> 
-</div>
+</div-->
 
 
 
