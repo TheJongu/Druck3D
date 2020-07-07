@@ -33,6 +33,7 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
     <!-- Custom JavaScript for this theme -->
     <script src="js/scrolling-nav.js"></script>
 
+    <!-- 
     <script>
       // Check if Session exists via Ajax 
       $(document).ready(function(){
@@ -48,6 +49,8 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
           });
       });
       </script>
+
+    -->
 
 
   </head>
@@ -87,7 +90,7 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
             <a href="login.html" class="nav-link" style="color:white"><i class="fa fa-user"></i> Login</a>
           </li>
           <li class="nav-item">
-            <a href="DB-Changes/displayAllArtikel.php" class="nav-link"></i>Admin</a>
+            <a href="DB-Changes/displayAllArtikel.php" class="nav-link" style="font-size:10px ;"></i>Admin</a>
           </li>            
         </ul>
       </div>
@@ -271,8 +274,8 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                 <ul class="pagination justify-content-center">
                   <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="?Seite=2">2</a></li>
+                  <li class="page-item"><a class="page-link" href="?Seite=3">3</a></li>
                   <li class="page-item"><a class="page-link" href="#">Next</a></li>
                 </ul>
               </nav>
