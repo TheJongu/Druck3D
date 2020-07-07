@@ -186,7 +186,6 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
 
               <?php
                 //Artikel Anzeigen
-                
                 if(isset($_GET['search']) && $_GET['search'] != "")
                 {
                   $search = $_GET['search'];
