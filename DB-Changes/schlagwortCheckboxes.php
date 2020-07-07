@@ -11,7 +11,7 @@
         //Übergebe hidden input, beinhält den Artikel um den es geht
         echo "<input type='hidden' name='pk_artikel' value='{$pk_artikel}'>";
         //Alle Schlagworte
-        $sqlGetSchlagworte = "SELECT Schlagwort FROM schlagworte";
+        $sqlGetSchlagworte = "SELECT Schlagwort FROM schlagworte ORDER BY schlagworte.Schlagwort ASC";
         $handleGetSchlagworte = fill_statement($sqlGetSchlagworte, array());
         $handleGetSchlagworte->execute();
         //Alle angehakten Schlagworte

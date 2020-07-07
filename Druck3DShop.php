@@ -188,7 +188,7 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                 </div-->
 
               <?php
-                //Artikel Anzeigen
+                //Wenn eine Suchanfrage gemacht wurde
                 if(isset($_GET['search']) && $_GET['search'] != "")
                 {
                   $search = $_GET['search'];
@@ -196,46 +196,57 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                   $handlePK_Schlagwort = fill_statement($sqlPK_Schlagwort, array($search));
                   $handlePK_Schlagwort->execute();
 
-                  if($handlePK_Schlagwort->rowCount()>0)
+                  if($handlePK_Schlagwort->rowCount()>0) //Es wurden Artikel zum Schlagwort gefunden
                   {
                     $zeilePK_Schlagwort = $handlePK_Schlagwort->fetch(PDO::FETCH_OBJ);
                     $pk_schlagwort = $zeilePK_Schlagwort->PK_Schlagwort;
-
+                    //Gebe die FK_Artikel für alle Artikel mit dem Schlagwort
                     $sqlFK_Artikel = "SELECT FK_Artikel FROM artikelschlagworte WHERE FK_Schlagwort=?";
                     $handleFK_Artikel = fill_statement($sqlFK_Artikel, array($pk_schlagwort));
                     $handleFK_Artikel->execute();
-
+                    //Aus dem Array ein String für das SQL Statement machen
                     $fk_artikelArray = array();
                     while($zeileFK_Artikel = $handleFK_Artikel->fetch(PDO::FETCH_OBJ))
                     {
                       $fk_artikelArray[] = $zeileFK_Artikel->FK_Artikel;
                     }
                     $fk_artikelString = implode(",",$fk_artikelArray);
-
+                    //Alle Artikel, die das gesuchte Schlagwort haben oder der Name gleich der Suchanfrage ist
                     $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE PK_Artikel IN ({$fk_artikelString}) OR Name=?";
                   }
-                  else
+                  else  //Es gibt kein Artikel mit dem gesuchten Schlagwort, deshalb wird nur auf Name überprüft
                   {
                     $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE Name=?";
                   }
                   $handle = fill_statement($sql, array($search));
-                  $handle->execute();
-                  if($handle->rowCount()<=0)
-                  {
-                    echo "<p>Keine Artikel gefunden...</p>";
-                  }
                 }
-                else
+                else //STANDARFAUFBAU DER SEITE
                 {
                   $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel";
                   $handle = fill_statement($sql, array());
-                  $handle->execute();
                 }
 
-                $i = 1;
-                while ($i<=12 && $zeile = $handle->fetch(PDO::FETCH_OBJ))
+                //Bestimme Produktseite anzeigen
+                if(isset($_GET['Seite']))
                 {
-                  $i++;
+                  $seite = intval($_GET['Seite']);
+                  $limitu = 1+(12*($seite-1));
+                  $limito = $limitu + 11;
+                }
+                else  //Hauptseite
+                {
+                  $limitu = 1;
+                  $limito = 12;
+                }
+                $i = 1;
+                $articleshown = false;
+
+                $handle->execute();
+                while ($zeile = $handle->fetch(PDO::FETCH_OBJ))
+                {
+                  if($i>=$limitu && $i<=$limito)
+                  {
+                    $articleshown = true;
                   ?>
                   <div class="col-md-3">
                     <div class="card data" style="width: 16rem">
@@ -250,6 +261,12 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
                     </div>
                   </div>
                   <?php
+                  }
+                  $i++;
+                }
+                if(!$articleshown)
+                {
+                  echo "<p>Keine Artikel gefunden...</p>";
                 }
               ?>
 
@@ -272,11 +289,33 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
               <!-- Page Navigation -->
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <?php 
+                    if(isset($_GET['Seite']))
+                    {
+                      $seite=intval($_GET['Seite']);
+                      $previous = $seite - 1;
+                      $next = $seite + 1;
+                      if($previous<1)
+                      {
+                        $previous = 1;
+                      }
+                      if($next>3)
+                      {
+                        $next = 3;
+                      }
+                    }
+                    else
+                    {
+                      $next=2;
+                      $previous=1;
+                    }
+
+                  ?>
+                  <?php echo "<li class='page-item'><a class='page-link' href='?Seite={$previous}'>Previous</a></li>"; ?>
+                  <li class="page-item"><a class="page-link" href="Druck3DShop.php">1</a></li>
                   <li class="page-item"><a class="page-link" href="?Seite=2">2</a></li>
                   <li class="page-item"><a class="page-link" href="?Seite=3">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  <?php echo "<li class='page-item'><a class='page-link' href='?Seite={$next}'>Next</a></li>"; ?>
                 </ul>
               </nav>
 

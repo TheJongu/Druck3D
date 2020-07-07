@@ -9,6 +9,6 @@
     //Lösche das Schlagwort
     deleteTagPK($pk_schlagwort);
     //Gehe zurück zur Seite
-    header("Location: ./displayAllArtikel.php");
+    header("Location: ./editSchlagworte.php");
 
 ?>

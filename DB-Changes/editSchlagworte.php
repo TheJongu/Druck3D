@@ -18,7 +18,7 @@
         error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
         include_once 'Functions/fct_sqlconnect.php';
         //Alle Schlagworte holen
-        $sql = "SELECT Schlagwort, PK_Schlagwort FROM schlagworte;";
+        $sql = "SELECT Schlagwort, PK_Schlagwort FROM schlagworte ORDER BY schlagworte.Schlagwort ASC";
         $handle = fill_statement($sql, array());
         $handle->execute();
 

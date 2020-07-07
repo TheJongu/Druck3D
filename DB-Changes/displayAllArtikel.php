@@ -124,5 +124,8 @@
     <form action="./editSchlagworte.php" method="GET">
       <input type="submit" value="Schlagworte hinzufügen/löschen">
     </form>
+    <form action="../Druck3DShop.php" method="GET">
+      <input type="submit" value="Startseite">
+    </form>
   </body>
 </html>
