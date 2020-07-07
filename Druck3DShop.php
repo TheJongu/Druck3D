@@ -59,7 +59,7 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
     <div class="container">
       <ol class="navbar-nav mr-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
         <li class="nav-item">
-            <a class="navbar-brand js-scroll-trigger " href="Druck3DShop.html">Druck 3D Shop</a>
+            <a class="navbar-brand js-scroll-trigger " href="Druck3DShop.php">Druck 3D Shop</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
@@ -186,9 +186,49 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
 
               <?php
                 //Artikel Anzeigen
-                $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel';
-                $handle = fill_statement($sql, array());
-                $handle->execute();
+                
+                if(isset($_GET['search']) && $_GET['search'] != "")
+                {
+                  $search = $_GET['search'];
+                  $sqlPK_Schlagwort = "SELECT PK_Schlagwort FROM schlagworte WHERE Schlagwort=?";
+                  $handlePK_Schlagwort = fill_statement($sqlPK_Schlagwort, array($search));
+                  $handlePK_Schlagwort->execute();
+
+                  if($handlePK_Schlagwort->rowCount()>0)
+                  {
+                    $zeilePK_Schlagwort = $handlePK_Schlagwort->fetch(PDO::FETCH_OBJ);
+                    $pk_schlagwort = $zeilePK_Schlagwort->PK_Schlagwort;
+
+                    $sqlFK_Artikel = "SELECT FK_Artikel FROM artikelschlagworte WHERE FK_Schlagwort=?";
+                    $handleFK_Artikel = fill_statement($sqlFK_Artikel, array($pk_schlagwort));
+                    $handleFK_Artikel->execute();
+
+                    $fk_artikelArray = array();
+                    while($zeileFK_Artikel = $handleFK_Artikel->fetch(PDO::FETCH_OBJ))
+                    {
+                      $fk_artikelArray[] = $zeileFK_Artikel->FK_Artikel;
+                    }
+                    $fk_artikelString = implode(",",$fk_artikelArray);
+
+                    $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE PK_Artikel IN ({$fk_artikelString}) OR Name=?";
+                  }
+                  else
+                  {
+                    $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE Name=?";
+                  }
+                  $handle = fill_statement($sql, array($search));
+                  $handle->execute();
+                  if($handle->rowCount()<=0)
+                  {
+                    echo "<p>Keine Artikel gefunden...</p>";
+                  }
+                }
+                else
+                {
+                  $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel";
+                  $handle = fill_statement($sql, array());
+                  $handle->execute();
+                }
 
                 $i = 1;
                 while ($i<=12 && $zeile = $handle->fetch(PDO::FETCH_OBJ))
