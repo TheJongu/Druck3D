@@ -1,6 +1,3 @@
-<?php
-    include_once 'DB-Changes/Functions/fct_sqlconnect.php';
-?>
 <!Doctype html>
 <html>
     <head>
@@ -111,9 +108,8 @@
                 resetUI();
 
                 var error_existing = false;
-                pw_false = checkPW();
-                
                 type_error = checkallinput();
+                pw_false = checkPW();
                 
                 error_existing = pw_false || type_error;
 
