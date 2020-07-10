@@ -1,5 +1,11 @@
 <?php
     include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+    session_start();
+    $logged_in = false;
+    if(!isset($_SESSION['username']))
+    {
+      $logged_in = true;
+    }
 
     $pk_artikel = $_GET['pk_artikel'];
 
@@ -94,12 +100,26 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="contact.html">Kontakt</a>
           </li>
-          <li class="nav-item">
-            <a href="login.html" class="nav-link" style="color:white"><i class="fa fa-user"></i> Login</a>
-          </li>
-          <li class="nav-item">
-            <a href="DB-Changes/displayAllArtikel.php" class="nav-link" style="font-size:10px ;"></i>Admin</a>
-          </li>            
+          <?php
+            if($logged_in)
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='login.html' class='nav-link' style='color:white'><i class='fa fa-user'></i> Login</a>";
+              echo "</li>";
+            }
+            else
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='logout.php' class='nav-link' style='color:white'><i class='fa fa-user'></i> Logout</a>";
+              echo "</li>";
+              if(isset($_SESSION['sclass']) && $_SESSION['sclass']==1)
+              {
+                echo "<li class='nav-item'>";
+                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:10px ;'></i>Admin</a>";
+                echo "</li>";
+              }
+            }
+          ?>           
         </ul>
       </div>
     </div>
