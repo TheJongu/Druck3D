@@ -18,7 +18,7 @@
     <body>
         <form action="newUserSubmit.php" method="POST" id="newUserForm">
             <label for="username">Benutzername:</label><input type="text" name="username" id="username" placeholder="Username" title="Benutzername"><div class="errorDescr" id="usernameError">Bitte kein ' eingeben.</div><div class="errorDescr" id="missingUsername">Bitte geben Sie einen Namen an.</div><div class="errorDescr" id="usernameExisting">Dieser Benutzername ist bereits vergeben.</div><br>
-            <label for="email">E-Mail:</label><input type="text" name="email" id="email" placeholder="email@example.com" title="E-Mail"><div class="errorDescr" id="emailError">Bitte kein ' eingeben.</div><div class="errorDescr" id="missingEmail">Bitte geben Sie eine E-Mail an.</div><br>
+            <label for="email">E-Mail:</label><input type="text" name="email" id="email" placeholder="email@example.com" title="E-Mail"><div class="errorDescr" id="emailError">Bitte geben Sie eine gültige E-Mail Adresse an.</div><br>
             <label for="password">Passwort:</label><input type="password" name="password" id="password" placeholder="Passwort eingeben" title="Passwort"><div class="errorDescr" id="passwordError">Bitte kein ' eingeben.</div><div class="errorDescr" id="missingPassword">Bitte geben Sie ein Passwort ein.</div><br>
             <label for="valpassword">Bestätigen:</label><input type="password" name="valpassword" id="valpassword" placeholder="Passwort bestätigen"><div class="errorDescr" id="passwordSame">Passwörter stimmen nicht überein</div><br>
             <input type="button" value="Jetzt Registrieren" onclick="validate()">
@@ -75,12 +75,7 @@
                     error = true;
                 }
                 
-                if(email=="")
-                {
-                    document.getElementById("missingEmail").style.display = "block";
-                    error = true;
-                }
-                else if(!EMAILREGEX.test(email))
+                if(!EMAILREGEX.test(email))
                 {
                     document.getElementById("emailError").style.display = "block";
                     error = true;
