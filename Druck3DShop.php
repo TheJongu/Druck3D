@@ -1,7 +1,13 @@
 
 <?php
-//Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
-include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+  //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
+  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+  session_start();
+  $logged_in = false;
+  if(isset($_SESSION['username']))
+  {
+    $logged_in = true;
+  }
 ?>
 
 
@@ -67,6 +73,14 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
               <span class="navbar-toggler-icon"></span>
               </button>
         </li>
+        <?php
+          if($logged_in)
+          {
+            echo "<li class='nav-item'>";
+            echo "<p style='color:white'>Hallo {$_SESSION['username']}</p>";
+            echo "</li>";
+          }
+        ?>
         <li class="nav-item search-bar">
           <form>
             <div class="input-group">
@@ -86,12 +100,26 @@ include_once 'DB-Changes/Functions/fct_sqlconnect.php';
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="contact.html">Kontakt</a>
           </li>
-          <li class="nav-item">
-            <a href="login.html" class="nav-link" style="color:white"><i class="fa fa-user"></i> Login</a>
-          </li>
-          <li class="nav-item">
-            <a href="DB-Changes/displayAllArtikel.php" class="nav-link" style="font-size:10px ;"></i>Admin</a>
-          </li>            
+          <?php
+            if(!$logged_in)
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='login.html' class='nav-link' style='color:white'><i class='fa fa-user'></i> Login</a>";
+              echo "</li>";
+            }
+            else
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='logout.php' class='nav-link' style='color:white'><i class='fa fa-user'></i> Logout</a>";
+              echo "</li>";
+              if($_SESSION['sclass']==1)
+              {
+                echo "<li class='nav-item'>";
+                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:10px ;'></i>Admin</a>";
+                echo "</li>";
+              }
+            }
+          ?>
         </ul>
       </div>
     </div>

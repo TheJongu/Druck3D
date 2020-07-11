@@ -1,12 +1,8 @@
 <?php
-    include_once 'DB-Changes/Functions/fct_sqlconnect.php';
-
+    header("Location: login.html");
+    include_once 'fct_User.php';
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password =password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $sql = "INSERT INTO nutzer (Username, Email, Password, Rechteklasse) VALUES (?, ?, ?, 1)";
-    $handle = fill_statement($sql, array($username, $email, $password));
-    $handle->execute();
-
-    header("Location: login.html");
+    $password = $_POST['password'];
+    new_User($username, $email, $password);
 ?>

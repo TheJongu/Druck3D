@@ -62,6 +62,7 @@
 
             function resetUI()
             {
+                //Blendet alle Fehlermeldungen aus
                 var errorDescrs = document.getElementsByClassName("errorDescr");
                 for(var i = 0;i<errorDescrs.length;i++)
                 {
@@ -70,7 +71,6 @@
             }
 
             const validate = () => {
-                //Reset UI
                 resetUI();
 
                 const name = document.getElementById("name").value;
@@ -112,7 +112,7 @@
                 type: "GET",
                 url: 'Functions/validateArtikel.php',
                 data: { name: name,
-                        picturelink: picturelink,
+                        picturelink: picturelink
                       },
                 async: true
             }).done(function(data){
