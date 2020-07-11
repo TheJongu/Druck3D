@@ -9,7 +9,7 @@
         $handle->execute();
     }
 
-    function validate_User($username, $password)
+    function validate_Password($username, $password)
     {   
         if(username_Exists($username))
         {   
@@ -17,10 +17,7 @@
             $handle = fill_statement($sql, array($username));
             $handle->execute();
             $zeile = $handle->fetch(PDO::FETCH_OBJ);
-            if(password_verify($password, $zeile->Password))
-            {
-                return true;
-            }
+            return password_verify($password, $zeile->Password);
         }
         return false;
     }
@@ -51,6 +48,13 @@
 
         return $zeile->Rechteklasse;
 
+    }
+
+    function change_Password($username, $password)
+    {
+        $sql = "UPDATE nutzer SET Password = ? WHERE Username = ?";
+        $handle = fill_statement($sql, $password, $username);
+        $handle->execute();
     }
 
 

@@ -97,12 +97,12 @@
                   </div>
               
                   <!-- Login Form -->
-                  <form action="login.php" method="POST">
-                    <input type="text" id="loginform" class="fadeIn second" name="username" placeholder="Nutzername">
-                    <input type="text" id="loginform" class="fadeIn third" name="password" placeholder="Passwort">
-                    <input type="submit" id="loginform" class="fadeIn fourth" value="Log In">
+                  <form action="createSession.php" method="POST" id="myForm">
+                    <input type="text" id="loginform" class="fadeIn second" name="username" placeholder="Nutzername"><div style="color:red;display:none" class="errorDescr" id="usernameError">Der Benutzername existiert nicht.</div>
+                    <input type="text" id="loginform" class="fadeIn third" name="password" placeholder="Passwort"><div style="color:red;display:none" class="errorDescr" id="passwordError">Das Passwort ist falsch.</div>
+                    <input type="button" id="loginform" class="fadeIn fourth" value="Log In" onclick="validate()">
                   </form>
-              
+
                   <!-- Remind Passowrd -->
                   <div id="formFooter">
                     <a class="underlineHover" href="newUser.html">Noch kein Kunde? Jetzt Registrieren!</a>
@@ -116,7 +116,57 @@
           </div>
         </div>
   </div>
+<script>
+  function submitForm()
+  {
+    document.getElementById("myForm").submit();
+  }
 
+  function resetUI()
+  {
+    var errorDescrs = document.getElementsByClassName("errorDescr");
+    for(var i = 0;i<errorDescrs.length;i++)
+    {
+      errorDescrs[i].style.display = "none";
+    }
+  }
+
+  const validate = () => {
+    resetUI();
+
+    var usernameArray = document.getElementsByName("username");
+    var username = usernameArray[0].value;
+    var passwordArray = document.getElementsByName("password");
+    var password = passwordArray[0].value;
+
+    var a = $.ajax({
+      type: "POST",
+      url: "validateLogin.php",
+      data: {
+        username: username,
+        password: password
+      },
+      async: true
+    }).done(function(data){
+
+      if(data == 0) //Kein Fehler
+      {
+        submitForm();
+      }
+      else if(data == 1) //Username nicht vorhanden
+      {
+        document.getElementById("usernameError").style.display = "block";
+        usernameArray[0].value = "";
+        passwordArray[0].value = "";
+      }
+      else if(data == 2) //Passwort ist falsch
+      {
+        document.getElementById("passwordError").style.display = "block";
+        passwordArray[0].value = "";
+      }
+    })
+  }
+</script>
 
 
   
