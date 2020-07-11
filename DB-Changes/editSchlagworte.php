@@ -28,7 +28,7 @@
             ?><form action="editSchlagworteDelete.php" method="get"><?php
             //Printe Button und Name des Schlagwortes, welches der Button löscht
             echo "<input type='hidden' name='pk_schlagwort' value='{$zeile->PK_Schlagwort}'>"; 
-            echo "<br><input type='submit' value='Löschen'/>    ";
+            echo "<input type='submit' value='Löschen'/>    ";
             echo "$zeile->Schlagwort";
             ?></form><?php
         }

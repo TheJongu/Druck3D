@@ -9,7 +9,7 @@
 
     $pk_artikel = $_GET['pk_artikel'];
 
-    $sql = "SELECT Name, Preis, Bildlink, Beschreibung FROM Artikel WHERE artikel.PK_Artikel = ?";
+    $sql = "SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung FROM Artikel WHERE artikel.PK_Artikel = ?";
     $handle = fill_statement($sql, array($pk_artikel));
     $handle->execute();
     $zeile = $handle->fetch(PDO::FETCH_OBJ);
@@ -166,7 +166,20 @@
                     echo "<h3>Beschreibung</h3>";
                     echo "<p>{$zeile->Beschreibung}</p>";
                     echo "<h3>Preis {$zeile->Preis} €</h3>";
-                    ?>
+                    if($logged_in){
+                    ?>  
+                    <form action="addusercart.php" method="GET">
+                      <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
+                      <?php echo "<input type='hidden' name='pk_nutzer' value='{$_SESSION['userid']}'>"; ?>
+                      <input type="submit" value="In den Warenkorb">
+                    </form>
+                    <?php }else{ ?>
+                      <form action="login.html" method="GET">
+                      <input type="submit" value="In den Warenkorb">
+                    </form>
+
+
+                      <?php } ?>
                     </div>
 
 

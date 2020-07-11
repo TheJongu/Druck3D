@@ -20,11 +20,5 @@ function addArticleToUserCart($pk_user, $pk_article) {
     $handle->execute();
 }
 
-function getFullUserCart($pk_user) {
-    $sql = 'SELECT artikel.PK_Artikel, artikel.Name, artikel.Preis, artikel.Bildlink, Beschreibung FROM artikel, warenkorbartikel, nutzer WHERE artikel.PK_Artikel = warenkorbartikel.FK_Artikel AND nutzer.PK_Nutzer = warenkorbartikel.FK_Nutzer;';
-    $handle = fill_statement($sql, array($pk_user, $pk_article));
-    $handle->execute();
-}
-
 ?>
     

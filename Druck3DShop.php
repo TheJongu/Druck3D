@@ -112,11 +112,15 @@
               echo "<li class='nav-item'>";
               echo "<a href='logout.php' class='nav-link' style='color:white'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
+              echo "<li class='nav-item'>";
+                echo "<a href='cart.php' class='nav-link' style='font-size:200px ;'></i>Warenkorb</a>";
+                echo "</li>";
               if($_SESSION['sclass']==1)
               {
                 echo "<li class='nav-item'>";
                 echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:10px ;'></i>Admin</a>";
                 echo "</li>";
+                
               }
             }
           ?>
