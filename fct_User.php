@@ -53,10 +53,18 @@
     function change_Password($username, $password)
     {
         $sql = "UPDATE nutzer SET Password = ? WHERE Username = ?";
-        $handle = fill_statement($sql, $password, $username);
+        $handle = fill_statement($sql, array($password, $username));
         $handle->execute();
     }
 
+    function getUserID($username)
+    {
+        $sql = "SELECT PK_Nutzer FROM nutzer WHERE Username = ?";
+        $handle = fill_statement($sql, array($username));
+        $handle->execute();
+        $zeile = $handle->fetch(PDO::FETCH_OBJ);
+        return $zeile->PK_Nutzer;
+    }
 
 
 ?>

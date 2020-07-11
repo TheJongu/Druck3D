@@ -4,8 +4,10 @@
     $username = $_POST['username'];
 
     header("Location: Druck3DShop.php");
+    $userid = getUserID($username);
     $sclass = get_Rechteklasse($username);
     session_start();
+    $_SESSION['userid'] = $userid;
     $_SESSION['username'] = $username;
     $_SESSION['sclass'] = $sclass;
 ?>

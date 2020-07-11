@@ -112,7 +112,7 @@
               echo "<li class='nav-item'>";
               echo "<a href='logout.php' class='nav-link' style='color:white'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
-              if(isset($_SESSION['sclass']) && $_SESSION['sclass']==1)
+              if($_SESSION['sclass']==1)
               {
                 echo "<li class='nav-item'>";
                 echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:10px ;'></i>Admin</a>";
