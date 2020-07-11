@@ -1,6 +1,8 @@
 <?php
     include 'fct_User.php';
     
+    $username = $_POST['username'];
+
     header("Location: Druck3DShop.php");
     $sclass = get_Rechteklasse($username);
     session_start();

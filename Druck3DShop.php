@@ -4,7 +4,7 @@
   include_once 'DB-Changes/Functions/fct_sqlconnect.php';
   session_start();
   $logged_in = false;
-  if(!isset($_SESSION['username']))
+  if(isset($_SESSION['username']))
   {
     $logged_in = true;
   }
@@ -73,6 +73,14 @@
               <span class="navbar-toggler-icon"></span>
               </button>
         </li>
+        <?php
+          if($logged_in)
+          {
+            echo "<li class='nav-item'>";
+            echo "<p style='color:white'>Hallo {$_SESSION['username']}</p>";
+            echo "</li>";
+          }
+        ?>
         <li class="nav-item search-bar">
           <form>
             <div class="input-group">
@@ -93,7 +101,7 @@
             <a class="nav-link js-scroll-trigger" href="contact.html">Kontakt</a>
           </li>
           <?php
-            if($logged_in)
+            if(!$logged_in)
             {
               echo "<li class='nav-item'>";
               echo "<a href='login.html' class='nav-link' style='color:white'><i class='fa fa-user'></i> Login</a>";
