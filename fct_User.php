@@ -4,7 +4,7 @@
     function new_User($username, $email, $password)
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO nutzer (Username, Email, Password, Rechteklasse) VALUES (?, ?, ?, 1)";
+        $sql = "INSERT INTO nutzer (Username, Email, Password, Rechteklasse) VALUES (?, ?, ?)";
         $handle = fill_statement($sql, array($username, $email, $password));
         $handle->execute();
     }

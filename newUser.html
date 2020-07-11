@@ -57,6 +57,7 @@
             function checkallinput()
             {
                 const REGEX = /^[^']*$/;
+                const EMAILREGEX = /^[^']+@[^']+\.[^']+$/;
                 var error = false;
 
                 const username = document.getElementById("username").value;
@@ -79,7 +80,7 @@
                     document.getElementById("missingEmail").style.display = "block";
                     error = true;
                 }
-                else if(!REGEX.test(email))
+                else if(!EMAILREGEX.test(email))
                 {
                     document.getElementById("emailError").style.display = "block";
                     error = true;
