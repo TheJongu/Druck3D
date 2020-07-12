@@ -9,9 +9,9 @@ abstract class ArticleCodes {
     const IMAGE_EXISTS = 3;
 }
 
-function insertArticle(string $name, float $price, string $picture_link, string $description) {
-    $sql = 'INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung) VALUES (NULL, ?, ?, ?, ?)';
-    $handle = fill_statement($sql, array($name, $price, $picture_link, $description));
+function insertArticle(string $name, float $price, string $picture_link, string $description, int $onsale) {
+    $sql = 'INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung, Onsale) VALUES (NULL, ?, ?, ?, ?, ?)';
+    $handle = fill_statement($sql, array($name, $price, $picture_link, $description, $onsale));
     $handle->execute();
 }
 
@@ -58,11 +58,8 @@ function deleteArticle(int $pk_article) {
     }
 }
 
-function editArticle(int $pk_article, string $name, float $price, string $image_link, string $description) {
-      $sql = 'UPDATE artikel SET Name = ?, Preis = ?, Bildlink = ?, Beschreibung = ? WHERE artikel.PK_Artikel = ?';
-      $handle = fill_statement($sql, array($name, $price, $image_link, $description, $pk_article));
+function editArticle(int $pk_article, string $name, float $price, string $image_link, string $description, int $onsale) {
+      $sql = 'UPDATE artikel SET Name = ?, Preis = ?, Bildlink = ?, Beschreibung = ?, Onsale = ? WHERE artikel.PK_Artikel = ?';
+      $handle = fill_statement($sql, array($name, $price, $image_link, $description, $onsale, $pk_article));
       $handle->execute();
 }
-
-
-

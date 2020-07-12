@@ -113,12 +113,12 @@
               echo "<a href='logout.php' class='nav-link' style='color:white'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
               echo "<li class='nav-item'>";
-                echo "<a href='cart.php' class='nav-link' style='font-size:200px ;'></i>Warenkorb</a>";
+                echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
                 echo "</li>";
               if($_SESSION['sclass']==1)
               {
                 echo "<li class='nav-item'>";
-                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:10px ;'></i>Admin</a>";
+                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
                 echo "</li>";
                 
               }
@@ -177,22 +177,62 @@
                 <div class="col-md-12">
                   <h1 class="text-center" style="padding-bottom: 15px;"> Diese Woche im Angebot!</h1>
                   <div id="slides" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
+                    <!--ol class="carousel-indicators">
                       <li data-target="#slides" data-slide-to="0" class="active"></li>
                       <li data-target="#slides" data-slide-to="1"> </li>
                       <li data-target="#slides" data-slide-to="2"> </li>
                     </ol> 
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
+                      <div class="carousel-item  active">
                         <img class="d-block d-100 mx-auto" src="img/Ente_1.jpg" alt="First slide" width="300" height="300">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block d-100 mx-auto" src="img/cybertruck.jpg" alt="Second slide" width="300" height="300">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block d-100 mx-auto" src="img/Ente_3.jpg" alt="Second slide" width="300" height="300">
+                      </div-->
+                      <?php
+                      $sql = "SELECT PK_Artikel, Name, Bildlink FROM artikel WHERE Onsale = 1";
+                      $handle = fill_statement($sql, array());
+                      $handle->execute();
+                      $handle->rowCount();
+                      
+                      $firsttime = true;
+                      echo "<ol class='carousel-indicators'>";
+                      for($zaehler=0;$zaehler<$handle->rowCount();$zaehler++)
+                      {
+                        if($firsttime)
+                        {
+                          echo "<li data-target='#slides' data-slide-to='{$zaehler}' class='active'></li>";
+                        }
+                        else
+                        {
+                          echo "<li data-target='#slides' data-slide-to='1'> </li>";
+                        }
+                      }
+                      echo "</ol>";
+                      echo "<div class='carousel-inner'>";
+                      $firsttime = true;
+                      while($zeile = $handle->fetch(PDO::FETCH_OBJ))
+                      {
+                        if($firsttime)
+                        {
+                          echo "<div class='carousel-item  active'>";
+                          echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
+                          echo "</div>";
+                        }
+                        else
+                        {
+                          echo "<div class='carousel-item'>";
+                          echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
+                          echo "</div>";
+                        }
+                        $firsttime = false;
+                      }
+                      
+                    ?>
                     </div>
-                    <div class="carousel-item">
-                      <img class="d-block d-100 mx-auto" src="img/Ente_2.jpg" alt="Second slide" width="300" height="300">
-                    </div>
-                    <div class="carousel-item">
-                      <img class="d-block d-100 mx-auto" src="img/Ente_3.jpg" alt="Third slide" width="300" height="300">
-                    </div>
-                  </div>
                   <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>

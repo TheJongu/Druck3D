@@ -49,6 +49,7 @@
         <form action="./insert.php" method="GET" class="form-container" id="myForm"> <!--Method sollte später POST sein-->
         <label for="name">Artikelname:</label><input name="name" id="name" type="text" size="15" maxlength="30" placeholder="Name" title="Name des Artikels"><div class="errorDescr" id="nameExisting">Der Artikelname existiert bereits.</div><div class="errorDescr" id="nameError">Bitte gebe Sie kein ' ein.</div><br>
         <label for="price">Preis:</label><input name="price" id="price" type="text" size="4" maxlength="7" placeholder="0000.00" title="Preis des Artikels"><div class="errorDescr" id="priceError">Bitte geben Sie einen anständigen Preis an.</div><br>
+        <label for="onsale">Im Angebot</label><input type="checkbox" name="onsale" id="onsale"><br>
         <label for="picturelink">Bildpfad:</label><input name="picturelink" id="picturelink" type="text" size="30" maxlength="70" placeholder="C:\Beispielpfad\Beispielbild.png" title="Dateipfad des Artikelbildes"><div class="errorDescr" id="picturelinkExisting">Der Artikelname existiert bereits.</div><div class="errorDescr" id="picturelinkError">Bitte gebe Sie kein ' ein.</div><br>
         <label for="description">Beschreibung:</label><input name="description" id="description" type="text" placeholder="Dies ist ein Artikel" title="Artikelbeschreibung"><div class="errorDescr" id="descriptionError">Bitte gebe Sie kein ' ein.</div><br>
         <input type="button" value="Reinpumpen" onclick="validate()">

@@ -3,10 +3,17 @@
 
     $name = $_GET['name'];
     $price = $_GET['price'];
+    $onsale = 0;
     $picturelink = $_GET['picturelink'];
     $description = $_GET['description'];
+    
+    if(isset($_GET['onsale']))
+    {
+        $onsale = 1;
+    }
 
-    insertArticle($name, $price, $picturelink, $description);
+    
+    insertArticle($name, $price, $picturelink, $description, $onsale);
 
     if(true)  
     {

@@ -2,7 +2,7 @@
     include_once 'Functions/fct_sqlconnect.php';
     //SQL-Anfrage, um das Formular schon vorauszufüllen
     $pk_artikel = $_GET['pk_artikel'];
-    $sql = "SELECT Name, Preis, Bildlink, Beschreibung  FROM Artikel WHERE artikel.PK_Artikel = ?";
+    $sql = "SELECT Name, Preis, Bildlink, Beschreibung, Onsale FROM Artikel WHERE artikel.PK_Artikel = ?";
     $handle = fill_statement($sql, array($pk_artikel));
     $handle->execute();
 
@@ -17,6 +17,7 @@
 
         $name = $zeile->Name;
         $price = $zeile->Preis;
+        $onsale = $zeile->Onsale;
         $picturelink = $zeile->Bildlink;
         $description = $zeile->Beschreibung;
 ?>
@@ -42,11 +43,19 @@
     <?php           //Vorausgefülltes Formular zum Editieren des Artikels
                     echo "<label for='name'>Artikelname:</label><input name='name' id='name' type='text' size='15' maxlength='30' placeholder='Name' value='{$name}' title='Name des Artikels' required><div class='errorDescr' id='nameExisting'>Der Artikelname existiert bereits.</div><div class='errorDescr' id='nameError'>Bitte geben Sie kein ' ein.</div><br>";
                     echo "<label for='price'>Preis:</label><input name='price' id='price' type='text' size='4' maxlength='7' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><div class='errorDescr' id='priceError'>Bitte geben Sie einen gültigen Preis an.</div><br>";
+                    if($onsale)
+                    {
+                        echo "<label for='onsale'>Im Angebot</label><input type='checkbox' name='onsale' id='onsale' checked><br>";
+                    }
+                    else
+                    {
+                        echo "<label for='onsale'>Im Angebot</label><input type='checkbox' name='onsale' id='onsale'><br>";
+                    }
                     echo "<label for='picturelink'>Bildpfad:</label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='C:\Beispielpfad\Beispielbild.png' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div class='errorDescr' id='picturelinkExisting'>Der Bildpfad existiert bereits.</div><div class='errorDescr' id='picturelinkError'>Bitte geben Sie kein ' ein.</div><br>";
                     echo "<label for='description'>Beschreibung:</label><input name='description' id='description' type='text' placeholder='Dies ist ein Artikel' value='{$description}' title='Artikelbeschreibung'><div class='errorDescr' id='descriptionError'>Bitte geben Sie kein ' ein.</div><br>";
                     echo "<input type='hidden' name='pk_artikel' id='pk_artikel' value='{$pk_artikel}'>";
                     echo "<input type='button' value='Speichern' onclick='validate()'>";
-            echo "</form>";
+                echo "</form>";
     
 ?>
                 <script>
