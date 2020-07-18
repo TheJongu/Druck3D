@@ -175,89 +175,67 @@
 
                 <!-- Image Slider-->
                 <div class="col-md-12">
-                  <h1 class="text-center" style="padding-bottom: 15px;"> Diese Woche im Angebot!</h1>
-                  <div id="slides" class="carousel slide" data-ride="carousel">
-                    <!--ol class="carousel-indicators">
-                      <li data-target="#slides" data-slide-to="0" class="active"></li>
-                      <li data-target="#slides" data-slide-to="1"> </li>
-                      <li data-target="#slides" data-slide-to="2"> </li>
-                    </ol> 
-                    <div class="carousel-inner">
-                      <div class="carousel-item  active">
-                        <img class="d-block d-100 mx-auto" src="img/Ente_1.jpg" alt="First slide" width="300" height="300">
-                      </div>
-                      <div class="carousel-item">
-                        <img class="d-block d-100 mx-auto" src="img/cybertruck.jpg" alt="Second slide" width="300" height="300">
-                      </div>
-                      <div class="carousel-item">
-                        <img class="d-block d-100 mx-auto" src="img/Ente_3.jpg" alt="Second slide" width="300" height="300">
-                      </div-->
                       <?php
                       $sql = "SELECT PK_Artikel, Name, Bildlink FROM artikel WHERE Onsale = 1";
                       $handle = fill_statement($sql, array());
                       $handle->execute();
-                      $handle->rowCount();
                       
-                      $firsttime = true;
-                      echo "<ol class='carousel-indicators'>";
-                      for($zaehler=0;$zaehler<$handle->rowCount();$zaehler++)
+                      if($handle->rowCount()>0)
                       {
-                        if($firsttime)
+                        ?>
+                          <h1 class="text-center" style="padding-bottom: 15px;"> Diese Woche im Angebot!</h1>
+                            <div id="slides" class="carousel slide" data-ride="carousel">
+                              <ol class='carousel-indicators'>
+                        <?php
+                        $firsttime = true;
+                        for($zaehler=0;$zaehler<$handle->rowCount();$zaehler++)
                         {
-                          echo "<li data-target='#slides' data-slide-to='{$zaehler}' class='active'></li>";
+                          //Slidenavigierer
+                          if($firsttime)
+                          {
+                            echo "<li data-target='#slides' data-slide-to='{$zaehler}' class='active'></li>";
+                          }
+                          else
+                          {
+                            echo "<li data-target='#slides' data-slide-to='1'> </li>";
+                          }
                         }
-                        else
+                        echo "</ol>";
+                        echo "<div class='carousel-inner'>";
+                        $firsttime = true;
+                        while($zeile = $handle->fetch(PDO::FETCH_OBJ))
                         {
-                          echo "<li data-target='#slides' data-slide-to='1'> </li>";
+                          //Einzelnen Bilder der Artikel im Angebot
+                          if($firsttime)
+                          {
+                            echo "<div class='carousel-item  active'>";
+                            echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
+                            echo "</div>";
+                          }
+                          else
+                          {
+                            echo "<div class='carousel-item'>";
+                            echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
+                            echo "</div>";
+                          }
+                          $firsttime = false;
                         }
+                        ?>
+                          <!--Slidersteuerung-->
+                          </div>
+                            <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#slides" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+                        <?php
                       }
-                      echo "</ol>";
-                      echo "<div class='carousel-inner'>";
-                      $firsttime = true;
-                      while($zeile = $handle->fetch(PDO::FETCH_OBJ))
-                      {
-                        if($firsttime)
-                        {
-                          echo "<div class='carousel-item  active'>";
-                          echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
-                          echo "</div>";
-                        }
-                        else
-                        {
-                          echo "<div class='carousel-item'>";
-                          echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
-                          echo "</div>";
-                        }
-                        $firsttime = false;
-                      }
-                      
                     ?>
-                    </div>
-                  <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#slides" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
-              </div>
-
-
-                <!-- Artikel>
-                <div class="col-md-3">
-                  <div class="card data" style="width: 16rem;">
-                    <img class="card-img-top" src="img/Ente_1.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <!-- Artikelname Maximal 44 Zeichen!>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="card-title text-center"> <a href="#" class="card-link">Super sueße Gumminente Mashalla die H&uumlbsche ich k&uumlss dein Auge</a></h5></li>
-                        <li class="list-group-item text-center">5,00€</li>
-                      </ul>
-                    </div>
                   </div>
-                </div-->
 
               <?php
                 //Wenn eine Suchanfrage gemacht wurde
