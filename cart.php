@@ -97,8 +97,8 @@
     <form action="Druck3DShop.php" method="GET">
       <input type="submit" value="Startseite">
     </form>
-    <form action="buy.php" method="GET">
-      <input type="button" value="ALLES KAUFEN, SOFORT">
+    <form action="deliverEmail.php" method="GET">
+      <input type="submit" value="ALLES KAUFEN, SOFORT">
     </form>
   </body>
 </html>
