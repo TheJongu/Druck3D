@@ -2,13 +2,6 @@
 include_once 'fct_sqlconnect.php';
 include_once 'fct_ArtikelSchlagworte.php';
 
-abstract class ArticleCodes {
-    const DOESNT_EXIST = 0;
-    const BOTH_EXIST = 1;
-    const NAME_EXISTS = 2;
-    const IMAGE_EXISTS = 3;
-}
-
 function insertArticle(string $name, float $price, string $picture_link, string $description, int $onsale) {
     $sql = 'INSERT INTO artikel (PK_Artikel, Name, Preis, Bildlink, Beschreibung, Onsale) VALUES (NULL, ?, ?, ?, ?, ?)';
     $handle = fill_statement($sql, array($name, $price, $picture_link, $description, $onsale));
@@ -28,14 +21,14 @@ function articleExists(string $name, string $picturelink, int $pk_article = 0): 
         if ($result->Name == $name) $name_exists = true;
         if ($result->Bildlink == $picturelink) $image_exists = true;
         }
-        if ($name_exists && !$image_exists) {
-            return ArticleCodes::NAME_EXISTS;
-        } else if ($image_exists && !$name_exists) {
-            return ArticleCodes::IMAGE_EXISTS;
-        } else if ($image_exists && $name_exists){
-            return ArticleCodes::BOTH_EXIST;
+        if ($name_exists && !$image_exists) {           //Name existiert
+            return 2;
+        } else if ($image_exists && !$name_exists) {    //Bild existiert
+            return 3;
+        } else if ($image_exists && $name_exists){      //Name und Bild existiert
+            return 1;
     }
-    return ArticleCodes::DOESNT_EXIST;
+    return 0;                                           //Artikel existiert nicht
 }
 
 function articleExistsPK(int $pk_article): bool {
