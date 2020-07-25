@@ -42,7 +42,7 @@
 
           <!-- Navigation -->
 
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
       <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
         <li class="nav-item">
@@ -76,6 +76,9 @@
           </li> 
           <li class="nav-item">
             <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="contact.php">Kontakt</a>
           </li>
           <?php
             if(!$logged_in)
@@ -156,7 +159,7 @@
           </div>
         </div>
   </div>
-  
+
 <script>
   function submitForm()
   {

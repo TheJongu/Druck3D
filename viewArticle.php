@@ -103,10 +103,10 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav justify-content-right">
           <li class="nav-item">
-            <a class="nav-link" href="about.html">&Uumlber uns</a>
+            <a class="nav-link" href="about.php">&Uumlber uns</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="contact.html">Kontakt</a>
+            <a class="nav-link js-scroll-trigger" href="contact.php">Kontakt</a>
           </li>
           <?php
             if(!$logged_in)
@@ -174,7 +174,7 @@
                       <input type="submit" value="In den Warenkorb">
                     </form>
                     <?php }else{ ?>
-                      <form action="login.html" method="GET">
+                      <form action="login.php" method="GET">
                       <input type="submit" value="In den Warenkorb">
                     </form>
 
@@ -209,7 +209,7 @@
                       <a href="default.html">Karriere bei Druck3DShop</a>
                     </li>
                     <li>
-                      <a href="default.html">&Uuml;ber uns</a>
+                      <a href="about.php">&Uuml;ber uns</a>
                     </li>
                     <li>
                       <a href="default.html">Nachhaltigkeit</a>
