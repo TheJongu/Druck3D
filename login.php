@@ -1,3 +1,15 @@
+
+<?php
+  //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
+  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+  session_start();
+  $logged_in = false;
+  if(isset($_SESSION['username']))
+  {
+    $logged_in = true;
+  }
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -31,68 +43,68 @@
           <!-- Navigation -->
 
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <div class="container">
-              <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
-                <li class="nav-item">
-                    <a class="navbar-brand js-scroll-trigger " href="Druck3DShop.php">Druck 3D Shop</a>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                      </button>
-                </li>
-                <?php
-                  if($logged_in)
-                  {
-                      echo "<ul class='navbar-nav justify-content'>";
-                        echo "<li class='nav-item'>";
-                          echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
-                        echo "</li>";
-                      echo "</ul>";
-                  }
-                ?>
-              <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ol class="navbar-nav">
-                   <li class="nav-item search-bar">
-                    <form>
-                      <div class="input-group">
-                          <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
-                          <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                              <i class="fa fa-search"></i></button>
-                          </div>
-                      </div>
-                    </form>
-                  </li> 
-                  <li class="nav-item">
-                    <a class="nav-link" style="white-space: nowrap;" href="about.html">&Uumlber uns</a>
-                  </li>
-                  <?php
-                    if(!$logged_in)
-                    {
-                      echo "<li class='nav-item'>";
-                      echo "<a href='login.html' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
-                      echo "</li>";
-                    }
-                    else
-                    {
-                      echo "<li class='nav-item'>";
-                      echo "<a href='logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
-                      echo "</li>";
-                      echo "<li class='nav-item'>";
-                        echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
-                        echo "</li>";
-                      if($_SESSION['sclass']==1)
-                      {
-                        echo "<li class='nav-item'>";
-                        echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
-                        echo "</li>";
-                        
-                      }
-                    }
-                  ?>
-                </ol>
+    <div class="container">
+      <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
+        <li class="nav-item">
+            <a class="navbar-brand js-scroll-trigger " href="Druck3DShop.php">Druck 3D Shop</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+        </li>
+        <?php
+          if($logged_in)
+          {
+              echo "<ul class='navbar-nav justify-content'>";
+                echo "<li class='nav-item'>";
+                  echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
+                echo "</li>";
+              echo "</ul>";
+          }
+        ?>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ol class="navbar-nav">
+           <li class="nav-item search-bar">
+            <form>
+              <div class="input-group">
+                  <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="fa fa-search"></i></button>
+                  </div>
               </div>
-            </div>
-          </nav> 
+            </form>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
+          </li>
+          <?php
+            if(!$logged_in)
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='login.php' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
+              echo "</li>";
+            }
+            else
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
+              echo "</li>";
+              echo "<li class='nav-item'>";
+                echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
+                echo "</li>";
+              if($_SESSION['sclass']==1)
+              {
+                echo "<li class='nav-item'>";
+                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
+                echo "</li>";
+                
+              }
+            }
+          ?>
+        </ol>
+      </div>
+    </div>
+  </nav> 
 
 
   <header>
@@ -144,6 +156,7 @@
           </div>
         </div>
   </div>
+  
 <script>
   function submitForm()
   {
@@ -213,6 +226,9 @@
       <h5 class="font-weight-bold text-uppercase mt-3 mb-4">&Uuml;ber Druck3DShop</h5>
 
       <ul class="list-unstyled">
+        <li>
+          <a href="contact.php">Kontakt</a>
+        </li>
         <li>
           <a href="default.html">Karriere bei Druck3DShop</a>
         </li>

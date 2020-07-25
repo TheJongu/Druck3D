@@ -18,7 +18,7 @@
     <!-- Required meta tags -->
   <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Complete Bootstrap 4 Website Layout</title>
+	<title>Druck3DShop</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -63,10 +63,10 @@
   <body>
   
           <!-- Navigation -->
-
+   
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
-      <ol class="navbar-nav mr-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
+      <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
         <li class="nav-item">
             <a class="navbar-brand js-scroll-trigger " href="Druck3DShop.php">Druck 3D Shop</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,41 +76,40 @@
         <?php
           if($logged_in)
           {
-            echo "<li class='nav-item'>";
-            echo "<p style='color:white'>Hallo {$_SESSION['username']}</p>";
-            echo "</li>";
+              echo "<ul class='navbar-nav justify-content'>";
+                echo "<li class='nav-item'>";
+                  echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
+                echo "</li>";
+              echo "</ul>";
           }
         ?>
-        <li class="nav-item search-bar">
-          <form>
-            <div class="input-group">
-                <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
-                <div class="input-group-btn">
-                  <button class="btn btn-default" type="submit">
-                    <i class="fa fa-search"></i></button>
-                </div>
-            </div>
-          </form>
-      </li>
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav justify-content-right">
+        <ol class="navbar-nav">
+           <li class="nav-item search-bar">
+            <form>
+              <div class="input-group">
+                  <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="fa fa-search"></i></button>
+                  </div>
+              </div>
+            </form>
+          </li> 
           <li class="nav-item">
-            <a class="nav-link" href="about.html">&Uumlber uns</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="contact.html">Kontakt</a>
+            <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
           </li>
           <?php
             if(!$logged_in)
             {
               echo "<li class='nav-item'>";
-              echo "<a href='login.html' class='nav-link' style='color:white'><i class='fa fa-user'></i> Login</a>";
+              echo "<a href='login.php' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
               echo "</li>";
             }
             else
             {
               echo "<li class='nav-item'>";
-              echo "<a href='logout.php' class='nav-link' style='color:white'><i class='fa fa-user'></i> Logout</a>";
+              echo "<a href='logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
               echo "<li class='nav-item'>";
                 echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
@@ -124,10 +123,10 @@
               }
             }
           ?>
-        </ul>
+        </ol>
       </div>
     </div>
-  </nav>
+  </nav> 
 
 
   <header>
@@ -147,10 +146,6 @@
 
   <script>
     // Warenkorb Session abfrage (wenn eingeloggt, zeige sein Warenkorb an)
-
-
-
-
   </script>
 
 
@@ -176,7 +171,7 @@
                 <!-- Image Slider-->
                 <div class="col-md-12">
                       <?php
-                      $sql = "SELECT PK_Artikel, Name, Bildlink FROM artikel WHERE Onsale = 1";
+                      $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM artikel WHERE Onsale = 1";
                       $handle = fill_statement($sql, array());
                       $handle->execute();
                       
@@ -201,21 +196,35 @@
                           }
                         }
                         echo "</ol>";
-                        echo "<div class='carousel-inner'>";
+                        echo "<div class='carousel-inner col-md-3' style='padding-top: 0px;'>";
                         $firsttime = true;
                         while($zeile = $handle->fetch(PDO::FETCH_OBJ))
                         {
                           //Einzelnen Bilder der Artikel im Angebot
                           if($firsttime)
                           {
-                            echo "<div class='carousel-item  active'>";
-                            echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
+                            echo "<div class='carousel-item active'>";
+                              echo "<div class='card data' style='width: 16rem'>";
+                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; 
+                                echo "<div class='card-body' style='height: 6rem;'>";
+                                  echo "<ul class='list-group list-group-flush'>";  
+                                  echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
+                                  echo"</ul>";
+                                echo"</div>";  
+                              echo "</div>";
                             echo "</div>";
                           }
                           else
                           {
                             echo "<div class='carousel-item'>";
-                            echo "<a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}'><img class='d-block d-100 mx-auto' src='{$zeile->Bildlink}' alt='{$zeile->Name}' width='300' height='300'></a>";
+                              echo "<div class='card data' style='width: 16rem'>";
+                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; 
+                                echo "<div class='card-body' style='height: 6rem;'>";
+                                  echo "<ul class='list-group list-group-flush'>";  
+                                    echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
+                                  echo"</ul>";
+                                echo"</div>";  
+                              echo "</div>";
                             echo "</div>";
                           }
                           $firsttime = false;
@@ -421,6 +430,9 @@
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">&Uuml;ber Druck3DShop</h5>
   
           <ul class="list-unstyled">
+            <li>
+              <a href="contact.php">Kontakt</a>
+            </li>
             <li>
               <a href="default.html">Karriere bei Druck3DShop</a>
             </li>

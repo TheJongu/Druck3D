@@ -1,3 +1,16 @@
+
+<?php
+  //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
+  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+  session_start();
+  $logged_in = false;
+  if(isset($_SESSION['username']))
+  {
+    $logged_in = true;
+  }
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -63,13 +76,13 @@
                     </form>
                   </li> 
                   <li class="nav-item">
-                    <a class="nav-link" style="white-space: nowrap;" href="about.html">&Uumlber uns</a>
+                    <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
                   </li>
                   <?php
                     if(!$logged_in)
                     {
                       echo "<li class='nav-item'>";
-                      echo "<a href='login.html' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
+                      echo "<a href='login.php' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
                       echo "</li>";
                     }
                     else
@@ -110,94 +123,29 @@
     </div>
   </header>
 
-
   <div class="text-center">
+    <div>
       <div class="card text-white">
-        <img class="card-img-banner" style="opacity: 0.7; height:600px" src="img/White_Login_BG.png" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.7; height:300px" src="img/White_Login_BG.png" alt="Card image">
         <div class="card-img-overlay">
-            <div class="wrapper fadeInDown">
-                <div id="formContent">
-                  <!-- Tabs Titles -->
-              
-                  <!-- Icon -->
-                  <div class="fadeIn first">
-                    <img src="img/Icon_Benutzer.png" id="icon" alt="User Icon" />
-                  </div>
-              
-                  <!-- Login Form -->
-                  <form action="createSession.php" method="POST" id="myForm">
-                    <input type="text" id="loginform" class="fadeIn second" name="username" placeholder="Nutzername"><div style="color:red;display:none" class="errorDescr" id="usernameError">Der Benutzername existiert nicht.</div>
-                    <input type="password" id="loginform" class="fadeIn third" name="password" placeholder="Passwort"><div style="color:red;display:none" class="errorDescr" id="passwordError">Das Passwort ist falsch.</div>
-                    <input type="button" id="loginform" class="fadeIn fourth" value="Log In" onclick="validate()">
-                  </form>
-
-                  <!-- Remind Passowrd -->
-                  <div id="formFooter">
-                    <a class="underlineHover" href="newUser.html">Noch kein Kunde? Jetzt Registrieren!</a>
-                    <br>
-                    <a class="underlineHover" href="#" style="opacity: 0.5;">Passwort vergessen?</a>
-                  </div>
-              
-                </div>
-              </div>
-            </div>
-          </div>
+            <h1>           
+            Firmenstandort: Deutschland, Baden-W&uuml;rttemberg
+            </h1>
+            <h3>
+            Inhaber: Johnny, Jakob, Dennis <br>
+            Traumstrasse 22 <br>
+            72423 Stuttgart
+            </h3>
         </div>
+      </div>
+    </div>
   </div>
-<script>
-  function submitForm()
-  {
-    document.getElementById("myForm").submit();
-  }
-
-  function resetUI()
-  {
-    var errorDescrs = document.getElementsByClassName("errorDescr");
-    for(var i = 0;i<errorDescrs.length;i++)
-    {
-      errorDescrs[i].style.display = "none";
-    }
-  }
-
-  const validate = () => {
-    resetUI();
-
-    var usernameArray = document.getElementsByName("username");
-    var username = usernameArray[0].value;
-    var passwordArray = document.getElementsByName("password");
-    var password = passwordArray[0].value;
-
-    var a = $.ajax({
-      type: "POST",
-      url: "validateLogin.php",
-      data: {
-        username: username,
-        password: password
-      },
-      async: true
-    }).done(function(data){
-
-      if(data == 0) //Kein Fehler
-      {
-        submitForm();
-      }
-      else if(data == 1) //Username nicht vorhanden
-      {
-        document.getElementById("usernameError").style.display = "block";
-        usernameArray[0].value = "";
-        passwordArray[0].value = "";
-      }
-      else if(data == 2) //Passwort ist falsch
-      {
-        document.getElementById("passwordError").style.display = "block";
-        passwordArray[0].value = "";
-      }
-    })
-  }
-</script>
 
 
-  
+
+
+
+ 
   <footer class="page-footer font-small indigo">
 
 <!-- Footer Links -->
@@ -213,6 +161,9 @@
       <h5 class="font-weight-bold text-uppercase mt-3 mb-4">&Uuml;ber Druck3DShop</h5>
 
       <ul class="list-unstyled">
+        <li>
+        <a href="contact.php">Kontakt</a>
+        </li>
         <li>
           <a href="default.html">Karriere bei Druck3DShop</a>
         </li>
@@ -288,3 +239,4 @@
 
   </body>
 </html>
+

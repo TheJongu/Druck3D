@@ -6,12 +6,45 @@
   $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung  FROM Artikel';
   $handle = fill_statement($sql, array());
   $handle->execute();   //Liest die Datenbank aus
+
+  //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
+  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+  session_start();
+  $logged_in = false;
+  if(isset($_SESSION['username']))
+  {
+    $logged_in = true;
+  }
+
 ?>
   
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="../css/style.css" rel="stylesheet"> <!-- Prioritaet vor BT-->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+  
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+    <!-- Custom JavaScript for this theme -->
+    <script src="js/scrolling-nav.js"></script>
+
     <title>Datenbank</title>
+
     <style>
       table, th, td {
         border: 1px solid black;
@@ -28,6 +61,71 @@
     </style>
   </head>
   <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container">
+      <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
+        <li class="nav-item">
+            <a class="navbar-brand js-scroll-trigger " href="../Druck3DShop.php">Druck 3D Shop</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+        </li>
+        <?php
+          if($logged_in)
+          {
+              echo "<ul class='navbar-nav justify-content'>";
+                echo "<li class='nav-item'>";
+                  echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
+                echo "</li>";
+              echo "</ul>";
+          }
+        ?>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ol class="navbar-nav">
+           <li class="nav-item search-bar">
+            <form>
+              <div class="input-group">
+                  <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="fa fa-search"></i></button>
+                  </div>
+              </div>
+            </form>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" style="white-space: nowrap;" href="../about.php">&Uumlber uns</a>
+          </li>
+          <?php
+            if(!$logged_in)
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='login.html' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
+              echo "</li>";
+            }
+            else
+            {
+              echo "<li class='nav-item'>";
+              echo "<a href='../logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
+              echo "</li>";
+              echo "<li class='nav-item'>";
+                echo "<a href='../cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
+                echo "</li>";
+              if($_SESSION['sclass']==1)
+              {
+                echo "<li class='nav-item'>";
+                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
+                echo "</li>";
+                
+              }
+            }
+          ?>
+        </ol>
+      </div>
+    </div>
+  </nav> 
+
     <table>
       <tr>
         <th>Name</th>
