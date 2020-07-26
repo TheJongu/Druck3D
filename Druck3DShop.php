@@ -1,13 +1,12 @@
 
 <?php
-  //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
-  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
-  session_start();
-  $logged_in = false;
-  if(isset($_SESSION['username']))
-  {
+//Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
+include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+session_start();
+$logged_in = false;
+if (isset($_SESSION['username'])) {
     $logged_in = true;
-  }
+}
 ?>
 
 
@@ -73,16 +72,13 @@
               <span class="navbar-toggler-icon"></span>
               </button>
         </li>
-        <?php
-          if($logged_in)
-          {
-              echo "<ul class='navbar-nav justify-content'>";
-                echo "<li class='nav-item'>";
-                  echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
-                echo "</li>";
-              echo "</ul>";
-          }
-        ?>
+        <?php if ($logged_in) {
+            echo "<ul class='navbar-nav justify-content'>";
+            echo "<li class='nav-item'>";
+            echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
+            echo "</li>";
+            echo "</ul>";
+        } ?>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ol class="navbar-nav">
            <li class="nav-item search-bar">
@@ -99,30 +95,23 @@
           <li class="nav-item">
             <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
           </li>
-          <?php
-            if(!$logged_in)
-            {
+          <?php if (!$logged_in) {
               echo "<li class='nav-item'>";
               echo "<a href='login.php' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
               echo "</li>";
-            }
-            else
-            {
+          } else {
               echo "<li class='nav-item'>";
               echo "<a href='logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
               echo "<li class='nav-item'>";
-                echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
-                echo "</li>";
-              if($_SESSION['sclass']==1)
-              {
-                echo "<li class='nav-item'>";
-                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
-                echo "</li>";
-                
+              echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
+              echo "</li>";
+              if ($_SESSION['sclass'] == 1) {
+                  echo "<li class='nav-item'>";
+                  echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
+                  echo "</li>";
               }
-            }
-          ?>
+          } ?>
         </ol>
       </div>
     </div>
@@ -172,62 +161,52 @@
                 <div class="col-md-12">
                       <?php
                       $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM artikel WHERE Onsale = 1";
-                      $handle = fill_statement($sql, array());
+                      $handle = fill_statement($sql, []);
                       $handle->execute();
-                      
-                      if($handle->rowCount()>0)
-                      {
-                        ?>
+
+                      if ($handle->rowCount() > 0) { ?>
                           <h1 class="text-center" style="padding-bottom: 15px;"> Diese Woche im Angebot!</h1>
                             <div id="slides" class="carousel slide" data-ride="carousel">
                               <ol class='carousel-indicators'>
                         <?php
                         $firsttime = true;
-                        for($zaehler=0;$zaehler<$handle->rowCount();$zaehler++)
-                        {
-                          //Slidenavigierer
-                          if($firsttime)
-                          {
-                            echo "<li data-target='#slides' data-slide-to='{$zaehler}' class='active'></li>";
-                          }
-                          else
-                          {
-                            echo "<li data-target='#slides' data-slide-to='1'> </li>";
-                          }
+                        for ($zaehler = 0; $zaehler < $handle->rowCount(); $zaehler++) {
+                            //Slidenavigierer
+                            if ($firsttime) {
+                                echo "<li data-target='#slides' data-slide-to='{$zaehler}' class='active'></li>";
+                            } else {
+                                echo "<li data-target='#slides' data-slide-to='1'> </li>";
+                            }
                         }
                         echo "</ol>";
                         echo "<div class='carousel-inner col-md-3' style='padding-right: 5px; padding-top: 0px;'>";
                         $firsttime = true;
-                        while($zeile = $handle->fetch(PDO::FETCH_OBJ))
-                        {
-                          //Einzelnen Bilder der Artikel im Angebot
-                          if($firsttime)
-                          {
-                            echo "<div class='carousel-item active'>";
-                              echo "<div class='card data' style='width: 16rem'>";
-                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; 
+                        while ($zeile = $handle->fetch(PDO::FETCH_OBJ)) {
+                            //Einzelnen Bilder der Artikel im Angebot
+                            if ($firsttime) {
+                                echo "<div class='carousel-item active'>";
+                                echo "<div class='card data' style='width: 16rem'>";
+                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>";
                                 echo "<div class='card-body' style='height: 6rem;'>";
-                                  echo "<ul class='list-group list-group-flush'>";  
-                                  echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
-                                  echo"</ul>";
-                                echo"</div>";  
-                              echo "</div>";
-                            echo "</div>";
-                          }
-                          else
-                          {
-                            echo "<div class='carousel-item'>";
-                              echo "<div class='card data' style='width: 16rem'>";
-                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; 
+                                echo "<ul class='list-group list-group-flush'>";
+                                echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
+                                echo "</ul>";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "</div>";
+                            } else {
+                                echo "<div class='carousel-item'>";
+                                echo "<div class='card data' style='width: 16rem'>";
+                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>";
                                 echo "<div class='card-body' style='height: 6rem;'>";
-                                  echo "<ul class='list-group list-group-flush'>";  
-                                    echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
-                                  echo"</ul>";
-                                echo"</div>";  
-                              echo "</div>";
-                            echo "</div>";
-                          }
-                          $firsttime = false;
+                                echo "<ul class='list-group list-group-flush'>";
+                                echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
+                                echo "</ul>";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                            $firsttime = false;
                         }
                         ?>
                           <!--Slidersteuerung-->
@@ -241,80 +220,75 @@
                             <span class="sr-only">Next</span>
                             </a>
                           </div>
-                        <?php
-                      }
-                    ?>
+                        <?php }
+                      ?>
                   </div>
 
               <?php
-                //Wenn eine Suchanfrage gemacht wurde
-                if(isset($_GET['search']) && $_GET['search'] != "")
-                {
+              //Wenn eine Suchanfrage gemacht wurde
+              if (isset($_GET['search']) && $_GET['search'] != "") {
                   $search = $_GET['search'];
                   $sqlPK_Schlagwort = "SELECT PK_Schlagwort FROM schlagworte WHERE Schlagwort=?";
-                  $handlePK_Schlagwort = fill_statement($sqlPK_Schlagwort, array($search));
+                  $handlePK_Schlagwort = fill_statement($sqlPK_Schlagwort, [$search]);
                   $handlePK_Schlagwort->execute();
 
-                  if($handlePK_Schlagwort->rowCount()>0) //Es wurden Artikel zum Schlagwort gefunden
-                  {
-                    $zeilePK_Schlagwort = $handlePK_Schlagwort->fetch(PDO::FETCH_OBJ);
-                    $pk_schlagwort = $zeilePK_Schlagwort->PK_Schlagwort;
-                    //Gebe die FK_Artikel für alle Artikel mit dem Schlagwort
-                    $sqlFK_Artikel = "SELECT FK_Artikel FROM artikelschlagworte WHERE FK_Schlagwort=?";
-                    $handleFK_Artikel = fill_statement($sqlFK_Artikel, array($pk_schlagwort));
-                    $handleFK_Artikel->execute();
-                    //Aus dem Array ein String für das SQL Statement machen
-                    $fk_artikelArray = array();
-                    while($zeileFK_Artikel = $handleFK_Artikel->fetch(PDO::FETCH_OBJ))
-                    {
-                      $fk_artikelArray[] = $zeileFK_Artikel->FK_Artikel;
-                    }
-                    $fk_artikelString = implode(",",$fk_artikelArray);
-                    //Alle Artikel, die das gesuchte Schlagwort haben oder der Name gleich der Suchanfrage ist
-                    $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE PK_Artikel IN ({$fk_artikelString}) OR Name=?";
+                  if ($handlePK_Schlagwort->rowCount() > 0) {
+                      //Es wurden Artikel zum Schlagwort gefunden
+                      $zeilePK_Schlagwort = $handlePK_Schlagwort->fetch(PDO::FETCH_OBJ);
+                      $pk_schlagwort = $zeilePK_Schlagwort->PK_Schlagwort;
+                      //Gebe die FK_Artikel für alle Artikel mit dem Schlagwort
+                      $sqlFK_Artikel = "SELECT FK_Artikel FROM artikelschlagworte WHERE FK_Schlagwort=?";
+                      $handleFK_Artikel = fill_statement($sqlFK_Artikel, [$pk_schlagwort]);
+                      $handleFK_Artikel->execute();
+                      //Aus dem Array ein String für das SQL Statement machen
+                      $fk_artikelArray = [];
+                      while ($zeileFK_Artikel = $handleFK_Artikel->fetch(PDO::FETCH_OBJ)) {
+                          $fk_artikelArray[] = $zeileFK_Artikel->FK_Artikel;
+                      }
+                      $fk_artikelString = implode(",", $fk_artikelArray);
+                      //Alle Artikel, die das gesuchte Schlagwort haben oder der Name gleich der Suchanfrage ist
+                      $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE PK_Artikel IN ({$fk_artikelString}) OR Name=?";
                   }
-                  else  //Es gibt kein Artikel mit dem gesuchten Schlagwort, deshalb wird nur auf Name überprüft
-                  {
-                    $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE Name=?";
+                  //Es gibt kein Artikel mit dem gesuchten Schlagwort, deshalb wird nur auf Name überprüft
+                  else {
+                      $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel WHERE Name=?";
                   }
-                  $handle = fill_statement($sql, array($search));
-                }
-                else //STANDARFAUFBAU DER SEITE
-                {
+                  $handle = fill_statement($sql, [$search]);
+              }
+              //STANDARFAUFBAU DER SEITE
+              else {
                   $sql = "SELECT PK_Artikel, Name, Preis, Bildlink FROM Artikel";
-                  $handle = fill_statement($sql, array());
-                }
+                  $handle = fill_statement($sql, []);
+              }
 
-                //Bestimme Produktseite anzeigen
-                if(isset($_GET['Seite']))
-                {
+              //Bestimme Produktseite anzeigen
+              if (isset($_GET['Seite'])) {
                   $seite = intval($_GET['Seite']);
-                  $limitu = 1+(12*($seite-1));
+                  $limitu = 1 + 12 * ($seite - 1);
                   $limito = $limitu + 11;
-                }
-                else  //Hauptseite
-                {
+              }
+              //Hauptseite
+              else {
                   $limitu = 1;
                   $limito = 12;
-                }
-                $i = 1;
-                $articleshown = false;
+              }
+              $i = 1;
+              $articleshown = false;
 
-                $handle->execute();
-                while ($zeile = $handle->fetch(PDO::FETCH_OBJ))
-                {
-                  if($i>=$limitu && $i<=$limito)
-                  {
-                    $articleshown = true;
-                  ?>
+              $handle->execute();
+              while ($zeile = $handle->fetch(PDO::FETCH_OBJ)) {
+                  if ($i >= $limitu && $i <= $limito) {
+                      $articleshown = true; ?>
                   <div class="col-md-3">
                     <div class="card data" style="width: 16rem">
                       <?php echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; ?>
                       <div class="card-body">
                         <!-- Artikelname Maximal 44 Zeichen!-->
                         <ul class="list-group list-group-flush">    <!-- Link sollte eine JQuery anfrage sein, damit man die Methode 'POST' machen kann-->
-                          <?php echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a></h5></li>";
-                                echo "<li class='list-group-item text-center'>{$zeile->Preis} €</li>";?>
+                          <?php
+                          echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a></h5></li>";
+                          echo "<li class='list-group-item text-center'>{$zeile->Preis} €</li>";
+                          ?>
                         </ul>
                       </div>  
                     </div>
@@ -322,11 +296,10 @@
                   <?php
                   }
                   $i++;
-                }
-                if(!$articleshown)
-                {
+              }
+              if (!$articleshown) {
                   echo "<p>Keine Artikel gefunden...</p>";
-                }
+              }
               ?>
 
                   <!--
@@ -348,28 +321,20 @@
               <!-- Page Navigation -->
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-                  <?php 
-                    if(isset($_GET['Seite']))
-                    {
-                      $seite=intval($_GET['Seite']);
+                  <?php if (isset($_GET['Seite'])) {
+                      $seite = intval($_GET['Seite']);
                       $previous = $seite - 1;
                       $next = $seite + 1;
-                      if($previous<1)
-                      {
-                        $previous = 1;
+                      if ($previous < 1) {
+                          $previous = 1;
                       }
-                      if($next>3)
-                      {
-                        $next = 3;
+                      if ($next > 3) {
+                          $next = 3;
                       }
-                    }
-                    else
-                    {
-                      $next=2;
-                      $previous=1;
-                    }
-
-                  ?>
+                  } else {
+                      $next = 2;
+                      $previous = 1;
+                  } ?>
                   <?php echo "<li class='page-item'><a class='page-link' href='?Seite={$previous}'>Previous</a></li>"; ?>
                   <li class="page-item"><a class="page-link" href="Druck3DShop.php">1</a></li>
                   <li class="page-item"><a class="page-link" href="?Seite=2">2</a></li>
@@ -434,13 +399,13 @@
               <a href="contact.php">Kontakt</a>
             </li>
             <li>
-              <a href="default.html">Karriere bei Druck3DShop</a>
+              <a href="default.php">Karriere bei Druck3DShop</a>
             </li>
             <li>
-              <a href="default.html">&Uuml;ber uns</a>
+              <a href="default.php">&Uuml;ber uns</a>
             </li>
             <li>
-              <a href="default.html">Nachhaltigkeit</a>
+              <a href="default.php">Nachhaltigkeit</a>
             </li>
           </ul>
   
@@ -457,10 +422,10 @@
   
           <ul class="list-unstyled">
             <li>
-              <a href="default.html">jetzt verkaufen</a>
+              <a href="default.php">jetzt verkaufen</a>
             </li>
             <li>
-              <a href="default.html">Versand durch Druck3DShop</a>
+              <a href="default.php">Versand durch Druck3DShop</a>
             </li>
           </ul>
   
@@ -477,13 +442,13 @@
   
           <ul class="list-unstyled">
             <li>
-              <a href="default.html">Druck3D Visa Karte</a>
+              <a href="default.php">Druck3D Visa Karte</a>
             </li>
             <li>
-              <a href="default.html">Gutscheine</a>
+              <a href="default.php">Gutscheine</a>
             </li>
             <li>
-              <a href="default.html">Bankeinzug</a>
+              <a href="default.php">Bankeinzug</a>
             </li>
           </ul>
   
@@ -499,7 +464,7 @@
   
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
-      <a href="https://Druck3DShop.com/About"> Druck3DShop</a>
+      <a href="about.php"> Druck3DShop</a>
     </div>
     <!-- Copyright -->
   

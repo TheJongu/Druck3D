@@ -2,14 +2,13 @@
 
 
 <?php
-  //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
-  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
-  session_start();
-  $logged_in = false;
-  if(isset($_SESSION['username']))
-  {
+//Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
+include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+session_start();
+$logged_in = false;
+if (isset($_SESSION['username'])) {
     $logged_in = true;
-  }
+}
 ?>
 
 
@@ -75,16 +74,13 @@
               <span class="navbar-toggler-icon"></span>
               </button>
         </li>
-        <?php
-          if($logged_in)
-          {
-              echo "<ul class='navbar-nav justify-content'>";
-                echo "<li class='nav-item'>";
-                  echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
-                echo "</li>";
-              echo "</ul>";
-          }
-        ?>
+        <?php if ($logged_in) {
+            echo "<ul class='navbar-nav justify-content'>";
+            echo "<li class='nav-item'>";
+            echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
+            echo "</li>";
+            echo "</ul>";
+        } ?>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ol class="navbar-nav">
            <li class="nav-item search-bar">
@@ -101,30 +97,23 @@
           <li class="nav-item">
             <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
           </li>
-          <?php
-            if(!$logged_in)
-            {
+          <?php if (!$logged_in) {
               echo "<li class='nav-item'>";
               echo "<a href='login.php' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
               echo "</li>";
-            }
-            else
-            {
+          } else {
               echo "<li class='nav-item'>";
               echo "<a href='logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
               echo "<li class='nav-item'>";
-                echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
-                echo "</li>";
-              if($_SESSION['sclass']==1)
-              {
-                echo "<li class='nav-item'>";
-                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
-                echo "</li>";
-                
+              echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
+              echo "</li>";
+              if ($_SESSION['sclass'] == 1) {
+                  echo "<li class='nav-item'>";
+                  echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
+                  echo "</li>";
               }
-            }
-          ?>
+          } ?>
         </ol>
       </div>
     </div>
@@ -147,18 +136,17 @@
   </header>
 
   <?php
-//  error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
+  //  error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
 
   include_once 'DB-Changes/Functions/fct_sqlconnect.php';
 
   include_once 'DB-Changes/Functions/fct_warenkorb.php';
   //session_start();
-  
-  $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung FROM artikel, warenkorbartikel, nutzer WHERE artikel.PK_Artikel = warenkorbartikel.FK_Artikel AND nutzer.PK_Nutzer = warenkorbartikel.FK_Nutzer AND nutzer.PK_Nutzer = ?;';
-  $handle = fill_statement($sql, array($_SESSION['userid']));
-  $handle->execute();
 
-?>
+  $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung FROM artikel, warenkorbartikel, nutzer WHERE artikel.PK_Artikel = warenkorbartikel.FK_Artikel AND nutzer.PK_Nutzer = warenkorbartikel.FK_Nutzer AND nutzer.PK_Nutzer = ?;';
+  $handle = fill_statement($sql, [$_SESSION['userid']]);
+  $handle->execute();
+  ?>
 
   <div class="text-center">
     <div>
@@ -181,20 +169,20 @@
                 <tr" > 
           
                <?php
-                  $theZaehler = 0;
-                  while ($zeile = $handle->fetch(PDO::FETCH_OBJ))                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
-                  {
-                    echo "<td><a href='./editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
-                    echo "<td>{$zeile->Preis}</td>";
-                    echo "<td><img style='height:80px' src='{$zeile->Bildlink}' alt='Bild konnte nicht geladen werden'></td>";
-                    echo "<td>{$zeile->Beschreibung}</td>";
-                    echo "</td>";
-                    echo "<td>";
-                ?>
+               $theZaehler = 0;
+               while ($zeile = $handle->fetch(PDO::FETCH_OBJ)) {
+
+                   //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+                   echo "<td><a href='./editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
+                   echo "<td>{$zeile->Preis}</td>";
+                   echo "<td><img style='height:80px' src='{$zeile->Bildlink}' alt='Bild konnte nicht geladen werden'></td>";
+                   echo "<td>{$zeile->Beschreibung}</td>";
+                   echo "</td>";
+                   echo "<td>";
+                   ?>
                 <?php
-              
-                  echo "<button class='btn-default' style='width:80px;padding:0.5px;' onclick='openDelete({$theZaehler})'>L&ouml;schen</button>";  
-                  echo "<div class='delete-popup' id='delete{$theZaehler}'>";
+                echo "<button class='btn-default' style='width:80px;padding:0.5px;' onclick='openDelete({$theZaehler})'>L&ouml;schen</button>";
+                echo "<div class='delete-popup' id='delete{$theZaehler}'>";
                 ?>
                 <form action="./delcartarticle.php">
                   <p>Wollen Sie den Artikel wirklich aus ihrem Warenkorb auf den Boden legen? Was auf dem Boden liegt muss desinfiziert werden. Danach wird das Produkt verbrannt.</p>
@@ -207,11 +195,12 @@
                 </div>
           
                 <?php
-                  echo "</td>";
-                  echo "</tr>";
-                  $theZaehler++;
-                  }
-                ?> 
+                echo "</td>";
+                echo "</tr>";
+                $theZaehler++;
+
+               }
+               ?> 
               </table>
               <form action="buy.php" method="GET">
                 <input type="button" class="btn-default" style="margin-left:62.0rem; width:170px;padding:0.5px;"value="ALLES KAUFEN, SOFORT">
@@ -250,96 +239,97 @@
 
 
   
-  <footer class="page-footer font-small indigo">
+<footer class="page-footer font-small indigo">
 
-    <!-- Footer Links -->
-    <div class="container text-center text-md-left">
-  
-      <!-- Grid row -->
-      <div class="row">
-  
-        <!-- Grid column -->
-        <div class="col-md-3 mx-auto">
-  
-          <!-- Links -->
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">&Uuml;ber Druck3DShop</h5>
-  
-          <ul class="list-unstyled">
-            <li>
-              <a href="contact.php">Kontakt</a>
-            </li>
-            <li>
-              <a href="default.html">Karriere bei Druck3DShop</a>
-            </li>
-            <li>
-              <a href="default.html">&Uuml;ber uns</a>
-            </li>
-            <li>
-              <a href="default.html">Nachhaltigkeit</a>
-            </li>
-          </ul>
-  
-        </div>
-        <!-- Grid column -->
-  
-        <hr class="clearfix w-100 d-md-none">
-  
-        <!-- Grid column -->
-        <div class="col-md-3 mx-auto">
-  
-          <!-- Links -->
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Geld verdienen mit 3D-Druck</h5>
-  
-          <ul class="list-unstyled">
-            <li>
-              <a href="default.html">jetzt verkaufen</a>
-            </li>
-            <li>
-              <a href="default.html">Versand durch Druck3DShop</a>
-            </li>
-          </ul>
-  
-        </div>
-        <!-- Grid column -->
-  
-        <hr class="clearfix w-100 d-md-none">
-  
-        <!-- Grid column -->
-        <div class="col-md-3 mx-auto">
-  
-          <!-- Links -->
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Zahlungsarten</h5>
-  
-          <ul class="list-unstyled">
-            <li>
-              <a href="default.html">Druck3D Visa Karte</a>
-            </li>
-            <li>
-              <a href="default.html">Gutscheine</a>
-            </li>
-            <li>
-              <a href="default.html">Bankeinzug</a>
-            </li>
-          </ul>
-  
-        </div>
-  
-        <!-- Grid column -->
-  
-      </div>
-      <!-- Grid row -->
-  
-    </div>
-    <!-- Footer Links -->
-  
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-      <a href="https://Druck3DShop.com/About"> Druck3DShop</a>
-    </div>
-    <!-- Copyright -->
-  
-  </footer>
-  <!-- Footer -->
+<!-- Footer Links -->
+<div class="container text-center text-md-left">
 
-  </body>
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-3 mx-auto">
+
+      <!-- Links -->
+      <h5 class="font-weight-bold text-uppercase mt-3 mb-4">&Uuml;ber Druck3DShop</h5>
+
+      <ul class="list-unstyled">
+        <li>
+          <a href="contact.php">Kontakt</a>
+        </li>
+        <li>
+          <a href="default.php">Karriere bei Druck3DShop</a>
+        </li>
+        <li>
+          <a href="default.php">&Uuml;ber uns</a>
+        </li>
+        <li>
+          <a href="default.php">Nachhaltigkeit</a>
+        </li>
+      </ul>
+
+    </div>
+    <!-- Grid column -->
+
+    <hr class="clearfix w-100 d-md-none">
+
+    <!-- Grid column -->
+    <div class="col-md-3 mx-auto">
+
+      <!-- Links -->
+      <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Geld verdienen mit 3D-Druck</h5>
+
+      <ul class="list-unstyled">
+        <li>
+          <a href="default.php">jetzt verkaufen</a>
+        </li>
+        <li>
+          <a href="default.php">Versand durch Druck3DShop</a>
+        </li>
+      </ul>
+
+    </div>
+    <!-- Grid column -->
+
+    <hr class="clearfix w-100 d-md-none">
+
+    <!-- Grid column -->
+    <div class="col-md-3 mx-auto">
+
+      <!-- Links -->
+      <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Zahlungsarten</h5>
+
+      <ul class="list-unstyled">
+        <li>
+          <a href="default.php">Druck3D Visa Karte</a>
+        </li>
+        <li>
+          <a href="default.php">Gutscheine</a>
+        </li>
+        <li>
+          <a href="default.php">Bankeinzug</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+</div>
+<!-- Footer Links -->
+
+<!-- Copyright -->
+<div class="footer-copyright text-center py-3">© 2020 Copyright:
+  <a href="about.php"> Druck3DShop</a>
+</div>
+<!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+</body>
 </html>
+
