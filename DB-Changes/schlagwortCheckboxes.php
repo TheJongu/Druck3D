@@ -1,3 +1,8 @@
+<head>
+   <title>Schlagworte bearbeiten</title>
+</head>
+
+
 <form action="schlagwortCheckboxesSubmit.php" method="GET">
    <table>
       <tr>
