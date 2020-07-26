@@ -1,18 +1,17 @@
 <?php
-    include_once 'DB-Changes/Functions/fct_sqlconnect.php';
-    session_start();
-    $logged_in = false;
-    if(isset($_SESSION['username']))
-    {
-      $logged_in = true;
-    }
+include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+session_start();
+$logged_in = false;
+if (isset($_SESSION['username'])) {
+    $logged_in = true;
+}
 
-    $pk_artikel = $_GET['pk_artikel'];
+$pk_artikel = $_GET['pk_artikel'];
 
-    $sql = "SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung FROM Artikel WHERE artikel.PK_Artikel = ?";
-    $handle = fill_statement($sql, array($pk_artikel));
-    $handle->execute();
-    $zeile = $handle->fetch(PDO::FETCH_OBJ);
+$sql = "SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung FROM Artikel WHERE artikel.PK_Artikel = ?";
+$handle = fill_statement($sql, [$pk_artikel]);
+$handle->execute();
+$zeile = $handle->fetch(PDO::FETCH_OBJ);
 ?>
 
 <!Doctype html>
@@ -23,7 +22,7 @@
          <!-- Required meta tags -->
         <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Complete Bootstrap 4 Website Layout</title>
+            <title>Artikelseite</title>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -81,16 +80,13 @@
               <span class="navbar-toggler-icon"></span>
               </button>
         </li>
-        <?php
-          if($logged_in)
-          {
-              echo "<ul class='navbar-nav justify-content'>";
-                echo "<li class='nav-item'>";
-                  echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
-                echo "</li>";
-              echo "</ul>";
-          }
-        ?>
+        <?php if ($logged_in) {
+            echo "<ul class='navbar-nav justify-content'>";
+            echo "<li class='nav-item'>";
+            echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
+            echo "</li>";
+            echo "</ul>";
+        } ?>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ol class="navbar-nav">
            <li class="nav-item search-bar">
@@ -107,30 +103,23 @@
           <li class="nav-item">
             <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
           </li>
-          <?php
-            if(!$logged_in)
-            {
+          <?php if (!$logged_in) {
               echo "<li class='nav-item'>";
               echo "<a href='login.php' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
               echo "</li>";
-            }
-            else
-            {
+          } else {
               echo "<li class='nav-item'>";
               echo "<a href='logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
               echo "<li class='nav-item'>";
-                echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
-                echo "</li>";
-              if($_SESSION['sclass']==1)
-              {
-                echo "<li class='nav-item'>";
-                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
-                echo "</li>";
-                
+              echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
+              echo "</li>";
+              if ($_SESSION['sclass'] == 1) {
+                  echo "<li class='nav-item'>";
+                  echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
+                  echo "</li>";
               }
-            }
-          ?>
+          } ?>
         </ol>
       </div>
     </div>
@@ -158,31 +147,29 @@
             <div class="card-img-overlay">
               <div class="row">
                 <div class="col-md-6">
-                    <?php
-                    echo "<img src='{$zeile->Bildlink}' alt='{$zeile->Name}' class='rounded mx-auto d-block animated bounceIn'style='height:350px'>";
-                    ?>
+                    <?php echo "<img src='{$zeile->Bildlink}' alt='{$zeile->Name}' class='rounded mx-auto d-block animated bounceIn'style='height:350px'>"; ?>
                     </div>
                 <div class="col-md-6">
                     <?php
-                    echo "<h1>{$zeile->Name}</h1>"; 
+                    echo "<h1>{$zeile->Name}</h1>";
                     echo "<hr>";
                     echo "<h3>Beschreibung</h3>";
                     echo "<p>{$zeile->Beschreibung}</p>";
                     echo "<h3>Preis {$zeile->Preis} €</h3>";
-                    if($logged_in){
-                    ?>  
+                    if ($logged_in) { ?>  
                     <form action="addusercart.php" method="GET">
                       <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
                       <?php echo "<input type='hidden' name='pk_nutzer' value='{$_SESSION['userid']}'>"; ?>
                       <input type="submit" value="In den Warenkorb">
                     </form>
-                    <?php }else{ ?>
+                    <?php } else { ?>
                       <form action="login.php" method="GET">
                       <input type="submit" value="In den Warenkorb">
                     </form>
 
 
-                      <?php } ?>
+                      <?php }
+                    ?>
                     </div>
 
 

@@ -217,14 +217,31 @@
         }
       ?>
 
-    <form action="./insGetInput.html" method="GET">
-      <input type="submit" value="Neuer Artikel">
-    </form>
-    <form action="./editSchlagworte.php" method="GET">
-      <input type="submit" value="Schlagworte hinzufügen/löschen">
-    </form>
-    <form action="../Druck3DShop.php" method="GET">
-      <input type="submit" value="Startseite">
-    </form>
+  
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
+    <div class="container">
+      <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
+        <li class="nav-item">
+        <form action="./insGetInput.html" method="GET">
+          <input type="submit" value="Neuer Artikel">
+        </form>
+        </li>
+        <li class="nav-item">
+        <form action="./editSchlagworte.php" method="GET">
+          <input type="submit" value="Schlagworte hinzufügen/löschen">
+        </form>
+        </li>
+        <li class="nav-item">
+        <form action="../Druck3DShop.php" method="GET">
+          <input type="submit" value="Startseite">
+        </form>
+        </li>
+
+        </ol>
+      </div>
+    </div>
+  </nav> 
+  
+  
   </body>
 </html>
