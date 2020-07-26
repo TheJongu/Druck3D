@@ -1,89 +1,76 @@
-/Functions:
-- fct_Artikel
-    - include 'fct_sqlconnect.php'
-    - include 'fct_ArtikelSchlagworte.php'
-    - insertArticle()
-    - articleExists()
-    - articleExistsPK()
-    - deleteArticle()
-    - editArticle()
+Druck3D Shop
 
-- fct_ArtikelSchlagworte.php
-    - include 'fct_sqlconnect.php'
-    - include 'fct_Schlagworte.php'
-    - removeAllArticleTags()
-    - removeTagFromArticles()
-    - addArticleTag()
-    - addArticleTagPK()
-    - removeArticleTag()
-    - removeArticleTagPK()
+Wir, Dennis Maier, Jakob Lauterback und Jonas Gugel haben gemeinsam die Seite Druck3D Shop
+erstellt. Der Grundlegende Zweck dieser Seite ist, Dateien zum Drucken von Modellen mit Hilfe eines
+3D-Druckers anzubieten.
 
-- fct_Schlagworte.php
-    - include 'fct_sqlconnect.php'
-    - createTag()
-    - deleteTag()
-    - deleteTagPK()
-    - getTagPK()
+Wir sind mit unserem Ergebnis sehr zufrieden, auch weil dies unsere erste Erfahrung mit Webdesign
+und Front/Backend ist. Zusätzlich hat uns das Erarbeiten dieses Projekt doch viel Spaß gemacht!
+Folgende Funktionen bietet unsere Druck3D Shop Website an.
 
-- fct_sqlconnect.php:
-    - get_link()
-    - fill_statement()
 
-/DB-Changes:
-- admin.html
-    - Verweist auf displayAllArtikel.php
+Der Kunde
 
-- deleteArtikel.php
-    - Löscht den Mitgegebenen Artikel
-    - verweist auf displayAllArtikel.php
+Der Kunde kann auf der Website die verschiedenen Artikel einsehen. Hierbei wird das Augenmerk
+direkt auf die besonders in den Vordergrund gerückten Artikel. Durch das Nutzen der Suchleiste
+können auch spezielle Produkte gefunden werden, sollten sie vorhanden sein. Jeder Artikel besitzt
+auch eine eigene Seite, auf welcher weitere Informationen eingesehen werden können.
+(Beschreibung, Bild größer...). Sollte der Kunde mit einem registrierten Account angemeldet sein,
+kann er auch hier das Produkt seinem Warenkorb hinzufügen. Ist er nicht angemeldet, wird er zur
+Anmeldeseite umgeleitet. Dort kann man sich anmelden oder einen neuen Account erstellen.
+Im Warenkorb werden die Artikel, welche der Nutzer kaufen möchte, dargestellt. Dort kann können
+die Artikel „gekauft“ oder auch wieder aus dem Warenkorb entfernt werden.
+Natürlich kann ein Kunde sich auch ausloggen. Hierbei bleiben die Artikel im Warenkorb gespeichert.
 
-- displayAllArtikel.php
-    - include 'Functions/fct_sqlconnect.php'
-    - Zeigt alle Artikel in der Datenbank an. Man kann Artikel bearbeiten, die Schlagworte der Artikel bearbeiten und Artikel löschen. Zusätzlichen kann man neue Artikel anlegen und Schlagwörter bearbeiten und löschen.
-    - verweist auf insGetInput.html editSchlagworte.php editArtikel.php schlagwortCheckboxes.php deleteArtikel.php
 
-- editArtikel.php
-    - include 'Functions/fct_sqlconnect.php'
-    - Stellt dem Nutzer ein vorausgefülltes Formular vor die Nase, wo er dann die Attribute des Artikels bearbeiten kann.
-    - verweist auf editArtikelSubmit.php
+Der Administrator
 
-- editArtikelSubmit.php
-    - include 'Functions/fct_sqlconnect.php'
-    - ruft editArticle() für die Daten auf, die von editArtikel.php übergeben werden
-    - verweist auf displayAllArtikel.php
+Als Admin können die Artikel administriert werden. Hier können neue Artikel eingestellt werden,
+bestehende Artikel bearbeiten, Preise Anpassen, Beschreibungen editieren oder auch die Artikel
+besonders auf der Hauptseite bewerben. Zusätzlich können die Schlagwörter, welche zum Finden der
+Artikel genutzt werden, angepasst und erweitert werden. Diese können auch zum besseren
+Sucherlebnis den jeweiligen Artikeln hinzugefügt werden.
 
-- editSchlagworte.php
-    - include 'Functions/fct_sqlconnect.php'
-    - Stellt eine Liste aller möglichen Schlagworte dar, welche einzeln gelöscht werden können. Zusätzlich kann man ein neues Schlagwort hinzufügen
-    - verweist auf editSchlagworteDelete.php newSchlagwortSubmit.php
 
-- editSchlagworteDelete.php
-    - include 'Functions/fct_ArtikelSchlagworte.php'
-    - include 'Functions/fct_Schlagworte.php'
-    - löscht das mitgegebene Schlagwort über den PK-Schlagwort
-    - verweist auf displayAllArtikel.php
+Weitere Informationen
 
-- insert.php
-    - include 'Functions/fct_Artikel.php'
-    - fügt einen neuen Artikel mit den übergebenen daten hinzufügen
-    - verweist auf displayAllArtikel.php
+Weitere Informationen können über die Seite können durch die Verlinkungen in den Fuß und
+Kopfzeilen eingesehen werden.
 
-- insGetInput.htmnl
-    - stellt ein Formular dar, wo man einen neuen Artikel eingeben und hinzufügen kann
-    - verweist auf insert.php
 
-- newSchlagwortSubmit.php
-    - include 'Functions/fct_Schlagworte.php'
-    - include 'Functions/fct_ArtikelSchlagworte.php'
-    - erstellt ein neues Schlagwort
-    - verweist auf displayAllArtikel.php
+Technik
+Die eingegebenen Daten des Nutzers werden an sinnvollen Stellen geprüft, sodass korrekte Daten in
+die Datenbank überführt werden können.
+Auch wird die Hauptseite dynamisch um die neu erstellte Artikel erweitert. Gleiches gilt für neu
+erstellte Schlagwörter. Soll ein Artikel gelöscht werden, muss diese Aktion bestätigt werden, um
+Versehen vorzubeugen.
+Aufgrund von Werbezielen wird es den Nutzern möglichst schwer gemacht, Ihren Account zu löschen
+oder relevante Daten zu ändern. Dennoch werden die Passwörter gehasht abgelegt.
+ 
 
-- schlagwortCheckboxes.php
-    - include 'Functions/fct_sqlconnect.php'
-    - Erstellt eine vorausgefüllte Liste von allen aktuellen Schlagwörtern, um die Schlagwörter des Artikels bearbeiten zu können
-    - verweist auf schlagwortCheckboxesSubmit.php
+Installieren der Website
 
-- schlagwortCheckboxesSubmit.php
-    - include 'Functions/fct_ArtikelSchlagworte.php'
-    - entfernt zuerst vom Artikel alle Schlagwörter und fügt dann alle in schlagwortCheckboxes angehakten Schlagwörter hinzufügen
-    - verweist auf displayAllArtikel
+Hinzufügen der Datenbank
+Die Datenbank muss in XAMPP über die Funktion „Importieren“ importiert werden. Sonst muss
+nichts beachtet werden.
+
+
+Nutzer Informationen
+
+Administrator
+Benutzername: Admin
+Passwort: admin123
+
+Nutzer
+Benutzername: Nutzer
+Passwort: nutzer123
+
+
+HTDocs
+
+Der Inhalt des Ordners htdocs muss in den jeweiligen Ordner im XAMPP Verzeichnis gelegt werden.
+Sollten Probleme auftreten, würden wir Sie bitten, sich bei uns zu melden.
+Urheberrechtsinformationen
+
+Die Bilder zu den 3D-Druck Artikeln wurden aus dem Internet übernommen. Quelle hierfür war die
+Internetseite „Thingiverse.com“. 
