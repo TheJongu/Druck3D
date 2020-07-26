@@ -62,7 +62,7 @@
   </head>
   <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
     <div class="container">
       <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
         <li class="nav-item">
@@ -84,7 +84,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ol class="navbar-nav">
            <li class="nav-item search-bar">
-            <form>
+           <form action="../Druck3DShop.php">
               <div class="input-group">
                   <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
                   <div class="input-group-btn">
@@ -115,7 +115,7 @@
               if($_SESSION['sclass']==1)
               {
                 echo "<li class='nav-item'>";
-                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
+                echo "<a href='displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
                 echo "</li>";
                 
               }
@@ -125,6 +125,7 @@
       </div>
     </div>
   </nav> 
+
 
     <table>
       <tr>

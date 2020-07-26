@@ -64,7 +64,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ol class="navbar-nav">
            <li class="nav-item search-bar">
-            <form>
+           <form action="Druck3DShop.php">
               <div class="input-group">
                   <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
                   <div class="input-group-btn">
@@ -76,9 +76,6 @@
           </li> 
           <li class="nav-item">
             <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="contact.php">Kontakt</a>
           </li>
           <?php
             if(!$logged_in)

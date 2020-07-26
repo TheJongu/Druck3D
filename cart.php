@@ -1,20 +1,4 @@
-<?php
-    
 
-//  error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
-
-  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
-
-  include_once 'DB-Changes/Functions/fct_warenkorb.php';
-  session_start();
-  
-  echo "Das ist ihr Warenkorb.";
-  echo "<br>Sie haben folgende Gegenstände in ihrem Warenkorb";
-  $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung FROM artikel, warenkorbartikel, nutzer WHERE artikel.PK_Artikel = warenkorbartikel.FK_Artikel AND nutzer.PK_Nutzer = warenkorbartikel.FK_Nutzer AND nutzer.PK_Nutzer = ?;';
-  $handle = fill_statement($sql, array($_SESSION['userid']));
-  $handle->execute();
-
-?>
 
 
 <?php
@@ -65,6 +49,10 @@
         padding: 10px;
       }
 
+      tr {
+        background-color: rgba(108, 131, 93, 0.157);
+      }
+
       /* Darf NICHT geloescht werden, 'Loeschen' Popup*/
       .delete-popup {
         display: none;
@@ -73,6 +61,8 @@
 
   </head>
   <body>
+
+  
 
           <!-- Navigation -->
 
@@ -98,7 +88,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ol class="navbar-nav">
            <li class="nav-item search-bar">
-            <form>
+           <form action="Druck3DShop.php">
               <div class="input-group">
                   <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
                   <div class="input-group-btn">
@@ -156,61 +146,88 @@
     </div>
   </header>
 
+  <?php
+//  error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
+
+  include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+
+  include_once 'DB-Changes/Functions/fct_warenkorb.php';
+  //session_start();
+  
+  $sql = 'SELECT PK_Artikel, Name, Preis, Bildlink, Beschreibung FROM artikel, warenkorbartikel, nutzer WHERE artikel.PK_Artikel = warenkorbartikel.FK_Artikel AND nutzer.PK_Nutzer = warenkorbartikel.FK_Nutzer AND nutzer.PK_Nutzer = ?;';
+  $handle = fill_statement($sql, array($_SESSION['userid']));
+  $handle->execute();
+
+?>
+
   <div class="text-center">
     <div>
       <div class="card text-black">
-        <img class="card-img-banner" style="opacity: 0.7; height:600px" src="img/White_Login_BG.png" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.7; height:1000px" src="img/White_Login_BG.png" alt="Card image">
         <div class="card-img-overlay"> 
+          <div id="formContent" style="min-width:1200px; padding: 50px; margin:0 auto;">
+            <!-- Tabs Titles -->
+        
+            <!-- Icon -->
+            <div style="color:black;">
+              <table>
+                <tr style="background-color: rgb(255,118,76);">
+                  <th style="min-width: 145px;">Name</th>
+                  <th style="min-width: 145px;">Preis</th>
+                  <th style="min-width: 175px;">Bildlink</th>
+                  <th style="min-width: 450px;">Beschreibung</th>
+                  <th style="min-width: 184px;"> </th>
+                </tr>
+                <tr" > 
+          
+               <?php
+                  $theZaehler = 0;
+                  while ($zeile = $handle->fetch(PDO::FETCH_OBJ))                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
+                  {
+                    echo "<td><a href='./editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
+                    echo "<td>{$zeile->Preis}</td>";
+                    echo "<td><img style='height:80px' src='{$zeile->Bildlink}' alt='Bild konnte nicht geladen werden'></td>";
+                    echo "<td>{$zeile->Beschreibung}</td>";
+                    echo "</td>";
+                    echo "<td>";
+                ?>
+                <?php
+              
+                  echo "<button class='btn-default' style='width:80px;padding:0.5px;' onclick='openDelete({$theZaehler})'>L&ouml;schen</button>";  
+                  echo "<div class='delete-popup' id='delete{$theZaehler}'>";
+                ?>
+                <form action="./delcartarticle.php">
+                  <p>Wollen Sie den Artikel wirklich aus ihrem Warenkorb auf den Boden legen? Was auf dem Boden liegt muss desinfiziert werden. Danach wird das Produkt verbrannt.</p>
+                  <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
+                  <?php echo "<input type='hidden' name='pk_nutzer' value='{$_SESSION['userid']}'>"; ?>
+                  <button type="submit" class="btn">Ja</button>
+                  <?php echo "<button type='button' onclick='closeDelete({$theZaehler})'>Nein</button>"; ?>
+                </form>
+                
+                </div>
+          
+                <?php
+                  echo "</td>";
+                  echo "</tr>";
+                  $theZaehler++;
+                  }
+                ?> 
+              </table>
+              <form action="buy.php" method="GET">
+                <input type="button" class="btn-default" style="margin-left:62.0rem; width:170px;padding:0.5px;"value="ALLES KAUFEN, SOFORT">
+              </form>
+              <form action="Druck3DShop.php" method="GET">
+                <input type="submit" class="btn-default" style="margin-left:68rem; width:80px;padding:0.5px;" value="Startseite">
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <table>
-      <tr>
-        <th>Name</th>
-        <th>Preis</th>
-        <th>Bildlink</th>
-        <th>Beschreibung</th>
-        <th></th>
-      </tr>
-      <tr> 
 
-     <?php
-        $theZaehler = 0;
-        while ($zeile = $handle->fetch(PDO::FETCH_OBJ))                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
-        {
-          echo "<td><a href='./editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
-          echo "<td>{$zeile->Preis}</td>";
-          echo "<td>{$zeile->Bildlink}</td>";
-          echo "<td>{$zeile->Beschreibung}</td>";
-         
-          echo "</td>";
-          echo "<td>";
-      ?>
-      <?php
-    
-        echo "<button onclick='openDelete({$theZaehler})'>Loeschen</button>";  
-        echo "<div class='delete-popup' id='delete{$theZaehler}'>";
-      ?>
-      <form action="./delcartarticle.php">
-        <p>Wollen Sie den Artikel wirklich aus ihrem Warenkorb auf den Boden legen? Was auf dem Boden liegt muss desinfiziert werden. Danach wird das Produkt verbrannt.</p>
-        <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
-        <?php echo "<input type='hidden' name='pk_nutzer' value='{$_SESSION['userid']}'>"; ?>
-        <button type="submit" class="btn">Ja</button>
-        <?php echo "<button type='button' onclick='closeDelete({$theZaehler})'>Nein</button>"; ?>
-      </form>
-      
-      </div>
 
-      <?php
-        echo "</td>";
-        echo "</tr>";
-        $theZaehler++;
-        }
-      ?> 
-
-    </table>
 
     <script>
       function openDelete(p1) {
@@ -224,12 +241,6 @@
       }
     </script>
 
-    <form action="Druck3DShop.php" method="GET">
-      <input type="submit" value="Startseite">
-    </form>
-    <form action="buy.php" method="GET">
-      <input type="button" value="ALLES KAUFEN, SOFORT">
-    </form>
 
 
 

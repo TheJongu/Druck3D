@@ -1,5 +1,5 @@
 <?php
-    header("Location: login.html");
+    header("Location: login.php");
     include_once 'fct_User.php';
     $username = $_POST['username'];
     $email = $_POST['email'];

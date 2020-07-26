@@ -27,6 +27,19 @@
     crossorigin="anonymous">
     //jquery einbinden
     </script>
+
+    <style>
+        .errorDescr{
+            color: red;
+            display: none;
+        }
+
+        td {
+        text-align: center;
+        vertical-align: middle;
+        }
+    </style>
+
   </head>
 
 
@@ -100,14 +113,35 @@
                 </div>
             
                 <!-- Login Form -->
+                <form action="newUserSubmit.php" method="POST" id="myForm"></form>
+                <table  style="margin:0 auto;">
+                  <tr>
+                    <th style="text-align:center;">Benutzername</th>
+                    <th style="text-align:center; flex-wrap: nowrap;"><label for="username"></label><input type="text" name="username" id="username" placeholder="Username" title="Benutzername"><div class="errorDescr" id="usernameError">Bitte kein ' eingeben.</div><div class="errorDescr" id="missingUsername">Bitte geben Sie einen Namen an.</div><div class="errorDescr" id="usernameExisting">Dieser Benutzername ist bereits vergeben.</div><br></th>
+                  </tr>
+                  <tr>
+                    <th style="text-align:center">E-Mail</th>
+                    <th style="text-align:center; flex-wrap: nowrap;"><label for="email"></label><input type="text" name="email" id="email" placeholder="email@example.com" title="E-Mail"><div class="errorDescr" id="emailError">Bitte geben Sie eine gültige E-Mail Adresse an.</div><br></th>
+                  </tr>
+                  <tr>
+                    <th style="text-align:center">Passwort</th>
+                    <th style="text-align:center; flex-wrap: nowrap;"><label for="password"></label><input type="password" name="password" id="password" placeholder="Passwort eingeben" title="Passwort"><div class="errorDescr" id="passwordError">Bitte kein ' eingeben.</div><div class="errorDescr" id="missingPassword">Bitte geben Sie ein Passwort ein.</div><br></th>
+                  </tr>
+                  <tr>
+                    <th style="text-align:center">Best&auml;tigung</th>
+                    <th style="text-align:center; flex-wrap: nowrap;"><label for="valpassword"></label><input type="password" name="valpassword" id="valpassword" placeholder="Passwort bestätigen"><div class="errorDescr" id="passwordSame">Passwörter stimmen nicht überein</div><br></th>
+                  </tr>
+                </table>
+                <input type="button" id="loginform" value="Jetzt Registrieren" onclick="validate()">
+              </form>
                   
-                <form action="newUserSubmit.php" method="POST" id="myForm">
+               <!-- <form action="newUserSubmit.php" method="POST" id="myForm">
                     <label for="username">Benutzername: </label><input type="text" name="username" id="username" placeholder="Username" title="Benutzername"><div class="errorDescr" id="usernameError">Bitte kein ' eingeben.</div><div class="errorDescr" id="missingUsername">Bitte geben Sie einen Namen an.</div><div class="errorDescr" id="usernameExisting">Dieser Benutzername ist bereits vergeben.</div><br>
                     <label for="email">E-Mail: </label><input type="text" name="email" id="email" placeholder="email@example.com" title="E-Mail"><div class="errorDescr" id="emailError">Bitte geben Sie eine gültige E-Mail Adresse an.</div><br>
                     <label for="password">Passwort: </label><input type="password" name="password" id="password" placeholder="Passwort eingeben" title="Passwort"><div class="errorDescr" id="passwordError">Bitte kein ' eingeben.</div><div class="errorDescr" id="missingPassword">Bitte geben Sie ein Passwort ein.</div><br>
                     <label for="valpassword">Bestätigen:</label><input type="password" name="valpassword" id="valpassword" placeholder="Passwort bestätigen"><div class="errorDescr" id="passwordSame">Passwörter stimmen nicht überein</div><br>
                     <input type="button" id="loginform" value="Jetzt Registrieren" onclick="validate()">
-                </form>       
+                </form>      -->  
               </div>
             </div>
           </div>

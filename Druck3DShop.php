@@ -196,7 +196,7 @@
                           }
                         }
                         echo "</ol>";
-                        echo "<div class='carousel-inner col-md-3' style='padding-top: 0px;'>";
+                        echo "<div class='carousel-inner col-md-3' style='padding-right: 5px; padding-top: 0px;'>";
                         $firsttime = true;
                         while($zeile = $handle->fetch(PDO::FETCH_OBJ))
                         {

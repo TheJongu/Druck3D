@@ -38,25 +38,60 @@
                 </script>
             </head>
             <body>
+
+
         
                 <form action="editArtikelSubmit.php" method="GET" id="editArtikelForm">
     <?php           //Vorausgefülltes Formular zum Editieren des Artikels
-                    echo "<label for='name'>Artikelname:</label><input name='name' id='name' type='text' size='15' maxlength='30' placeholder='Name' value='{$name}' title='Name des Artikels' required><div class='errorDescr' id='nameExisting'>Der Artikelname existiert bereits.</div><div class='errorDescr' id='nameError'>Bitte geben Sie kein ' ein.</div><br>";
-                    echo "<label for='price'>Preis:</label><input name='price' id='price' type='text' size='4' maxlength='7' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><div class='errorDescr' id='priceError'>Bitte geben Sie einen gültigen Preis an.</div><br>";
+
+                echo "<table  style='margin:0 left;'>";
+            echo "<tr>";
+                echo "<td style='text-align:center;'> <h1> Artikel Bearbeiten </h1></td>";
+                echo "<td></td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<th style='text-align:center;'>Artikelname</th>";
+                echo "<th style='text-align:center; flex-wrap: nowrap;'><label for='name'></label><input name='name' id='name' type='text' size='30' maxlength='70' placeholder='Name' value='{$name}' title='Name des Artikels' required><div class='errorDescr' id='nameExisting'>Der Artikelname existiert bereits.</div><div class='errorDescr' id='nameError'>Bitte geben Sie kein ' ein.</div><br></th>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<th style='text-align:center'>Preis</th>";
+                echo "<th style='text-align:center; flex-wrap: nowrap;'><label for='price'></label><input name='price' id='price' type='text' size='30' maxlength='70' pattern='[0-9]{0,4}(\.[0-9]{0,2})?' placeholder='0000.00' value='{$price}' title='Preis des Artikels'><div class='errorDescr' id='priceError'>Bitte geben Sie einen gültigen Preis an.</div><br></th>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<th style='text-align:center'>Im Angebot</th>";
+                echo "<th style='text-align:left; flex-wrap: nowrap;'>";
                     if($onsale)
                     {
-                        echo "<label for='onsale'>Im Angebot</label><input type='checkbox' name='onsale' id='onsale' checked><br>";
+                        echo "<label for='onsale'></label><input type='checkbox' name='onsale' id='onsale' checked><br>";
                     }
                     else
                     {
-                        echo "<label for='onsale'>Im Angebot</label><input type='checkbox' name='onsale' id='onsale'><br>";
+                        echo "<label for='onsale'></label><input type='checkbox' name='onsale' id='onsale'><br>";
                     }
-                    echo "<label for='picturelink'>Bildpfad:</label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='C:\Beispielpfad\Beispielbild.png' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div class='errorDescr' id='picturelinkExisting'>Der Bildpfad existiert bereits.</div><div class='errorDescr' id='picturelinkError'>Bitte geben Sie kein ' ein.</div><br>";
-                    echo "<label for='description'>Beschreibung:</label><input name='description' id='description' type='text' placeholder='Dies ist ein Artikel' value='{$description}' title='Artikelbeschreibung'><div class='errorDescr' id='descriptionError'>Bitte geben Sie kein ' ein.</div><br>";
-                    echo "<input type='hidden' name='pk_artikel' id='pk_artikel' value='{$pk_artikel}'>";
-                    echo "<input type='button' value='Speichern' onclick='validate()'>";
+                echo "</th>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<th style='text-align:center'>Bildpfad</th>";
+                echo "<th style='text-align:center; flex-wrap: nowrap;'><label for='picturelink'></label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='C:\Beispielpfad\Beispielbild.png' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div class='errorDescr' id='picturelinkExisting'>Der Bildpfad existiert bereits.</div><div class='errorDescr' id='picturelinkError'>Bitte geben Sie kein ' ein.</div><br></th>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<th style='text-align:center'>Beschreibung</th>";
+                echo "<th style='text-align:center; flex-wrap: nowrap;'><label for='description'></label><input name='description' id='description' type='text' size='30' placeholder='Dies ist ein Artikel' value='{$description}' title='Artikelbeschreibung'><div class='errorDescr' id='descriptionError'>Bitte geben Sie kein ' ein.</div><br></th>";
+                echo "</tr>";
+                echo "<tr>";
+                //echo "<th style='text-align:center'>pk_artikel</th>";
+                echo "<th style='text-align:center; flex-wrap: nowrap;'><input type='hidden' name='pk_artikel' id='pk_artikel' value='{$pk_artikel}'></th>";
+                echo "</tr>";
+                echo "<th style='text-align:center'> <input type='button' value='Speichern'  onclick='validate()'> </th>";
+                echo "<th></th>";
+                echo "</tr>";
+                echo "<form action='viewArticle.php' method='POST'>";
+                echo "<th style='text-align:center'> <input type='button' value='Abbrechen'  onclick='validate()'> </th>";
+                echo "<th></th>";
+                echo "</tr>";
                 echo "</form>";
-    
+                echo "</table>";
+                echo "</form>"; 
 ?>
                 <script>
 

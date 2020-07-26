@@ -74,7 +74,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
-      <ol class="navbar-nav mr-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
+      <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
         <li class="nav-item">
             <a class="navbar-brand js-scroll-trigger " href="Druck3DShop.php">Druck 3D Shop</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,54 +84,57 @@
         <?php
           if($logged_in)
           {
-            echo "<li class='nav-item'>";
-            echo "<p style='color:white'>Hallo {$_SESSION['username']}</p>";
-            echo "</li>";
+              echo "<ul class='navbar-nav justify-content'>";
+                echo "<li class='nav-item'>";
+                  echo "<p class='nav-link' style='color:white;text-align:center; white-space: nowrap; margin-bottom: 0px;'>Hallo {$_SESSION['username']}</p>";
+                echo "</li>";
+              echo "</ul>";
           }
         ?>
-        <li class="nav-item search-bar">
-          <form>
-            <div class="input-group">
-                <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
-                <div class="input-group-btn">
-                  <button class="btn btn-default" type="submit">
-                    <i class="fa fa-search"></i></button>
-                </div>
-            </div>
-          </form>
-      </li>
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav justify-content-right">
+        <ol class="navbar-nav">
+           <li class="nav-item search-bar">
+           <form action="Druck3DShop.php">
+              <div class="input-group">
+                  <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="fa fa-search"></i></button>
+                  </div>
+              </div>
+            </form>
+          </li> 
           <li class="nav-item">
-            <a class="nav-link" href="about.php">&Uumlber uns</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="contact.php">Kontakt</a>
+            <a class="nav-link" style="white-space: nowrap;" href="about.php">&Uumlber uns</a>
           </li>
           <?php
             if(!$logged_in)
             {
               echo "<li class='nav-item'>";
-              echo "<a href='login.html' class='nav-link' style='color:white'><i class='fa fa-user'></i> Login</a>";
+              echo "<a href='login.php' class='nav-link' style='color:white; white-space: nowrap'><i class='fa fa-user'></i> Login</a>";
               echo "</li>";
             }
             else
             {
               echo "<li class='nav-item'>";
-              echo "<a href='logout.php' class='nav-link' style='color:white'><i class='fa fa-user'></i> Logout</a>";
+              echo "<a href='logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
-              if(isset($_SESSION['sclass']) && $_SESSION['sclass']==1)
+              echo "<li class='nav-item'>";
+                echo "<a href='cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
+                echo "</li>";
+              if($_SESSION['sclass']==1)
               {
                 echo "<li class='nav-item'>";
-                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:10px ;'></i>Admin</a>";
+                echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
                 echo "</li>";
+                
               }
             }
-          ?>           
-        </ul>
+          ?>
+        </ol>
       </div>
     </div>
-  </nav>
+  </nav> 
 
   
   <header>

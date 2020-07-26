@@ -6758,6 +6758,7 @@ table.table a.btn.btn-info {
 }
 
 .btn-default.dropdown-toggle {
+    background-color: rgba(0, 0, 0, 0.06);
 }
 
 .btn-default.dropdown-toggle:hover,

@@ -65,14 +65,14 @@
               <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ol class="navbar-nav">
                    <li class="nav-item search-bar">
-                    <form>
-                      <div class="input-group">
-                          <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
-                          <div class="input-group-btn">
+                   <form action="Druck3DShop.php">
+                    <div class="input-group">
+                        <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
+                        <div class="input-group-btn">
                             <button class="btn btn-default" type="submit">
-                              <i class="fa fa-search"></i></button>
-                          </div>
-                      </div>
+                            <i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
                     </form>
                   </li> 
                   <li class="nav-item">
