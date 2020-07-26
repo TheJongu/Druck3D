@@ -43,6 +43,7 @@ if ($handle->rowCount() == 1) {
                 <form action="editArtikelSubmit.php" method="GET" id="editArtikelForm">
     <?php //Vorausgefülltes Formular zum Editieren des Artikels
     //Vorausgefülltes Formular zum Editieren des Artikels
+    ?>
     echo "<table  style='margin:0 left;'>";
     echo "<tr>";
     echo "<td style='text-align:center;'> <h1> Artikel Bearbeiten </h1></td>";
