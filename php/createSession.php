@@ -1,5 +1,5 @@
 <?php
-    include 'fct_User.php';
+    include '../DB-Changes/Functions/fct_User.php';
     
     $username = $_POST['username'];
 
