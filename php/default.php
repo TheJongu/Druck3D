@@ -125,7 +125,7 @@
   <div class="text-center">
     <div>
       <div class="card">
-        <img class="card-img-banner" style="opacity: 0.0; height:700px" src="../img/White_Login_BG.png" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.0; height:900px" src="../img/White_Login_BG.png" alt="Card image">
         <div class="card-img-overlay ">
             <h1>Oh wo kommen Sie denn her? Hier sind noch Bauarbeiten!</h1>
             <img src="../img/Icon_Dino.png" id="icon" alt="User Icon" />

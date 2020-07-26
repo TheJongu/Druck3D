@@ -116,7 +116,7 @@ if (isset($_SESSION['username'])) {
   <div class="text-center">
     <div>
       <div class="card text-black">
-        <img class="card-img-banner" style="opacity: 0.7; height:600px" src="../img/White_Login_BG.png" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.7; height:900px" src="../img/White_Login_BG.png" alt="Card image">
         <div class="card-img-overlay">
             <div class="wrapper fadeInDown">
                 <div id="formContent" style="min-width:700px; padding: 20px;">

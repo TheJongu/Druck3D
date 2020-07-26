@@ -127,7 +127,7 @@
   </nav> 
 
 
-    <table>
+    <table style="margin: 0 auto">
       <tr>
         <th>Name</th>
         <th>Preis</th>
