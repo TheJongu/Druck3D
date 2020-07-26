@@ -130,10 +130,10 @@ $zeile = $handle->fetch(PDO::FETCH_OBJ);
     <div class="text-center">
       <div>
         <div class="card bg-dark text-white"  style="width: 101%;">
-        <img class="card-img-banner" style="opacity: 0.2; height:200px" src="../img/IT_Background.jpg" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.2; height:200px" src="../img/background/IT_Background.jpg" alt="Card image">
           <div class="card-img-overlay">
             <div class="container">
-              <img src="../img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
+              <img src="../img/background/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
           </div>
           </div>
         </div>
@@ -143,7 +143,7 @@ $zeile = $handle->fetch(PDO::FETCH_OBJ);
 
 
   <div class="card  text-black">
-            <img class="card-img-banner" style="height:500px; " src="../img/White_Background.jpg" alt="Card image">
+            <img class="card-img-banner" style="height:500px; " src="../img/background/White_Background.jpg" alt="Card image">
             <div class="card-img-overlay">
               <div class="row">
                 <div class="col-md-6">

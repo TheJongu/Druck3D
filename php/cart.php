@@ -124,10 +124,10 @@ if (isset($_SESSION['username'])) {
     <div class="text-center">
       <div>
         <div class="card bg-dark text-white"  style="width: 101%;">
-          <img class="card-img-banner" style="opacity: 0.2; height:200px" src="../img/IT_Background.jpg" alt="Card image">
+          <img class="card-img-banner" style="opacity: 0.2; height:200px" src="../img/background/IT_Background.jpg" alt="Card image">
           <div class="card-img-overlay">
             <div class="container">
-              <img src="../img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
+              <img src="../img/background/img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
           </div>
           </div>
         </div>
@@ -151,7 +151,7 @@ if (isset($_SESSION['username'])) {
   <div class="text-center">
     <div>
       <div class="card text-black">
-        <img class="card-img-banner" style="opacity: 0.7; height:1000px" src="../img/White_Login_BG.png" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.7; height:1000px" src="../img/background/White_Login_BG.png" alt="Card image">
         <div class="card-img-overlay"> 
           <div id="formContent" style="min-width:1200px; padding: 50px; margin:0 auto;">
             <!-- Tabs Titles -->

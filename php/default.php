@@ -111,10 +111,10 @@
     <div class="text-center">
       <div>
         <div class="card bg-dark text-white" style="width: 101%;">
-          <img class="card-img-banner" style="opacity: 0.2; height:200px;" src="../img/IT_Background.jpg" alt="Card image">
+          <img class="card-img-banner" style="opacity: 0.2; height:200px;" src="../img/background/IT_Background.jpg" alt="Card image">
           <div class="card-img-overlay">
             <div class="container">
-              <img src="../img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
+              <img src="../img/background/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
           </div>
           </div>
         </div>
@@ -125,10 +125,10 @@
   <div class="text-center">
     <div>
       <div class="card">
-        <img class="card-img-banner" style="opacity: 0.0; height:900px" src="../img/White_Login_BG.png" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.0; height:900px" src="../img/background/White_Login_BG.png" alt="Card image">
         <div class="card-img-overlay ">
             <h1>Oh wo kommen Sie denn her? Hier sind noch Bauarbeiten!</h1>
-            <img src="../img/Icon_Dino.png" id="icon" alt="User Icon" />
+            <img src="../img/background/Icon_Dino.png" id="icon" alt="User Icon" />
             <h3>*bum* *bum* *bum* *bum*</h3>
         </div>
       </div>
