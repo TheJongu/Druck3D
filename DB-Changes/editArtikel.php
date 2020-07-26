@@ -43,7 +43,7 @@ if ($handle->rowCount() == 1) {
                 <form action="editArtikelSubmit.php" method="GET" id="editArtikelForm">
     <?php //Vorausgefülltes Formular zum Editieren des Artikels
     //Vorausgefülltes Formular zum Editieren des Artikels
-    ?>
+    
     echo "<table  style='margin:0 left;'>";
     echo "<tr>";
     echo "<td style='text-align:center;'> <h1> Artikel Bearbeiten </h1></td>";
@@ -82,8 +82,8 @@ if ($handle->rowCount() == 1) {
     echo "<th style='text-align:center'> <input type='button' value='Speichern'  onclick='validate()'> </th>";
     echo "<th></th>";
     echo "</tr>";
-    echo "<form action='viewArticle.php' method='POST'>";
-    echo "<th style='text-align:center'> <input type='button' value='Abbrechen'  onclick='validate()'> </th>";
+    echo "<form action='displayAllArtikel.php' method='POST'>";
+    echo "<th style='text-align:center'> <input type='submit' value='Abbrechen'> </th>";
     echo "<th></th>";
     echo "</tr>";
     echo "</form>";
