@@ -69,7 +69,7 @@ if ($handle->rowCount() == 1) {
     echo "</tr>";
     echo "<tr>";
     echo "<th style='text-align:center'>Bildpfad</th>";
-    echo "<th style='text-align:center; flex-wrap: nowrap;'><label for='picturelink'></label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='C:\Beispielpfad\Beispielbild.png' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div class='errorDescr' id='picturelinkExisting'>Der Bildpfad existiert bereits.</div><div class='errorDescr' id='picturelinkError'>Bitte geben Sie kein ' ein.</div><br></th>";
+    echo "<th style='text-align:center; flex-wrap: nowrap;'><label for='picturelink'></label><input name='picturelink' id='picturelink' type='text' size='30' maxlength='70' placeholder='img/BILDNAME.TYP' value='{$picturelink}' title='Dateipfad des Artikelbildes'><div class='errorDescr' id='picturelinkExisting'>Der Bildpfad existiert bereits.</div><div class='errorDescr' id='picturelinkError'>Bitte geben Sie kein ' ein.</div><br></th>";
     echo "</tr>";
     echo "<tr>";
     echo "<th style='text-align:center'>Beschreibung</th>";

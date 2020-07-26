@@ -1,7 +1,7 @@
 
 <?php
 //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
-include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+include_once '../DB-Changes/Functions/fct_sqlconnect.php';
 session_start();
 $logged_in = false;
 if (isset($_SESSION['username'])) {
@@ -13,28 +13,28 @@ if (isset($_SESSION['username'])) {
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Login</title>
+	<title>Druck3DShop</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="css/style.css" rel="stylesheet"> <!-- Prioritaet vor BT-->
-  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet"> <!-- Prioritaet vor BT-->
+  <link href="../css/bootstrap.css" rel="stylesheet">
 
   
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   
     <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
     <!-- Custom JavaScript for this theme -->
-    <script src="js/scrolling-nav.js"></script>
+    <script src="../js/scrolling-nav.js"></script>
 
   </head>
   <body>
@@ -100,10 +100,10 @@ if (isset($_SESSION['username'])) {
     <div class="text-center">
       <div>
         <div class="card bg-dark text-white" style="width: 101%;">
-          <img class="card-img-banner" style="opacity: 0.2; height:200px;" src="img/IT_Background.jpg" alt="Card image">
+          <img class="card-img-banner" style="opacity: 0.2; height:200px;" src="../img/IT_Background.jpg" alt="Card image">
           <div class="card-img-overlay">
             <div class="container">
-              <img src="img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
+              <img src="../img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
           </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ if (isset($_SESSION['username'])) {
 
   <div class="text-center">
       <div class="card text-white">
-        <img class="card-img-banner" style="opacity: 0.7; height:600px" src="img/White_Login_BG.png" alt="Card image">
+        <img class="card-img-banner" style="opacity: 0.7; height:600px" src="../img/White_Login_BG.png" alt="Card image">
         <div class="card-img-overlay">
             <div class="wrapper fadeInDown">
                 <div id="formContent">
@@ -122,7 +122,7 @@ if (isset($_SESSION['username'])) {
               
                   <!-- Icon -->
                   <div class="fadeIn first">
-                    <img src="img/Icon_Benutzer.png" id="icon" alt="User Icon" />
+                    <img src="../img/Icon_Benutzer.png" id="icon" alt="User Icon" />
                   </div>
               
                   <!-- Login Form -->
@@ -134,7 +134,7 @@ if (isset($_SESSION['username'])) {
 
                   <!-- Remind Passowrd -->
                   <div id="formFooter">
-                    <a class="underlineHover" href="newUser.html">Noch kein Kunde? Jetzt Registrieren!</a>
+                    <a class="underlineHover" href="../html/newUser.html">Noch kein Kunde? Jetzt Registrieren!</a>
                     <br>
                     <a class="underlineHover" href="#" style="opacity: 0.5;">Passwort vergessen?</a>
                   </div>

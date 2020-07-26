@@ -1,5 +1,5 @@
 <?php
-    include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+    include_once '../DB-Changes/Functions/fct_sqlconnect.php';
 
     $username = $_POST['username'];
 

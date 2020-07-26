@@ -1,7 +1,7 @@
 <?php
     header("Location: Druck3DShop.php");
-    include_once 'DB-Changes/Functions/fct_warenkorb.php';
-    include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+    include_once '../DB-Changes/Functions/fct_warenkorb.php';
+    include_once '../DB-Changes/Functions/fct_sqlconnect.php';
     
     $pk_user = $_GET['pk_nutzer'];
     $pk_article = $_GET['pk_artikel'];

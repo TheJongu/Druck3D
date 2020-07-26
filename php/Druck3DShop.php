@@ -1,7 +1,7 @@
 
 <?php
 //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
-include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+include_once '../DB-Changes/Functions/fct_sqlconnect.php';
 session_start();
 $logged_in = false;
 if (isset($_SESSION['username'])) {
@@ -23,40 +23,20 @@ if (isset($_SESSION['username'])) {
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="css/style.css" rel="stylesheet"> <!-- Prioritaet vor BT-->
-  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet"> <!-- Prioritaet vor BT-->
+  <link href="../css/bootstrap.css" rel="stylesheet">
 
   
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   
     <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
     <!-- Custom JavaScript for this theme -->
-    <script src="js/scrolling-nav.js"></script>
-
-    <!-- 
-    <script>
-      // Check if Session exists via Ajax 
-      $(document).ready(function(){
-         $.ajax({
-              url:'login.php',
-              type:'GET', 
-              data:"parameter=some_parameter", //Session is set abfrage
-             success:function(data)
-             {
-               //Session start
-                    $("#thisdiv").html(data);
-                 }
-          });
-      });
-      </script>
-
-    -->
-
+    <script src="../js/scrolling-nav.js"></script>
 
   </head>
   <body>
@@ -108,7 +88,7 @@ if (isset($_SESSION['username'])) {
               echo "</li>";
               if ($_SESSION['sclass'] == 1) {
                   echo "<li class='nav-item'>";
-                  echo "<a href='DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
+                  echo "<a href='../DB-Changes/displayAllArtikel.php' class='nav-link' style='font-size:15px ;'></i>Admin</a>";
                   echo "</li>";
               }
           } ?>
@@ -122,28 +102,16 @@ if (isset($_SESSION['username'])) {
     <div class="text-center">
       <div>
         <div class="card bg-dark text-white"  style="width: 101%;">
-          <img class="card-img-banner" style="opacity: 0.2; height:200px" src="img/IT_Background.jpg" alt="Card image">
+          <img class="card-img-banner" style="opacity: 0.2; height:200px" src="../img/IT_Background.jpg" alt="Card image">
           <div class="card-img-overlay">
             <div class="container">
-              <img src="img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
+              <img src="../img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
           </div>
           </div>
         </div>
       </div>
     </div>
   </header>
-
-  <script>
-    // Warenkorb Session abfrage (wenn eingeloggt, zeige sein Warenkorb an)
-  </script>
-
-
-    <!-- Filter 
-    <div class="container-background ">
-      <h2>Filter</h2>
-      <input class="form-control" id="myInput" type="text" placeholder="Filtern nach..">
-      <div id="myDIV">
-                <!-- alle Items nach dennen gefiltert werden sollen-->
 
     <!-- Artikel-Grid-->
 
@@ -153,7 +121,7 @@ if (isset($_SESSION['username'])) {
       <div class="container">
         <div>
           <div class="card  text-white">
-            <img class="card-img-banner" style="height:1865px; " src="img/Blue_Background_2.jpg" alt="Card image">
+            <img class="card-img-banner" style="height:1865px; " src="../img/Blue_Background_2.jpg" alt="Card image">
             <div class="card-img-overlay">
               <div class="row">
 
@@ -186,7 +154,7 @@ if (isset($_SESSION['username'])) {
                             if ($firsttime) {
                                 echo "<div class='carousel-item active'>";
                                 echo "<div class='card data' style='width: 16rem'>";
-                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>";
+                                echo "<img class='card-img-top' src='../{$zeile->Bildlink}' alt='Card image cap'>";
                                 echo "<div class='card-body' style='height: 6rem;'>";
                                 echo "<ul class='list-group list-group-flush'>";
                                 echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
@@ -197,7 +165,7 @@ if (isset($_SESSION['username'])) {
                             } else {
                                 echo "<div class='carousel-item'>";
                                 echo "<div class='card data' style='width: 16rem'>";
-                                echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>";
+                                echo "<img class='card-img-top' src='../{$zeile->Bildlink}' alt='Card image cap'>";
                                 echo "<div class='card-body' style='height: 6rem;'>";
                                 echo "<ul class='list-group list-group-flush'>";
                                 echo "<li class='list-group-item'><h5 class='card-title text-center'> <a href='viewArticle.php?pk_artikel={$zeile->PK_Artikel}' class='card-link'>{$zeile->Name}</a><p> {$zeile->Preis}</p></h5></li>";
@@ -281,7 +249,7 @@ if (isset($_SESSION['username'])) {
                       $articleshown = true; ?>
                   <div class="col-md-3">
                     <div class="card data" style="width: 16rem">
-                      <?php echo "<img class='card-img-top' src='{$zeile->Bildlink}' alt='Card image cap'>"; ?>
+                      <?php echo "<img class='card-img-top' src='../{$zeile->Bildlink}' alt='{$zeile->Bildlink}'>"; ?>
                       <div class="card-body">
                         <!-- Artikelname Maximal 44 Zeichen!-->
                         <ul class="list-group list-group-flush">    <!-- Link sollte eine JQuery anfrage sein, damit man die Methode 'POST' machen kann-->
@@ -300,22 +268,7 @@ if (isset($_SESSION['username'])) {
               if (!$articleshown) {
                   echo "<p>Keine Artikel gefunden...</p>";
               }
-              ?>
-
-                  <!--
-                  <div class="item">
-                    <img class="img-fluid" src="img/Ente_1.jpg" alt="First slide" width="300" height="300">
-                  </div>
-                  <div class="data">
-                    <div class="category">
-                      <p> KATEGORIE (illegal)</p>
-                    </div>
-                    <h3> Artikelbeschreibung >>ENTE>> </h3>
-                    <p style="font-size: 25px;"><b> 5,00€ </b></p>
-                  </div>
-                </div>-->
-
-                
+              ?>       
             
             </div>
               <!-- Page Navigation -->
@@ -342,34 +295,14 @@ if (isset($_SESSION['username'])) {
                   <?php echo "<li class='page-item'><a class='page-link' href='?Seite={$next}'>Next</a></li>"; ?>
                 </ul>
               </nav>
-
-
-
-            
           </div>
-
         </div>
-
       </div>
-      
   <!-- Filter Ende-->
+    </div>
   </div>
-
-  </div>
-
 <!-- Container Ende-->
 </div>
-
-<!--div>
-  <h1> Button </h1>
-  <form method="get" name="form" action="newarticle.php"> 
-    <input type="text" placeholder="Enter Data" name="newsite"> 
-    <input type="submit" value="Submit"> 
-</form> 
-</div-->
-
-
-
 
   <script>
     $(document).ready(function(){

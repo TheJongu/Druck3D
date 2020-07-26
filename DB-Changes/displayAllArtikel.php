@@ -33,15 +33,15 @@
 
   
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   
     <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src=".:/https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
     <!-- Custom JavaScript for this theme -->
-    <script src="js/scrolling-nav.js"></script>
+    <script src="../js/scrolling-nav.js"></script>
 
     <title>Datenbank</title>
 
@@ -66,7 +66,7 @@
     <div class="container">
       <ol class="navbar-nav mx-auto"> <!-- Ausrichtung angeben [mx-auto steht für Margin x für Center (r left und l right)] -->
         <li class="nav-item">
-            <a class="navbar-brand js-scroll-trigger " href="../Druck3DShop.php">Druck 3D Shop</a>
+            <a class="navbar-brand js-scroll-trigger " href="../php/Druck3DShop.php">Druck 3D Shop</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
@@ -84,7 +84,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ol class="navbar-nav">
            <li class="nav-item search-bar">
-           <form action="../Druck3DShop.php">
+           <form action="../php/Druck3DShop.php">
               <div class="input-group">
                   <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search">
                   <div class="input-group-btn">
@@ -95,7 +95,7 @@
             </form>
           </li> 
           <li class="nav-item">
-            <a class="nav-link" style="white-space: nowrap;" href="../about.php">&Uumlber uns</a>
+            <a class="nav-link" style="white-space: nowrap;" href="../php/about.php">&Uumlber uns</a>
           </li>
           <?php
             if(!$logged_in)
@@ -107,10 +107,10 @@
             else
             {
               echo "<li class='nav-item'>";
-              echo "<a href='../logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
+              echo "<a href='../php/logout.php' class='nav-link' style='color:white; white-space: nowrap;'><i class='fa fa-user'></i> Logout</a>";
               echo "</li>";
               echo "<li class='nav-item'>";
-                echo "<a href='../cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
+                echo "<a href='../php/cart.php' class='nav-link' style='font-size:15px ;'></i>Warenkorb</a>";
                 echo "</li>";
               if($_SESSION['sclass']==1)
               {
@@ -178,7 +178,7 @@
         echo "<button onclick='openDelete({$theZaehler})'>Loeschen</button>";  
         echo "<div class='delete-popup' id='delete{$theZaehler}'>";
       ?>
-      <form action="./deleteArtikel.php">
+      <form action="deleteArtikel.php">
         <p>Wollen Sie den Artikel wirklich loeschen?</p>
         <?php echo "<input type='hidden' name='pk_artikel' value='{$zeile->PK_Artikel}'>"; ?>
         <button type="submit" class="btn">Ja</button>
@@ -232,7 +232,7 @@
         </form>
         </li>
         <li class="nav-item">
-        <form action="../Druck3DShop.php" method="GET">
+        <form action="../php/Druck3DShop.php" method="GET">
           <input type="submit" value="Startseite">
         </form>
         </li>
