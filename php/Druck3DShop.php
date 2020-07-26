@@ -105,7 +105,7 @@ if (isset($_SESSION['username'])) {
           <img class="card-img-banner" style="opacity: 0.2; height:200px" src="../img/IT_Background.jpg" alt="Card image">
           <div class="card-img-overlay">
             <div class="container">
-              <img src="../img/Druck3D_3.JPG" width="58%" style="border-radius: 30px;" >
+              <img src="../img/Background/Druck3D_3.jpg" width="58%" style="border-radius: 30px;" >
           </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ if (isset($_SESSION['username'])) {
       <div class="container">
         <div>
           <div class="card  text-white">
-            <img class="card-img-banner" style="height:1865px; " src="../img/Blue_Background_2.jpg" alt="Card image">
+            <img class="card-img-banner" style="height:1865px; " src="../img/Background/Blue_Background_2.jpg" alt="Card image">
             <div class="card-img-overlay">
               <div class="row">
 
