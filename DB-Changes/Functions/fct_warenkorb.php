@@ -20,5 +20,12 @@ function addArticleToUserCart($pk_user, $pk_article) {
     $handle->execute();
 }
 
+function removeArticleFromAllUserCarts($pk_article)
+{
+    $sql = "DELETE FROM warenkorbartikel WHERE warenkorbartikel.FK_Artikel = ?";
+    $handle = fill_statement($sql, array($pk_article));
+    $handle->execute();
+}
+
 ?>
     

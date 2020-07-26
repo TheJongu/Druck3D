@@ -1,6 +1,7 @@
 <?php
 include_once 'fct_sqlconnect.php';
 include_once 'fct_ArtikelSchlagworte.php';
+include_once 'fct_warenkorb.php';
 
 abstract class ArticleCodes {
     const DOESNT_EXIST = 0;
@@ -52,6 +53,7 @@ function articleExistsPK(int $pk_article): bool {
 function deleteArticle(int $pk_article) {
     if (articleExistsPK($pk_article)) {
         removeAllArticleTags($pk_article);
+        removeArticleFromAllUserCarts($pk_article);
         $sql = 'DELETE FROM artikel WHERE PK_Artikel = ? ';
         $handle = fill_statement($sql, array($pk_article));
         $handle->execute();
