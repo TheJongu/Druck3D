@@ -2,10 +2,11 @@
     
 
 //  error_reporting(0);                                             //unterbindet die PHP-eigenen Fehlermeldungen
-  session_start();
+
   include_once 'DB-Changes/Functions/fct_sqlconnect.php';
 
   include_once 'DB-Changes/Functions/fct_warenkorb.php';
+  session_start();
   
   echo "Das ist ihr Warenkorb.";
   echo "<br>Sie haben folgende Gegenstände in ihrem Warenkorb";
@@ -13,9 +14,13 @@
   $handle = fill_statement($sql, array($_SESSION['userid']));
   $handle->execute();
 
+?>
 
+
+<?php
   //Session abfrage http://localhost/Github/rep/Druck3D/Druck3DShop.php
   include_once 'DB-Changes/Functions/fct_sqlconnect.php';
+  session_start();
   $logged_in = false;
   if(isset($_SESSION['username']))
   {
@@ -175,7 +180,7 @@
         $theZaehler = 0;
         while ($zeile = $handle->fetch(PDO::FETCH_OBJ))                           //fetch_object liefert ein object, welches die Inhalte der DB-Zeile enthält
         {
-          echo "<td><a href='./viewArticle.php?pk_artikel={$zeile->PK_Artikel}' title='Artikeldetails'>{$zeile->Name}</a></td>";
+          echo "<td><a href='./editArtikel.php?pk_artikel={$zeile->PK_Artikel}' title='Artikel bearbeiten'>{$zeile->Name}</a></td>";
           echo "<td>{$zeile->Preis}</td>";
           echo "<td>{$zeile->Bildlink}</td>";
           echo "<td>{$zeile->Beschreibung}</td>";
